@@ -3,7 +3,7 @@
     "version": "2.2.13",
     "width": 2000,
     "height": 2000,
-    "scrollTop": 0,
+    "scrollTop": -26.40000062942506,
     "scrollLeft": 0,
     "zoomLevel": 1,
     "show": {
@@ -119,7 +119,7 @@
           {
             "id": "70f04422-1b7d-46f2-90de-73d267579af8",
             "name": "Fat",
-            "comment": "체지방률",
+            "comment": "체지방",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -165,7 +165,7 @@
           {
             "id": "386b10e9-083c-4863-a88b-d27ae4e797a3",
             "name": "Fat_percentage",
-            "comment": "",
+            "comment": "체지방률(%)",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -180,7 +180,7 @@
               "fk": false,
               "pfk": false,
               "widthName": 84.22488403320312,
-              "widthComment": 60,
+              "widthComment": 65.97294616699219,
               "widthDataType": 60,
               "widthDefault": 60
             }
@@ -234,7 +234,7 @@
           {
             "id": "cbc9170f-273d-4d0a-a728-70cd4ce466d3",
             "name": "Whr",
-            "comment": "",
+            "comment": "골반과 허리둘레",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -249,7 +249,7 @@
               "fk": false,
               "pfk": false,
               "widthName": 60,
-              "widthComment": 60,
+              "widthComment": 84.13395690917969,
               "widthDataType": 60,
               "widthDefault": 60
             }
@@ -257,7 +257,7 @@
           {
             "id": "c1bed856-973c-4acc-af07-0dfe1740aaf6",
             "name": "Muscle",
-            "comment": "",
+            "comment": "근육량",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -326,7 +326,7 @@
           {
             "id": "4264c9eb-0568-4eec-86a0-c2d972c62b8a",
             "name": "Hdl",
-            "comment": "",
+            "comment": "Hdl 콜레스테롤 수치",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -341,7 +341,7 @@
               "fk": false,
               "pfk": false,
               "widthName": 60,
-              "widthComment": 60,
+              "widthComment": 106.27291870117188,
               "widthDataType": 60,
               "widthDefault": 60
             }
@@ -349,7 +349,7 @@
           {
             "id": "1b9ea0b1-4e88-4c83-b0a3-47dc612e4cca",
             "name": "Ldl",
-            "comment": "",
+            "comment": "Ldl 콜레스테롤 수치",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -364,7 +364,7 @@
               "fk": false,
               "pfk": false,
               "widthName": 60,
-              "widthComment": 60,
+              "widthComment": 104.15391540527344,
               "widthDataType": 60,
               "widthDefault": 60
             }
@@ -372,7 +372,7 @@
           {
             "id": "66f3853c-e619-4b3d-bdbd-6bb5ffc70718",
             "name": "Tg",
-            "comment": "",
+            "comment": "중성지방",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -395,7 +395,7 @@
           {
             "id": "febe3a6b-c1d6-483f-bc2d-4351db159e2a",
             "name": "Total_chol",
-            "comment": "콜레스트롤 수치",
+            "comment": "콜레스테롤 수치",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -418,7 +418,7 @@
           {
             "id": "16b7e8f1-fe37-4c73-a2f8-666376dee191",
             "name": "Fg",
-            "comment": "",
+            "comment": "공복혈당",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -441,7 +441,7 @@
           {
             "id": "56ad4cb0-0c91-4c62-a222-ffd81273d46e",
             "name": "Ppg",
-            "comment": "",
+            "comment": "식후 2시간 뒤 혈당",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -456,7 +456,7 @@
               "fk": false,
               "pfk": false,
               "widthName": 60,
-              "widthComment": 60,
+              "widthComment": 97.90092468261719,
               "widthDataType": 60,
               "widthDefault": 60
             }
@@ -464,7 +464,7 @@
           {
             "id": "a550199a-985d-4731-a1e8-179f6813cddb",
             "name": "Alt",
-            "comment": "",
+            "comment": "알라닌 아미노 전이 효소",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -479,7 +479,7 @@
               "fk": false,
               "pfk": false,
               "widthName": 60,
-              "widthComment": 60,
+              "widthComment": 120,
               "widthDataType": 60,
               "widthDefault": 60
             }
@@ -487,7 +487,7 @@
           {
             "id": "0c9c29b1-8afb-4717-b3a8-1bcb64f11fd3",
             "name": "Hb",
-            "comment": "",
+            "comment": "헤모글로빈",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -510,7 +510,7 @@
           {
             "id": "be950312-bc5a-42e5-9dcc-4990ea711219",
             "name": "Tsh",
-            "comment": "",
+            "comment": "갑상선 자극 호르몬",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -525,7 +525,7 @@
               "fk": false,
               "pfk": false,
               "widthName": 60,
-              "widthComment": 60,
+              "widthComment": 98.79794311523438,
               "widthDataType": 60,
               "widthDefault": 60
             }
@@ -555,7 +555,7 @@
           },
           {
             "id": "aa2c6869-a603-4271-91c0-644066f502c1",
-            "name": "Time",
+            "name": "Created_time",
             "comment": "값을 입력한 시간",
             "dataType": "TIMESTAMP",
             "default": "",
@@ -570,9 +570,55 @@
               "pk": false,
               "fk": false,
               "pfk": false,
-              "widthName": 60,
+              "widthName": 73.48690795898438,
               "widthComment": 87.55294799804688,
               "widthDataType": 68.2479248046875,
+              "widthDefault": 60
+            }
+          },
+          {
+            "id": "2df57ecf-d728-4114-9686-cc159768f7cc",
+            "name": "Height",
+            "comment": "키(1조 추가필요)",
+            "dataType": "FLOAT",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 85.77192687988281,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "id": "1647e1e9-b2f2-4c80-85a4-aaf88fd211fa",
+            "name": "Weight",
+            "comment": "체중(1조 추가필요)",
+            "dataType": "FLOAT",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 97.01692199707031,
+              "widthDataType": 60,
               "widthDefault": 60
             }
           }
@@ -581,7 +627,7 @@
           "active": false,
           "left": 23.8888,
           "top": 38.1946,
-          "zIndex": 115,
+          "zIndex": 196,
           "widthName": 60,
           "widthComment": 120
         },
@@ -847,7 +893,7 @@
           },
           {
             "id": "6ea987ed-5ece-4ff2-afda-928d4039f99a",
-            "name": "time",
+            "name": "created_time",
             "comment": "리포트 생성된 시간",
             "dataType": "TIMESTAMP",
             "default": "",
@@ -862,7 +908,7 @@
               "pk": false,
               "fk": false,
               "pfk": false,
-              "widthName": 60,
+              "widthName": 71.92691040039062,
               "widthComment": 98.79794311523438,
               "widthDataType": 68.2479248046875,
               "widthDefault": 60
@@ -873,7 +919,7 @@
           "active": false,
           "left": 501.2226,
           "top": 41.5557,
-          "zIndex": 126,
+          "zIndex": 198,
           "widthName": 60,
           "widthComment": 120
         },
@@ -1385,7 +1431,7 @@
             "aec8722b-4581-42c4-8b82-81bd58650ca8"
           ],
           "x": 245.2046950805664,
-          "y": 578.6946,
+          "y": 619.6946,
           "direction": "bottom"
         },
         "constraintName": "fk_user_to_input",
