@@ -3,9 +3,9 @@
     "version": "2.2.13",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -207.10300000000007,
-    "scrollLeft": -86.45,
-    "zoomLevel": 0.9,
+    "scrollTop": -4.320000164794928,
+    "scrollLeft": 0,
+    "zoomLevel": 1,
     "show": {
       "tableComment": true,
       "columnComment": true,
@@ -18,7 +18,7 @@
       "relationship": true
     },
     "database": "MySQL",
-    "databaseName": "",
+    "databaseName": "24summercapstone",
     "canvasType": "ERD",
     "language": "GraphQL",
     "tableCase": "pascalCase",
@@ -45,23 +45,23 @@
       {
         "id": "186e8a45-e55d-4898-8e12-683bca8ded14",
         "name": "input",
-        "comment": "",
+        "comment": "사용자 정보를 기반으로 측정값을 저장하는 테이블",
         "columns": [
           {
             "id": "62a69044-e71e-4b13-a831-48dcca723be4",
             "name": "ID",
             "comment": "",
-            "dataType": "",
+            "dataType": "INT",
             "default": "",
             "option": {
               "autoIncrement": false,
-              "primaryKey": false,
+              "primaryKey": true,
               "unique": false,
-              "notNull": false
+              "notNull": true
             },
             "ui": {
               "active": false,
-              "pk": false,
+              "pk": true,
               "fk": false,
               "pfk": false,
               "widthName": 60,
@@ -72,10 +72,10 @@
           },
           {
             "id": "b24d18dc-c4ba-4369-86e3-32a28c810353",
-            "name": "sex",
-            "comment": "Male, Female 문자형",
-            "dataType": "",
-            "default": "",
+            "name": "Sex",
+            "comment": "Male, Female 문자형 (값 범위 제한)",
+            "dataType": "VARCHAR(6)",
+            "default": "CHECK",
             "option": {
               "autoIncrement": false,
               "primaryKey": false,
@@ -88,16 +88,16 @@
               "fk": false,
               "pfk": false,
               "widthName": 60,
-              "widthComment": 110.61488342285156,
-              "widthDataType": 60,
+              "widthComment": 120,
+              "widthDataType": 71.40690612792969,
               "widthDefault": 60
             }
           },
           {
             "id": "e087e3ca-db91-4fb6-b3b6-47f08ed5cb4e",
-            "name": "bmi",
+            "name": "Bmi",
             "comment": "",
-            "dataType": "",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -118,9 +118,9 @@
           },
           {
             "id": "70f04422-1b7d-46f2-90de-73d267579af8",
-            "name": "fat",
-            "comment": "",
-            "dataType": "",
+            "name": "Fat",
+            "comment": "체지방률",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -141,9 +141,9 @@
           },
           {
             "id": "223c5fd6-abbe-4830-8af0-84a74d268df7",
-            "name": "age",
-            "comment": "",
-            "dataType": "",
+            "name": "Age",
+            "comment": "나이",
+            "dataType": "INT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -164,9 +164,9 @@
           },
           {
             "id": "386b10e9-083c-4863-a88b-d27ae4e797a3",
-            "name": "fat_percentage",
+            "name": "Fat_percentage",
             "comment": "",
-            "dataType": "",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -179,7 +179,7 @@
               "pk": false,
               "fk": false,
               "pfk": false,
-              "widthName": 82.15786743164062,
+              "widthName": 84.22488403320312,
               "widthComment": 60,
               "widthDataType": 60,
               "widthDefault": 60
@@ -187,9 +187,9 @@
           },
           {
             "id": "b81fc0b4-662d-41a2-9c36-bfd27abd08db",
-            "name": "hr",
-            "comment": "",
-            "dataType": "",
+            "name": "Hr",
+            "comment": "심박수",
+            "dataType": "INT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -210,9 +210,9 @@
           },
           {
             "id": "62fdce93-e0c3-4961-bddd-eb58efe93a8a",
-            "name": "waist",
-            "comment": "",
-            "dataType": "",
+            "name": "Waist",
+            "comment": "허리둘레",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -233,9 +233,9 @@
           },
           {
             "id": "cbc9170f-273d-4d0a-a728-70cd4ce466d3",
-            "name": "whr",
+            "name": "Whr",
             "comment": "",
-            "dataType": "",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -256,9 +256,9 @@
           },
           {
             "id": "c1bed856-973c-4acc-af07-0dfe1740aaf6",
-            "name": "muscle",
+            "name": "Muscle",
             "comment": "",
-            "dataType": "",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -279,9 +279,9 @@
           },
           {
             "id": "541cef4f-7df0-46da-8704-e3a7673fa575",
-            "name": "sbp",
-            "comment": "",
-            "dataType": "",
+            "name": "Sbp",
+            "comment": "수축기 혈압",
+            "dataType": "INT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -295,16 +295,16 @@
               "fk": false,
               "pfk": false,
               "widthName": 60,
-              "widthComment": 60,
+              "widthComment": 61.64396667480469,
               "widthDataType": 60,
               "widthDefault": 60
             }
           },
           {
             "id": "05217f01-8ce7-4f5e-9759-5eeda31cf819",
-            "name": "dbp",
-            "comment": "",
-            "dataType": "",
+            "name": "Dbp",
+            "comment": "이완기 혈압",
+            "dataType": "INT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -318,16 +318,16 @@
               "fk": false,
               "pfk": false,
               "widthName": 60,
-              "widthComment": 60,
+              "widthComment": 61.64396667480469,
               "widthDataType": 60,
               "widthDefault": 60
             }
           },
           {
             "id": "4264c9eb-0568-4eec-86a0-c2d972c62b8a",
-            "name": "hdl",
+            "name": "Hdl",
             "comment": "",
-            "dataType": "",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -348,9 +348,9 @@
           },
           {
             "id": "1b9ea0b1-4e88-4c83-b0a3-47dc612e4cca",
-            "name": "ldl",
+            "name": "Ldl",
             "comment": "",
-            "dataType": "",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -371,9 +371,9 @@
           },
           {
             "id": "66f3853c-e619-4b3d-bdbd-6bb5ffc70718",
-            "name": "tg",
+            "name": "Tg",
             "comment": "",
-            "dataType": "",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -394,9 +394,9 @@
           },
           {
             "id": "febe3a6b-c1d6-483f-bc2d-4351db159e2a",
-            "name": "total_chol",
-            "comment": "",
-            "dataType": "",
+            "name": "Total_chol",
+            "comment": "콜레스트롤 수치",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -410,16 +410,16 @@
               "fk": false,
               "pfk": false,
               "widthName": 60,
-              "widthComment": 60,
+              "widthComment": 84.13395690917969,
               "widthDataType": 60,
               "widthDefault": 60
             }
           },
           {
             "id": "16b7e8f1-fe37-4c73-a2f8-666376dee191",
-            "name": "fg",
+            "name": "Fg",
             "comment": "",
-            "dataType": "",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -440,9 +440,9 @@
           },
           {
             "id": "56ad4cb0-0c91-4c62-a222-ffd81273d46e",
-            "name": "ppg",
+            "name": "Ppg",
             "comment": "",
-            "dataType": "",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -463,9 +463,9 @@
           },
           {
             "id": "a550199a-985d-4731-a1e8-179f6813cddb",
-            "name": "alt",
+            "name": "Alt",
             "comment": "",
-            "dataType": "",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -486,9 +486,9 @@
           },
           {
             "id": "0c9c29b1-8afb-4717-b3a8-1bcb64f11fd3",
-            "name": "hb",
+            "name": "Hb",
             "comment": "",
-            "dataType": "",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -509,48 +509,9 @@
           },
           {
             "id": "be950312-bc5a-42e5-9dcc-4990ea711219",
-            "name": "tsh",
+            "name": "Tsh",
             "comment": "",
-            "dataType": "",
-            "default": "",
-            "option": {
-              "autoIncrement": false,
-              "primaryKey": false,
-              "unique": false,
-              "notNull": false
-            },
-            "ui": {
-              "active": false,
-              "pk": false,
-              "fk": false,
-              "pfk": false,
-              "widthName": 60,
-              "widthComment": 60,
-              "widthDataType": 60,
-              "widthDefault": 60
-            }
-          }
-        ],
-        "ui": {
-          "active": false,
-          "left": 22,
-          "top": 48,
-          "zIndex": 199,
-          "widthName": 60,
-          "widthComment": 60
-        },
-        "visible": true
-      },
-      {
-        "id": "e56de46f-6e3d-4a89-a0fd-dd3584f5bacb",
-        "name": "output",
-        "comment": "",
-        "columns": [
-          {
-            "id": "0126626a-3921-46a0-bbca-716037879060",
-            "name": "ID",
-            "comment": "",
-            "dataType": "",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -570,10 +531,72 @@
             }
           },
           {
+            "id": "aec8722b-4581-42c4-8b82-81bd58650ca8",
+            "name": "user_id",
+            "comment": "user테이블 참조 외래키",
+            "dataType": "INT",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 120,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          }
+        ],
+        "ui": {
+          "active": false,
+          "left": 20.8888,
+          "top": 31.1946,
+          "zIndex": 49,
+          "widthName": 60,
+          "widthComment": 120
+        },
+        "visible": true
+      },
+      {
+        "id": "e56de46f-6e3d-4a89-a0fd-dd3584f5bacb",
+        "name": "output",
+        "comment": "사용자의 건강 상태를 저장하는 테이블",
+        "columns": [
+          {
+            "id": "0126626a-3921-46a0-bbca-716037879060",
+            "name": "ID",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": true,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
             "id": "02947783-51f2-4416-8895-eac7f39ada61",
             "name": "diabetes_status",
             "comment": "",
-            "dataType": "",
+            "dataType": "TINYINT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -596,7 +619,7 @@
             "id": "1dc0a7a9-c508-4bbd-8500-33c45d008d39",
             "name": "dyslipidemia_status",
             "comment": "",
-            "dataType": "",
+            "dataType": "TINYINT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -619,7 +642,7 @@
             "id": "2dd15dc2-6a41-4451-bd00-c189e83a8592",
             "name": "fatty_liver_status",
             "comment": "",
-            "dataType": "",
+            "dataType": "TINYINT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -642,7 +665,7 @@
             "id": "fa41075b-3cd8-45a7-a691-2a58041d0f56",
             "name": "metabolic_syndrome",
             "comment": "",
-            "dataType": "",
+            "dataType": "TINYINT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -665,7 +688,7 @@
             "id": "7f50eb0f-fbfe-49f7-83df-fb7bb76d6547",
             "name": "anemia_status",
             "comment": "",
-            "dataType": "",
+            "dataType": "TINYINT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -688,7 +711,7 @@
             "id": "70a5c85e-bf2b-4830-b853-71199b9896e7",
             "name": "hypertension_status",
             "comment": "",
-            "dataType": "",
+            "dataType": "TINYINT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -711,7 +734,7 @@
             "id": "3d8ebf9d-c773-4619-ab8f-d5e99d8ae6b8",
             "name": "obesity_status",
             "comment": "",
-            "dataType": "",
+            "dataType": "TINYINT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -734,7 +757,7 @@
             "id": "a61e41d7-ee88-4ca6-bc54-7065177f5f94",
             "name": "hypothyroidism_status",
             "comment": "",
-            "dataType": "",
+            "dataType": "TINYINT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -757,7 +780,7 @@
             "id": "df7f855e-ab75-4eb0-882f-e78c1f2e3cef",
             "name": "hyperthyrodism_status",
             "comment": "",
-            "dataType": "",
+            "dataType": "TINYINT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -775,64 +798,64 @@
               "widthDataType": 60,
               "widthDefault": 60
             }
+          },
+          {
+            "id": "ad7279f8-2ed8-4927-8fbf-46945bddaa18",
+            "name": "user_id",
+            "comment": "user테이블 참조 외래키",
+            "dataType": "INT",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 120,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
           }
         ],
         "ui": {
           "active": false,
-          "left": 450,
-          "top": 45,
-          "zIndex": 194,
+          "left": 502.2226,
+          "top": 40.5557,
+          "zIndex": 51,
           "widthName": 60,
-          "widthComment": 60
+          "widthComment": 120
         },
         "visible": true
       },
       {
         "id": "754b4055-79cf-44d4-9414-a4c32221ef24",
-        "name": "members",
-        "comment": "회원리스트",
+        "name": "user",
+        "comment": "유저리스트",
         "columns": [
           {
             "id": "bebc01df-9723-4186-9e80-d237e1070980",
-            "name": "member_id",
-            "comment": "회원ID",
-            "dataType": "",
+            "name": "ID",
+            "comment": "유저ID",
+            "dataType": "INT",
             "default": "",
             "option": {
               "autoIncrement": false,
-              "primaryKey": false,
+              "primaryKey": true,
               "unique": false,
-              "notNull": false
+              "notNull": true
             },
             "ui": {
               "active": false,
-              "pk": false,
+              "pk": true,
               "fk": false,
               "pfk": false,
-              "widthName": 61.86494445800781,
-              "widthComment": 60,
-              "widthDataType": 60,
-              "widthDefault": 60
-            }
-          },
-          {
-            "id": "b8032b90-be4c-4199-b74a-6683d246c3a5",
-            "name": "profile_picture",
-            "comment": "회원사진",
-            "dataType": "",
-            "default": "",
-            "option": {
-              "autoIncrement": false,
-              "primaryKey": false,
-              "unique": false,
-              "notNull": false
-            },
-            "ui": {
-              "active": false,
-              "pk": false,
-              "fk": false,
-              "pfk": false,
-              "widthName": 79.93487548828125,
+              "widthName": 60,
               "widthComment": 60,
               "widthDataType": 60,
               "widthDefault": 60
@@ -841,14 +864,14 @@
           {
             "id": "36261129-2d95-4334-b376-8066acbaf713",
             "name": "name",
-            "comment": "회원이름",
-            "dataType": "",
+            "comment": "유저이름",
+            "dataType": "VARCHAR(100)",
             "default": "",
             "option": {
               "autoIncrement": false,
               "primaryKey": false,
               "unique": false,
-              "notNull": false
+              "notNull": true
             },
             "ui": {
               "active": false,
@@ -857,7 +880,7 @@
               "pfk": false,
               "widthName": 60,
               "widthComment": 60,
-              "widthDataType": 60,
+              "widthDataType": 85.22587585449219,
               "widthDefault": 60
             }
           },
@@ -865,8 +888,8 @@
             "id": "5eed4ec5-dae2-4730-8aab-bb8ab0027dfc",
             "name": "email",
             "comment": "이메일",
-            "dataType": "",
-            "default": "",
+            "dataType": "VARCHAR(254)",
+            "default": "UNIQUE",
             "option": {
               "autoIncrement": false,
               "primaryKey": false,
@@ -880,16 +903,16 @@
               "pfk": false,
               "widthName": 60,
               "widthComment": 60,
-              "widthDataType": 60,
+              "widthDataType": 84.83589172363281,
               "widthDefault": 60
             }
           },
           {
-            "id": "ba9f216a-6796-4041-961a-863185b1e91e",
-            "name": "introduction",
-            "comment": "소개글",
-            "dataType": "",
-            "default": "",
+            "id": "fdb7a1dd-a78c-46cf-8f94-9efbd5c0ce3b",
+            "name": "phone_num",
+            "comment": "전화번호",
+            "dataType": "VARCHAR(15)",
+            "default": "UNIQUE",
             "option": {
               "autoIncrement": false,
               "primaryKey": false,
@@ -901,23 +924,23 @@
               "pk": false,
               "fk": false,
               "pfk": false,
-              "widthName": 69.26187133789062,
+              "widthName": 65.1279296875,
               "widthComment": 60,
-              "widthDataType": 60,
+              "widthDataType": 75.33290100097656,
               "widthDefault": 60
             }
           },
           {
-            "id": "fdb7a1dd-a78c-46cf-8f94-9efbd5c0ce3b",
+            "id": "72478a02-5dea-4c46-b739-4f52574707e2",
             "name": "join_date",
             "comment": "가입일",
-            "dataType": "",
+            "dataType": "DATE",
             "default": "",
             "option": {
               "autoIncrement": false,
               "primaryKey": false,
               "unique": false,
-              "notNull": false
+              "notNull": true
             },
             "ui": {
               "active": false,
@@ -933,9 +956,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 21,
-          "top": 559,
-          "zIndex": 270,
+          "left": 409.0556,
+          "top": 629.5554,
+          "zIndex": 46,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1110,9 +1133,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 19,
-          "top": 761,
-          "zIndex": 313,
+          "left": 14.5556,
+          "top": 949.7502,
+          "zIndex": 13,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1125,7 +1148,7 @@
         "columns": [
           {
             "id": "746e9546-f69a-4e91-9d72-a3fc79e1baf0",
-            "name": "id",
+            "name": "ID",
             "comment": "ID(고유 식별자, 일련번호)",
             "dataType": "",
             "default": "",
@@ -1148,7 +1171,7 @@
           },
           {
             "id": "ad447017-a8b7-43cf-914f-31d4c5b7945c",
-            "name": "member_id",
+            "name": "user_id",
             "comment": "회원(회원 ID 또는 이름)",
             "dataType": "",
             "default": "",
@@ -1163,7 +1186,7 @@
               "pk": false,
               "fk": false,
               "pfk": false,
-              "widthName": 61.86494445800781,
+              "widthName": 60,
               "widthComment": 120,
               "widthDataType": 60,
               "widthDefault": 60
@@ -1241,9 +1264,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 419,
-          "top": 761,
-          "zIndex": 353,
+          "left": 412.1947,
+          "top": 951,
+          "zIndex": 14,
           "widthName": 99.83781433105469,
           "widthComment": 60
         },
@@ -1259,16 +1282,69 @@
         "value": "input(입력) 테이블\n- sex는 Male, Female 문자형\n- 나머지는 수치형\n- ID를 제외한 모든 컬럼명은 첫글자만 대문자(Bmi, Age 등)\n\noutput(결과) 테이블\n- 여기는 대소문자 구분없이 복붙하시면 되고 전부 수치형입니다!\n",
         "ui": {
           "active": false,
-          "left": 417,
-          "top": 565,
-          "zIndex": 364,
-          "width": 383,
-          "height": 140
+          "left": 825.5277777777783,
+          "top": 949.8611111111113,
+          "zIndex": 15,
+          "width": 391,
+          "height": 108
         }
       }
     ]
   },
   "relationship": {
-    "relationships": []
+    "relationships": [
+      {
+        "id": "ec893372-993d-4478-a59e-869c26977b55",
+        "identification": false,
+        "relationshipType": "OneOnly",
+        "startRelationshipType": "Dash",
+        "start": {
+          "tableId": "754b4055-79cf-44d4-9414-a4c32221ef24",
+          "columnIds": [
+            "bebc01df-9723-4186-9e80-d237e1070980"
+          ],
+          "x": 597.7325027709961,
+          "y": 629.5554,
+          "direction": "top"
+        },
+        "end": {
+          "tableId": "e56de46f-6e3d-4a89-a0fd-dd3584f5bacb",
+          "columnIds": [
+            "ad7279f8-2ed8-4927-8fbf-46945bddaa18"
+          ],
+          "x": 738.6284990478516,
+          "y": 335.0557,
+          "direction": "bottom"
+        },
+        "constraintName": "fk_user_to_output",
+        "visible": true
+      },
+      {
+        "id": "20fa61a8-32ca-4892-9702-df082de6b84f",
+        "identification": false,
+        "relationshipType": "OneOnly",
+        "startRelationshipType": "Dash",
+        "start": {
+          "tableId": "754b4055-79cf-44d4-9414-a4c32221ef24",
+          "columnIds": [
+            "bebc01df-9723-4186-9e80-d237e1070980"
+          ],
+          "x": 409.0556,
+          "y": 715.3054,
+          "direction": "left"
+        },
+        "end": {
+          "tableId": "186e8a45-e55d-4898-8e12-683bca8ded14",
+          "columnIds": [
+            "aec8722b-4581-42c4-8b82-81bd58650ca8"
+          ],
+          "x": 242.2046950805664,
+          "y": 551.1946,
+          "direction": "bottom"
+        },
+        "constraintName": "fk_user_to_input",
+        "visible": true
+      }
+    ]
   }
 }
