@@ -3,7 +3,7 @@
     "version": "2.2.13",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -4.320000164794928,
+    "scrollTop": 0,
     "scrollLeft": 0,
     "zoomLevel": 1,
     "show": {
@@ -143,7 +143,7 @@
             "id": "223c5fd6-abbe-4830-8af0-84a74d268df7",
             "name": "Age",
             "comment": "나이",
-            "dataType": "INT",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -189,7 +189,7 @@
             "id": "b81fc0b4-662d-41a2-9c36-bfd27abd08db",
             "name": "Hr",
             "comment": "심박수",
-            "dataType": "INT",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -281,7 +281,7 @@
             "id": "541cef4f-7df0-46da-8704-e3a7673fa575",
             "name": "Sbp",
             "comment": "수축기 혈압",
-            "dataType": "INT",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -304,7 +304,7 @@
             "id": "05217f01-8ce7-4f5e-9759-5eeda31cf819",
             "name": "Dbp",
             "comment": "이완기 혈압",
-            "dataType": "INT",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -552,13 +552,36 @@
               "widthDataType": 60,
               "widthDefault": 60
             }
+          },
+          {
+            "id": "aa2c6869-a603-4271-91c0-644066f502c1",
+            "name": "Time",
+            "comment": "값을 입력한 시간",
+            "dataType": "TIMESTAMP",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 87.55294799804688,
+              "widthDataType": 68.2479248046875,
+              "widthDefault": 60
+            }
           }
         ],
         "ui": {
           "active": false,
-          "left": 20.8888,
-          "top": 31.1946,
-          "zIndex": 49,
+          "left": 23.8888,
+          "top": 38.1946,
+          "zIndex": 115,
           "widthName": 60,
           "widthComment": 120
         },
@@ -596,7 +619,7 @@
             "id": "02947783-51f2-4416-8895-eac7f39ada61",
             "name": "diabetes_status",
             "comment": "",
-            "dataType": "TINYINT",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -619,7 +642,7 @@
             "id": "1dc0a7a9-c508-4bbd-8500-33c45d008d39",
             "name": "dyslipidemia_status",
             "comment": "",
-            "dataType": "TINYINT",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -642,7 +665,7 @@
             "id": "2dd15dc2-6a41-4451-bd00-c189e83a8592",
             "name": "fatty_liver_status",
             "comment": "",
-            "dataType": "TINYINT",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -665,7 +688,7 @@
             "id": "fa41075b-3cd8-45a7-a691-2a58041d0f56",
             "name": "metabolic_syndrome",
             "comment": "",
-            "dataType": "TINYINT",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -688,7 +711,7 @@
             "id": "7f50eb0f-fbfe-49f7-83df-fb7bb76d6547",
             "name": "anemia_status",
             "comment": "",
-            "dataType": "TINYINT",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -711,7 +734,7 @@
             "id": "70a5c85e-bf2b-4830-b853-71199b9896e7",
             "name": "hypertension_status",
             "comment": "",
-            "dataType": "TINYINT",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -734,7 +757,7 @@
             "id": "3d8ebf9d-c773-4619-ab8f-d5e99d8ae6b8",
             "name": "obesity_status",
             "comment": "",
-            "dataType": "TINYINT",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -757,7 +780,7 @@
             "id": "a61e41d7-ee88-4ca6-bc54-7065177f5f94",
             "name": "hypothyroidism_status",
             "comment": "",
-            "dataType": "TINYINT",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -780,7 +803,7 @@
             "id": "df7f855e-ab75-4eb0-882f-e78c1f2e3cef",
             "name": "hyperthyrodism_status",
             "comment": "",
-            "dataType": "TINYINT",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -821,13 +844,36 @@
               "widthDataType": 60,
               "widthDefault": 60
             }
+          },
+          {
+            "id": "6ea987ed-5ece-4ff2-afda-928d4039f99a",
+            "name": "time",
+            "comment": "리포트 생성된 시간",
+            "dataType": "TIMESTAMP",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 98.79794311523438,
+              "widthDataType": 68.2479248046875,
+              "widthDefault": 60
+            }
           }
         ],
         "ui": {
           "active": false,
-          "left": 502.2226,
-          "top": 40.5557,
-          "zIndex": 51,
+          "left": 501.2226,
+          "top": 41.5557,
+          "zIndex": 126,
           "widthName": 60,
           "widthComment": 120
         },
@@ -1312,8 +1358,8 @@
           "columnIds": [
             "ad7279f8-2ed8-4927-8fbf-46945bddaa18"
           ],
-          "x": 738.6284990478516,
-          "y": 335.0557,
+          "x": 741.7524614501954,
+          "y": 356.5557,
           "direction": "bottom"
         },
         "constraintName": "fk_user_to_output",
@@ -1338,8 +1384,8 @@
           "columnIds": [
             "aec8722b-4581-42c4-8b82-81bd58650ca8"
           ],
-          "x": 242.2046950805664,
-          "y": 551.1946,
+          "x": 245.2046950805664,
+          "y": 578.6946,
           "direction": "bottom"
         },
         "constraintName": "fk_user_to_input",
