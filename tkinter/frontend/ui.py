@@ -1,3 +1,8 @@
+import os, sys
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+from backend import main
+backend = main.main()
+
 import tkinter as tk
 import tkinter.font as tkfont
 from tkinter import ttk, messagebox
