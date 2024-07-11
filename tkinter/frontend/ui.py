@@ -330,7 +330,11 @@ def activate_results_button():
                 button_show_results.config(state=tk.DISABLED)
                 return
     button_show_results.config(state=tk.NORMAL)
-    backend.from_ui('entry_widgets', entry_widgets)
+    ##### --backend-- #####
+    for text in labels_texts:
+        entry = entry_widgets[text]
+        backend.from_ui(text, entry.get().strip())
+    ##### --backend-- #####
 
 def show_exit_confirmation():
     if messagebox.askyesno("종료 확인", "정말 종료하시겠습니까?"):
