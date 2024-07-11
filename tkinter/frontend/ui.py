@@ -334,7 +334,6 @@ def activate_results_button():
     for text in labels_texts:
         entry = entry_widgets[text]
         backend.getValue(text, entry.get().strip())
-        print("TEST")
     ##### --backend-- #####
 
 def show_exit_confirmation():

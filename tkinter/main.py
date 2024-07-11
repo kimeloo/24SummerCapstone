@@ -1,3 +1,3 @@
 import os
-print(os.chdir('./src/'))
+os.chdir('./src/')
 from frontend import ui
