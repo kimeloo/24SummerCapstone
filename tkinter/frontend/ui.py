@@ -1,7 +1,7 @@
 import os, sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from backend import main
-backend = main.main()
+backend = main.connectUI()
 
 import tkinter as tk
 import tkinter.font as tkfont
@@ -183,7 +183,7 @@ def save_phone_number_and_switch():
         phone_number = prefix + user_input
         switch_to_frame(frame3)  # 검사 시작 후 화면으로 전환
         print(f"저장된 전화번호: {phone_number}")  # Debugging 용
-        backend.from_ui('phone_number', phone_number)
+        backend.getValue('phone_number', phone_number)
     else:
         messagebox.showerror("오류", "뒷자리를 숫자 8자리로 입력하세요.")
 
@@ -228,7 +228,7 @@ def save_email_address_and_switch():
     
     email_address = full_email
     print(f"저장된 이메일: {email_address}")  # Debugging 용
-    backend.from_ui('email_address', email_address)
+    backend.getValue('email_address', email_address)
     switch_to_frame(frame3)  # 검사 시작 후 화면으로 전환
 
 def validate_en_email(email):
@@ -281,7 +281,7 @@ def save_email_address_and_switch_en():
     
     email_address = full_email
     print(f"saved e-mail: {email_address}")  # Debugging 용
-    backend.from_ui('email_address', email_address)
+    backend.getValue('email_address', email_address)
     switch_to_frame(frame3)  # 검사 시작 후 화면으로 전환
 
 def create_keypad(frame):
@@ -333,7 +333,8 @@ def activate_results_button():
     ##### --backend-- #####
     for text in labels_texts:
         entry = entry_widgets[text]
-        backend.from_ui(text, entry.get().strip())
+        backend.getValue(text, entry.get().strip())
+        print("TEST")
     ##### --backend-- #####
 
 def show_exit_confirmation():
