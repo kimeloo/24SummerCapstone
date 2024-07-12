@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 import mysql.connector
 from . import envLoader
 from . import varMap
@@ -65,13 +66,11 @@ class connectDB():
             cursor = self.db.cursor()
             select_query = f'SELECT {querySelect} FROM {table} WHERE {queryWhere} {orderBy}'
             cursor.execute(select_query, data)
-
             result = cursor.fetchall()
-
             if result:
                 result = list(result)
         except mysql.connector.Error as e:
-            print(f"DB {table} table select Error : {e}")
+            print(f"DB {table} table SELECT Error : {e}")
         finally:
             if self.db.is_connected():
                 cursor.close()
@@ -89,10 +88,56 @@ class connectDB():
             cursor.execute(insert_query, data[1])
             self.db.commit()
         except mysql.connector.Error as e:
-            print(f"DB {table} table insert Error : {e}")
+            print(f"DB {table} table INSERT Error : {e}")
         finally:
             if self.db.is_connected():
                 cursor.close()
+    
+    def _updateTb(self, table, rawData, user_id):
+        if not self.__canUpdateTb(table, user_id):
+            return False
+        data = self.var.toDbVar(table, rawData)
+
+
+    def __canUpdateTb(self, table, user_id):
+        '''useraccount를 제외한 table에서 user_id로 가장 최근 1개 튜플 조회
+        조회된 튜플에서, TIMESTAMP 값이 현재 시간으로부터 2시간 이내인 경우 UPDATE 가능
+        UPDATE 가능한 경우, 채워넣으려는 값이 조회된 튜플에서 None(빈칸)이어야 하며 이외에는 INSERT'''
+        canUpdate = True
+        timestamp = None
+        try:
+            cursor = self.db.cursor()
+            select_query = f'SELECT * FROM {table} WHERE user_id = %s ORDER BY created_time DESC LIMIT 1'
+            cursor.execute(select_query, user_id)
+            result = cursor.fetchone()
+            if result:
+                result = result[0]
+                columnNames = [desc[0] for desc in cursor.description]
+                print(result)
+                print(columnNames)
+                for idx, column in enumerate(columnNames):
+                    if column == 'created_time':
+                        timestamp = result[idx]
+                if timestamp == None:
+                    print(f'updateTb Error : No Timestamp')
+                    raise Exception("No Timestamp")
+            else:
+                raise Exception("No result")
+            now = datetime.now()
+            isMore2H = (now-timestamp) > timedelta(hours=2)
+            if isMore2H:     # UPDATE 가능
+                raise Exception("No recent data")
+
+        except mysql.connector.Error as e:
+            canUpdate = False
+            print(f'DB {table} table SELECT Error : {e}')
+        except Exception as e:
+            canUpdate = False
+            print(f'DB {table} table UPDATE Error : {e}')
+        finally:
+            if self.db.is_connected():
+                cursor.clos()
+        return canUpdate
 
 if __name__ == '__main__':
     print('Do not run this file directly.')
