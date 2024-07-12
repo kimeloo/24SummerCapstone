@@ -1,17 +1,96 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html>
     <head>
-        <meta charset="UTF-8" />
-        <title>24SummerCapstone_backend_DB</title>
+        <title>24SummerCapstone</title>
+        <style>
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            table,
+            th,
+            td {
+                border: 1px solid black;
+            }
+            th,
+            td {
+                padding: 10px;
+                text-align: left;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+        </style>
     </head>
     <body>
-        <h1>content_list</h1>
-        {% if content_list %} {% for content in content_list %}
-        <hr />
-        <h3><a href="/mysite/{{ content.id }}/">{{ content.title }}</a></h3>
-        <h5>{{ content.content}}</h5>
-        {% endfor %} {% else %}
-        <p>content 가 없습니다.</p>
-        {% endif %}
+        <h1>Admin page : Data</h1>
+
+        <h2>Users</h2>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.phone_num }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h2>Details</h2>
+        <table>
+            <tr>
+                <th>User</th>
+                <th>Sex</th>
+                <th>BMI</th>
+                <th>Age</th>
+            </tr>
+            {% for detail in details %}
+            <tr>
+                <td>{{ detail.user.name }}</td>
+                <td>{{ detail.sex }}</td>
+                <td>{{ detail.bmi }}</td>
+                <td>{{ detail.age }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h2>Health</h2>
+        <table>
+            <tr>
+                <th>User</th>
+                <th>Diabetes Status</th>
+                <th>Hypertension Status</th>
+            </tr>
+            {% for health in health %}
+            <tr>
+                <td>{{ health.user.name }}</td>
+                <td>{{ health.diabetes_status }}</td>
+                <td>{{ health.hypertension_status }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h2>Sensors</h2>
+        <table>
+            <tr>
+                <th>User</th>
+                <th>RM01</th>
+                <th>RM02</th>
+                <th>RM03</th>
+            </tr>
+            {% for sensor in sensors %}
+            <tr>
+                <td>{{ sensor.user.name }}</td>
+                <td>{{ sensor.rm01 }}</td>
+                <td>{{ sensor.rm02 }}</td>
+                <td>{{ sensor.rm03 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
     </body>
 </html>
