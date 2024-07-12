@@ -13,7 +13,7 @@ class varMap():
         # UI 변수명을 DB 변수명으로 매핑 : rawData(dict)의 key를 varMap에서 찾아, varMap[key]의 value를 새로운 key로 하고, rawData[key]의 value를 새로운 value로 하는 dict 생성
         data = [[], []]
         for key in rawData:
-            data[0].append([key])
+            data[0].append(varMap[key])
             data[1].append(rawData[key])
         return data
 
