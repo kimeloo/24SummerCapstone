@@ -53,9 +53,9 @@ class connectDB():
             data[1] = rawData[key]
         return data
     
-    def _selectTb(self, table, select=list(), where=dict(), isSelectDb=True, isWhereDb=True, latest=True):
+    def _selectTb(self, table, select=list(), where=dict(), isSelectDb=True, isWhereDb=True, latest=1):
         '''table에서 where 조건으로 select 값 조회, where와 select는 기본 DB var
-        기본적으로, created_time 값(DB TIMESTAMP)이 가장 큰 경우 하나만을 조회하도록 설정'''
+        기본적으로, created_time 값(DB TIMESTAMP)이 가장 큰 경우 하나만을 조회하도록 설정, latest 값 조절하여 최근 n개 조회'''
         # DB var이 아닌, UI var로 입력된 경우 DB var로 변경
         if not isSelectDb:
             tempSelect = dict()
@@ -77,11 +77,13 @@ class connectDB():
         queryWhere = " and ".join(whereToString)
         querySelect = ", ".join(select)
         # 가장 최신값 하나만을 조회하도록 설정(default)
-        # if latest:
-            # queryWhere += 
+        if latest>0:
+            orderBy = f"ORDER BY create_date DESC LIMIT {latest}"
+        else:
+            orderBy = ""
         try:
             cursor = self.db.cursor()
-            select_query = f'SELECT {querySelect} FROM {table} WHERE {queryWhere}'
+            select_query = f'SELECT {querySelect} FROM {table} WHERE {queryWhere} {orderBy}'
             cursor.execute(select_query, data)
 
             result = cursor.fetchone()
