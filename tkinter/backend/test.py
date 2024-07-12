@@ -1,7 +1,8 @@
 import os, sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
-from backend.main import connectDB
+# from backend.main import connectUI
+from backend.connectDB import connectDB
 
 dbTest = connectDB()
 
@@ -12,23 +13,24 @@ dbTest = connectDB()
 
 # INSERT Test
 data = dict()
-data['나이'] = 9
-data['성별'] = 'Female'
-data['키 (cm)'] = 9
-data['체중 (kg)'] = 9
-data['체지량지수 (BMI)'] = 9
-data['체지방 (Kg)'] = 9
+input_data = list(input('data 입력\n 나이, 성별, 키, 체중, 체질량지수, 체지방 >>').split())
+keys = ['나이', '성별', '키 (cm)', '체중 (kg)', '체지량지수 (BMI)', '체지방 (Kg)']
+for key, val in zip(keys, input_data):
+    data[key] = val
+print('\n입력 데이터 : ')
 print(data)
-## 실제 전화번호 형식은 '-' 없음, test dummy에는 - 존재
-(1, 'John Doe', 'john.doe@example.com', '010-1234-5678'),
+# (1, 'John Doe', 'john.doe@example.com', '01012345678'),
 selectByPhone = dict()
-selectByPhone['phone_number'] = '010-1234-5678'
+
+selectByPhone['phone_number'] = input('phone_number 입력 >> ')
 userID = dbTest._selectTb('useraccount', ['ID'], selectByPhone, isWhereDb=False)[0][0]
+print('\nuserID : ')
 print(userID)
 
 selectByID = dict()
 selectByID['user_id'] = userID
 data['user_id'] = userID
-print(data)
+# print(data)
 dbTest._insertTb('details', data)
+print('\n입력 후 조회된 데이터 : ')
 print(dbTest._selectTb('details', ['*'], selectByID))
