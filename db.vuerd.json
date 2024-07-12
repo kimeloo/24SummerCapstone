@@ -3,8 +3,8 @@
     "version": "2.2.13",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -222.9406029182433,
-    "scrollLeft": -204.04030446319595,
+    "scrollTop": -227.7406030326842,
+    "scrollLeft": -208.84030457763683,
     "zoomLevel": 0.8,
     "show": {
       "tableComment": true,
@@ -1488,7 +1488,7 @@
             "id": "36261129-2d95-4334-b376-8066acbaf713",
             "name": "name",
             "comment": "유저이름",
-            "dataType": "VARCHAR(100)",
+            "dataType": "VARCHAR(50)",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -1503,7 +1503,7 @@
               "pfk": false,
               "widthName": 60,
               "widthComment": 60,
-              "widthDataType": 85.22587585449219,
+              "widthDataType": 78.88189697265625,
               "widthDefault": 60
             }
           },
@@ -1511,7 +1511,7 @@
             "id": "5eed4ec5-dae2-4730-8aab-bb8ab0027dfc",
             "name": "email",
             "comment": "이메일",
-            "dataType": "VARCHAR(254)",
+            "dataType": "VARCHAR(100)",
             "default": "UNIQUE",
             "option": {
               "autoIncrement": false,
@@ -1526,7 +1526,7 @@
               "pfk": false,
               "widthName": 60,
               "widthComment": 60,
-              "widthDataType": 84.83589172363281,
+              "widthDataType": 85.22587585449219,
               "widthDefault": 60
             }
           },
@@ -1581,7 +1581,7 @@
           "active": false,
           "left": 409.0556,
           "top": 629.5554,
-          "zIndex": 254,
+          "zIndex": 326,
           "widthName": 68.32589721679688,
           "widthComment": 60
         },
