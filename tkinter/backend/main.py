@@ -1,7 +1,7 @@
 import mysql.connector
-from . import env_loader
+from . import envLoader
 
-host, user, password, database = env_loader.load_env()
+host, user, password, database = envLoader.loadEnv()
 
 class connectUI():
     '''frontend UI/UX와 연결'''

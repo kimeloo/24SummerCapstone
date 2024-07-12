@@ -1,9 +1,9 @@
 import os
 from dotenv import load_dotenv
 
-def load_env():
-    dotenv_path = os.path.join(os.path.dirname(__file__), '..', '..', 'env', '.env')
-    load_dotenv(dotenv_path)
+def loadEnv():
+    dotenvPath = os.path.join(os.path.dirname(__file__), '..', '..', 'env', '.env')
+    load_dotenv(dotenvPath)
 
     host = os.getenv('DB_HOST')
     user = os.getenv('DB_USER')
