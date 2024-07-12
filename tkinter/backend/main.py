@@ -40,17 +40,66 @@ class connectDB():
             return None
     
     def _variableMap(self):
-        self.varMapInputTb = self.__createVarMapInputTb()
+        self.varMapDetailsTb = self.__createVarMapDetailsTb()
 
-    def insertTb(self, table, rawData):
+    def _toDbVar(self, table, rawData):
         # UI 변수명을 DB 변수명으로 매핑 : 1. 매핑 테이블 지정
-        if table == 'input':
-            varMap = self.varMapInputTb
+        if table == 'details':
+            varMap = self.varMapDetailsTb
         # UI 변수명을 DB 변수명으로 매핑 : rawData(dict)의 key를 varMap에서 찾아, varMap[key]의 value를 새로운 key로 하고, rawData[key]의 value를 새로운 value로 하는 dict 생성
         data = [[], []]
         for key in rawData:
             data[0] = varMap[key]
             data[1] = rawData[key]
+        return data
+    
+    def _selectTb(self, table, select=list(), where=dict(), isSelectDb=True, isWhereDb=True, latest=True):
+        '''table에서 where 조건으로 select 값 조회, where와 select는 기본 DB var
+        기본적으로, created_time 값(DB TIMESTAMP)이 가장 큰 경우 하나만을 조회하도록 설정'''
+        # DB var이 아닌, UI var로 입력된 경우 DB var로 변경
+        if not isSelectDb:
+            tempSelect = dict()
+            for key in select:
+                tempSelect[key] = []
+            select = self._toDbVar(table, tempSelect)[0]
+        if not isWhereDb:
+            tempWhere = self._toDbVar(table, where)
+            where = dict()
+            for idx, key in enumerate(tempWhere[0]):
+                where[key] = tempWhere[1][idx]
+            
+        # SELECT 쿼리 중, WHERE 부분 및 cursor.execute 값 생성
+        whereToString = []
+        data = []
+        for key in where:
+            whereToString.append(f'{key} = %s')
+            data.append(where[key])
+        queryWhere = " and ".join(whereToString)
+        querySelect = ", ".join(select)
+        # 가장 최신값 하나만을 조회하도록 설정(default)
+        # if latest:
+            # queryWhere += 
+        try:
+            cursor = self.db.cursor()
+            select_query = f'SELECT {querySelect} FROM {table} WHERE {queryWhere}'
+            cursor.execute(select_query, data)
+
+            result = cursor.fetchone()
+
+            if result:
+                result = list(result)
+            else:
+                result = None
+        except mysql.connector.Error as e:
+            print(f"DB {table} table select Error : {e}")
+        finally:
+            if self.db.is_connected():
+                cursor.close()
+        return result
+
+    def _insertTb(self, table, rawData):
+        '''_matchVarMap으로 만든 쿼리 바탕으로 table에 INSERT로 삽입'''
+        data = self._toDbVar(table, rawData)
         # DB 쿼리 작성
         queryColumns = ', '.join(data[0])
         queryPlaceholders = ', '.join(['%s']*len(data[0]))
@@ -65,8 +114,8 @@ class connectDB():
             if self.db.is_connected():
                 cursor.close()
     
-    def __createVarMapInputTb(self):
-        '''Input Table에 대해, UI 변수명과 DB 변수명 매칭'''
+    def __createVarMapDetailsTb(self):
+        '''details Table에 대해, UI 변수명과 DB 변수명 매칭'''
         # 3page : phone_number or email_address
         varMapKeys = ['phone_number', 'email_address']
         varMapVals = ['phone_num', 'email']
@@ -84,10 +133,10 @@ class connectDB():
                            'Tsh', 'Fg', 'Ppg'])
         
         # Match varMap
-        _varMapInputTb = dict()
+        _varMapDetailsTb = dict()
         for key, value in zip(varMapKeys, varMapVals):
-            _varMapInputTb[key] = value
-        return _varMapInputTb
+            _varMapDetailsTb[key] = value
+        return _varMapDetailsTb
     
 
 if __name__ == '__main__':
