@@ -1,7 +1,7 @@
 import mysql.connector
 from . import envLoader
 
-host, user, password, database = envLoader.loadEnv()
+host, port, user, password, database = envLoader.loadEnv()
 
 class connectUI():
     '''frontend UI/UX와 연결'''
@@ -30,6 +30,7 @@ class connectDB():
         try:
             connection = mysql.connector.connect(
                 host=host,
+                port=port,
                 user=user,
                 password=password,
                 database=database
@@ -43,16 +44,19 @@ class connectDB():
     
     def _variableMap(self):
         self.varMapDetailsTb = self.__createVarMapDetailsTb()
+        self.varMapUseraccountTb = self.__createVarMapUseraccountTb()
 
     def _toDbVar(self, table, rawData):
         # UI 변수명을 DB 변수명으로 매핑 : 1. 매핑 테이블 지정
         if table == 'details':
             varMap = self.varMapDetailsTb
+        elif table == 'useraccount':
+            varMap = self.varMapUseraccountTb
         # UI 변수명을 DB 변수명으로 매핑 : rawData(dict)의 key를 varMap에서 찾아, varMap[key]의 value를 새로운 key로 하고, rawData[key]의 value를 새로운 value로 하는 dict 생성
         data = [[], []]
         for key in rawData:
-            data[0] = varMap[key]
-            data[1] = rawData[key]
+            data[0].append(varMap[key])
+            data[1].append(rawData[key])
         return data
     
     def _selectTb(self, table, select=list(), where=dict(), isSelectDb=True, isWhereDb=True, latest=1):
@@ -117,15 +121,22 @@ class connectDB():
             if self.db.is_connected():
                 cursor.close()
     
+    def __createVarMapUseraccountTb(self):
+        # 3page : phone_number or email_address
+        varMapKeys = ['phone_number', 'email_address', 'user_id']
+        varMapVals = ['phone_num', 'email', 'ID']
+
+        return self.__matchVarMap(varMapKeys, varMapVals)
+
     def __createVarMapDetailsTb(self):
         '''details Table에 대해, UI 변수명과 DB 변수명 매칭'''
-        # 3page : phone_number or email_address
-        varMapKeys = ['phone_number', 'email_address']
-        varMapVals = ['phone_num', 'email']
+        # default keys
+        varMapKeys = ['user_id', 'ID']
+        varMapVals = ['user_id', 'user_id']
         # 5page(7) : physical measurements
         varMapKeys.extend(['나이', '성별', '키 (cm)', '체중 (kg)', '체지량지수 (BMI)', 
-                            '체지방 (Kg)', '체지방률 (%)', '심장박동수 (bpm)', '허리둘레 (cm)', '골반과 허리둘레 (WHR)', 
-                            '근육량 (kg)', '수축기 혈압 (SBP)', '이완기 혈압 (DBP)'])
+                           '체지방 (Kg)', '체지방률 (%)', '심장박동수 (bpm)', '허리둘레 (cm)', '골반과 허리둘레 (WHR)', 
+                           '근육량 (kg)', '수축기 혈압 (SBP)', '이완기 혈압 (DBP)'])
         varMapVals.extend(['Age', 'Sex', 'Height', 'Weight', 'Bmi',
                            'Fat', 'Fat_percentage', 'Hr', 'Waist', 'Whr',
                            'Muscle', 'Sbp', 'Dbp'])
@@ -135,11 +146,14 @@ class connectDB():
         varMapVals.extend(['Ldl', 'Hdl', 'Tg', 'Alt', 'Hb',
                            'Tsh', 'Fg', 'Ppg'])
         
+        return self.__matchVarMap(varMapKeys, varMapVals)
+
+    def __matchVarMap(self, varMapKeys, varMapVals):
         # Match varMap
-        _varMapDetailsTb = dict()
+        _varMapMatched = dict()
         for key, value in zip(varMapKeys, varMapVals):
-            _varMapDetailsTb[key] = value
-        return _varMapDetailsTb
+            _varMapMatched[key] = value
+        return _varMapMatched
     
 
 if __name__ == '__main__':
