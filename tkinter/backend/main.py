@@ -23,6 +23,8 @@ class connectDB():
             print("DB Not Connected")
             print("Bye")
             raise
+        else:
+            self._variableMap()
 
     def _connectDB(self):
         try:
@@ -78,20 +80,19 @@ class connectDB():
         querySelect = ", ".join(select)
         # 가장 최신값 하나만을 조회하도록 설정(default)
         if latest>0:
-            orderBy = f"ORDER BY create_date DESC LIMIT {latest}"
+            orderBy = f"ORDER BY created_time DESC LIMIT {latest}"
         else:
             orderBy = ""
+        result = None
         try:
             cursor = self.db.cursor()
             select_query = f'SELECT {querySelect} FROM {table} WHERE {queryWhere} {orderBy}'
             cursor.execute(select_query, data)
 
-            result = cursor.fetchone()
+            result = cursor.fetchall()
 
             if result:
                 result = list(result)
-            else:
-                result = None
         except mysql.connector.Error as e:
             print(f"DB {table} table select Error : {e}")
         finally:
