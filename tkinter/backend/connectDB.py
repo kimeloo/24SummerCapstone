@@ -63,12 +63,10 @@ class connectDB():
             orderBy = ""
         result = None
         try:
-            cursor = self.db.cursor()
+            cursor = self.db.cursor(dictionary=True)
             selectQuery = f'SELECT {querySelect} FROM {table} WHERE {queryWhere} {orderBy}'
             cursor.execute(selectQuery, data)
             result = cursor.fetchall()
-            if result:
-                result = list(result)
         except mysql.connector.Error as e:
             print(f"DB {table} table SELECT Error : {e}")
         finally:
@@ -123,30 +121,16 @@ class connectDB():
         user_id로 조회한 가장 최근 튜플의 ID를 가져와 return'''
         tupleID = True
         timestamp = None
+        selectResult = self._selectTb(table, select=['ID', 'created_time'], where=dict({'user_id':user_id}))
         try:
-            cursor = self.db.cursor()
-            selectQuery = f'SELECT * FROM {table} WHERE user_id = %s ORDER BY created_time DESC LIMIT 1'
-            cursor.execute(selectQuery, (user_id,))
-            result = cursor.fetchone()
-            if result:
-                columnNames = [desc[0] for desc in cursor.description]      # table 내 컬럼명 저장
-                print(result)
-                print(columnNames)
-                for idx, column in enumerate(columnNames):
-                    if column == 'ID':      # UPDATE할 튜플의 ID를 tupleID에 저장
-                        tupleID = result[idx]
-                    if column == 'created_time':
-                        timestamp = result[idx]
-                if timestamp == None:
-                    print(f'updateTb Error : No Timestamp')
-                    raise Exception("No Timestamp")
-            else:
-                raise Exception("No result")
+            tupleID = selectResult['ID']
+            timestamp = selectResult['created_time']
+            if tupleID or timestamp == None:
+                raise Exception('No recent data')
             now = datetime.now()
             isMore2H = (now-timestamp) > timedelta(hours=2)
-            if isMore2H:     # UPDATE 가능
+            if isMore2H:     # 너무 오래전 데이터이므로 UPDATE 불가
                 raise Exception("No recent data")
-
         except mysql.connector.Error as e:
             tupleID = False
             print(f'DB {table} table SELECT Error : {e}')
@@ -154,9 +138,7 @@ class connectDB():
             tupleID = False
             print(f'DB {table} table UPDATE rejected : {e}')
         finally:
-            if self.db.is_connected():
-                cursor.close()
-        return tupleID
+            return tupleID
 
 if __name__ == '__main__':
     print('Do not run this file directly.')
