@@ -1,4 +1,8 @@
 import requests
+import os, sys
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+from envLoaderServer import loadEnv
+SERVER_HOST = loadEnv()
 
 # frontend 데이터 backend로 전송
 
@@ -12,7 +16,7 @@ class ConnectUI():
         '''frontend에서 호출하여, 데이터를 backend로 전송'''
         try:
             # JSON 형식으로 backend로 데이터 전송
-            response = requests.post('http://your-backend-url.com/api/data', json=data) # URL 넣기 - 백엔드 서버의 엔드포인트로
+            response = requests.post(SERVER_HOST, json=data) # URL 넣기 - 백엔드 서버의 엔드포인트로
             if response.status_code == 200:
                 print("데이터 전송 성공!")
             else:
