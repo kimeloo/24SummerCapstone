@@ -1,6 +1,8 @@
 import tkinter as tk
+from tkinter import PhotoImage
 import tkinter.font as tkfont
 from tkinter import ttk, messagebox
+import requests
 
 root = tk.Tk()
 
@@ -25,6 +27,11 @@ frame_phone.pack_forget()  # 처음에는 숨기기
 frame_email = tk.Frame(root)
 frame_email.pack(fill="both", expand=True)
 frame_email.pack_forget()  # 처음에는 숨기기
+
+# 시작 화면 프레임
+frame_start = tk.Frame(root)
+frame_start.pack(fill="both", expand=True)
+frame_start.pack_forget()
 
 # 다섯 번째 화면 프레임 (검사 시작 후 화면)
 frame3 = tk.Frame(root)
@@ -101,9 +108,15 @@ report = tk.Frame(root)
 report.pack(fill="both", expand=True)
 report.pack_forget()
 
-photo = tk.PhotoImage(file='global.png')
-image = tk.Label(frame1, image=photo)
-image.place(x=125, y=30)
+# 스물두 번째 화면 프레임 (tel 검사)
+frame_ttest = tk.Frame(root)
+frame_ttest.pack(fill="both", expand=True)
+frame_ttest.pack_forget()  # 처음에는 숨기기
+
+# 스물세 번째 화면 프레임 (mail 검사)
+frame_etest = tk.Frame(root)
+frame_etest.pack(fill="both", expand=True)
+frame_etest.pack_forget()  # 처음에는 숨기기
 
 custom_font1 = tkfont.Font(family='GungSeo', size=17, weight='bold')
 custom_font2 = tkfont.Font(family='GungSeo', size=14, weight='bold')
@@ -114,13 +127,15 @@ email_address = ""
 
 def on_click(button, switch_frame=None):
     original_color = button.cget("background")
-    button.config(bg="yellow")
+    button.config(bg="skyblue")
     if switch_frame:
         root.after(50, lambda: [button.config(bg=original_color), switch_frame()])
     else:
         root.after(50, lambda: button.config(bg=original_color))
 
+
 def switch_to_frame(frame):
+    frame_start.pack_forget()
     frame1.pack_forget()
     frame2.pack_forget()
     frame_phone.pack_forget()
@@ -140,6 +155,8 @@ def switch_to_frame(frame):
     frame_tel.pack_forget()
     frame_en_email.pack_forget()
     report.pack_forget()
+    frame_ttest.pack_forget()
+    frame_etest.pack_forget()
     frame.pack(fill="both", expand=True)
 
     button_show_results.config(state=tk.DISABLED)
@@ -176,7 +193,7 @@ def save_phone_number_and_switch():
     
     if len(user_input) == 8 and user_input.isdigit():
         phone_number = prefix + user_input
-        switch_to_frame(frame3)  # 검사 시작 후 화면으로 전환
+        switch_to_frame(frame_start)  # 검사 시작 후 화면으로 전환
         print(f"저장된 전화번호: {phone_number}")  # Debugging 용
     else:
         messagebox.showerror("오류", "뒷자리를 숫자 8자리로 입력하세요.")
@@ -222,7 +239,7 @@ def save_email_address_and_switch():
     
     email_address = full_email
     print(f"저장된 이메일: {email_address}")  # Debugging 용
-    switch_to_frame(frame3)  # 검사 시작 후 화면으로 전환
+    switch_to_frame(frame_start)  # 검사 시작 후 화면으로 전환
 
 def validate_en_email(email):
     # 이메일 domain 부분에 .이 포함되어 있는지 확인
@@ -328,10 +345,20 @@ def show_exit_confirmation():
         root.destroy()
 
 # 이미지 파일 로드
+image_path = "background.png"
+background_image = PhotoImage(file=image_path)
+
 img_kr = tk.PhotoImage(file='kr.png')
 img_en = tk.PhotoImage(file='en.png')
 img_jp = tk.PhotoImage(file='jp.png')
 img_ch = tk.PhotoImage(file='ch.png')
+
+background_label = tk.Label(frame1, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+photo = tk.PhotoImage(file='global.png')
+image = tk.Label(frame1, image=photo)
+image.place(x=125, y=20)
 
 # 첫 번째 화면 버튼들 (2행 2열 정사각형 버튼)
 button_kr = tk.Button(frame1, text="한국어", height=150, width=150, font=custom_font1, image=img_kr, compound="top", padx=5, pady=9, command=lambda: on_click(button_kr, switch_frame=lambda: switch_to_frame(frame2)))
@@ -347,6 +374,9 @@ button_ch = tk.Button(frame1, text="中国人", height=150, width=150, font=cust
 button_ch.place(x=175, y=330, width=150, height=150)
 
 # 두 번째 화면 내용 (전화번호 또는 이메일 선택)
+background_label = tk.Label(frame2, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
 label2 = tk.Label(frame2, text="결과를 받을 방법을 선택해주세요.", font=custom_font2)
 label2.pack(pady=25)
 
@@ -360,6 +390,9 @@ button_back2 = tk.Button(frame2, text="뒤로가기", height=1, width=10, font=c
 button_back2.pack(pady=15)
 
 # 세 번째 화면 내용 (전화번호 입력)
+background_label = tk.Label(frame_phone, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
 label_phone = tk.Label(frame_phone, text="전화번호를 입력하세요.", font=custom_font2)
 label_phone.pack(pady=20)
 
@@ -385,6 +418,9 @@ button_start_phone = tk.Button(frame_phone, text="검사 시작", height=1, widt
 button_start_phone.pack(pady=5)
 
 # 네 번째 화면 내용 (이메일 입력)
+background_label = tk.Label(frame_email, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
 label_email = tk.Label(frame_email, text="이메일을 입력하세요.", font=custom_font2)
 label_email.pack(pady=20)
 
@@ -426,7 +462,24 @@ button_back_email.pack(pady=13)
 button_start_email = tk.Button(frame_email, text="검사 시작", height=1, width=10, font=custom_font2, command=lambda: [on_click(button_start_email), save_email_address_and_switch()])
 button_start_email.pack(pady=13)
 
+# 시작 화면
+background_label = tk.Label(frame_start, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+start = tk.Label(frame_start, text="측정을 시작하시겠습니까?", font=custom_font1)
+start.pack(pady=35)
+
+otter = tk.PhotoImage(file='character.png')
+otter_image = tk.Label(frame_start, image=otter)
+otter_image.place(x=18, y=93)
+
+button_start = tk.Button(frame_start, text="시작하기", height=1, width=10, font=custom_font2, command=lambda: on_click(button_start, switch_frame=lambda: switch_to_frame(frame3)))
+button_start.pack(side=tk.BOTTOM, pady=35)
+
 # 다섯 번째 화면 내용 (검사 시작 후 화면)
+background_label = tk.Label(frame3, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
 buttons_frame = tk.Frame(frame3)
 buttons_frame.pack(pady=10)  # 버튼들을 아래로 내리기 위해 패딩 추가
 
@@ -454,6 +507,9 @@ for i, button_text in enumerate(buttons_9):
         tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8) .grid(row=i//3, column=i%3, padx=3, pady=5)
 
 # 여섯 번째 화면 내용 (신체 측정 화면)
+background_label = tk.Label(frame_physical_measurements, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
 label_measurements = tk.Label(frame_physical_measurements, text="신체 측정 정보를 입력하세요.", font=custom_font2)
 label_measurements.pack(pady=10)
 
@@ -472,7 +528,7 @@ for text in labels_texts:
     label.pack(side=tk.LEFT, padx=(10, 5), fill=tk.X)
 
     if text == "성별":
-        combo_gender = ttk.Combobox(frame, values=['남', '여'], state="readonly", font=custom_font3, width=4)
+        combo_gender = ttk.Combobox(frame, values=['Male', 'Female'], state="readonly", font=custom_font3, width=4)
         combo_gender.pack(side=tk.LEFT, padx=(0, 10))
         entry_widgets[text] = combo_gender
     else:
@@ -488,9 +544,13 @@ button_show_results = tk.Button(frame_physical_measurements, text="결과보기"
 button_show_results.pack(side=tk.LEFT, padx=(0, 10))
 
 # 일곱 번째 화면 내용 (신체 측정 결과 보기 화면)
+background_label = tk.Label(result_frame, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
 label_result_title = tk.Label(result_frame, text="신체 측정 결과입니다.", font=custom_font2)
 label_result_title.pack(pady=20)
 
+# 예시
 recommendations = [
     "고혈압이 어쩌구저쩌구",
     "비만 위험해요",
@@ -525,6 +585,9 @@ button_send_result = tk.Button(result_frame, text="결과 전송",  height=1, wi
 button_send_result.pack(side=tk.LEFT, padx=(15, 30))
 
 # 아홉 번째 화면 내용 (혈액 측정 화면)
+background_label = tk.Label(frame_blood_measure, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
 label_blood = tk.Label(frame_blood_measure, text="혈액 측정 정보를 입력하세요.", font=custom_font2)
 label_blood.pack(pady=20)
 
@@ -567,9 +630,13 @@ button_view_results = tk.Button(frame_blood_measure, text="결과보기", height
 button_view_results.pack(side=tk.LEFT, padx=(0, 10))
 
 # 열 번째 화면 내용 (혈액 측정 결과 보기 화면)
+background_label = tk.Label(frame_results, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
 label_results = tk.Label(frame_results, text=" 혈액 측정 결과입니다.", font=custom_font2)
 label_results.pack(pady=20)
 
+# 예시
 recommend = [
     "혈액이 이상해요",
     "공복혈당이 와우 넘 높아요",
@@ -602,6 +669,9 @@ button_send_results = tk.Button(frame_results, text="결과 전송", height=1, w
 button_send_results.pack(side=tk.LEFT, padx=(15, 30))
 
 # 열두 번째 화면 내용 (01 Face)
+background_label = tk.Label(frame01, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
 label01 = tk.Label(frame01, text="얼굴 결과입니다.", font=custom_font2)
 label01.pack(pady=20)
 
@@ -629,6 +699,9 @@ button_exit_01 = tk.Button(frame01, text="종료", font=custom_font2, command=la
 button_exit_01.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
 
 # 열세 번째 화면 내용 (02 Body)
+background_label = tk.Label(frame02, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
 label02 = tk.Label(frame02, text="신체 결과입니다.", font=custom_font2)
 label02.pack(pady=20)
 
@@ -656,6 +729,9 @@ button_exit_02 = tk.Button(frame02, text="종료", font=custom_font2, command=la
 button_exit_02.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
 
 # 열네 번째 화면 내용 (03 Skin)
+background_label = tk.Label(frame03, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
 label03 = tk.Label(frame03, text="피부 결과입니다.", font=custom_font2)
 label03.pack(pady=20)
 
@@ -683,6 +759,9 @@ button_exit_03 = tk.Button(frame03, text="종료", font=custom_font2, command=la
 button_exit_03.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
 
 # 열다섯 번째 화면 내용 (04 Eye)
+background_label = tk.Label(frame04, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
 label04 = tk.Label(frame04, text="눈 결과입니다.", font=custom_font2)
 label04.pack(pady=20)
 
@@ -710,6 +789,9 @@ button_exit_04 = tk.Button(frame04, text="종료", font=custom_font2, command=la
 button_exit_04.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
 
 # 열여섯 번째 화면 내용 (05 Gait)
+background_label = tk.Label(frame05, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
 label05 = tk.Label(frame05, text="걸음걸이 결과입니다.", font=custom_font2)
 label05.pack(pady=20)
 
@@ -737,6 +819,9 @@ button_exit_05 = tk.Button(frame05, text="종료", font=custom_font2, command=la
 button_exit_05.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
 
 # 열일곱 번째 화면 내용 (06 Sleeping)
+background_label = tk.Label(frame06, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
 label06 = tk.Label(frame06, text="수면 결과입니다.", font=custom_font2)
 label06.pack(pady=20)
 
@@ -764,10 +849,13 @@ button_exit_06 = tk.Button(frame06, text="종료", font=custom_font2, command=la
 button_exit_06.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
 
 # 열여덟 번째 화면 내용 (Tel or Email 선택)
+background_label = tk.Label(frame_en, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
 label18 = tk.Label(frame_en, text="Choose a way to get results.", font=custom_font2)
 label18.pack(pady=25)
 
-button_phone_en = tk.Button(frame_en, text="a telephone number", height=4, width=18, font=custom_font1, command=lambda: on_click(button_phone, switch_frame=lambda: switch_to_frame(frame_en_phone)))
+button_phone_en = tk.Button(frame_en, text="a telephone number", height=4, width=18, font=custom_font1, command=lambda: on_click(button_phone, switch_frame=lambda: switch_to_frame(frame_tel)))
 button_phone_en.pack(pady=15)
 
 button_email_en = tk.Button(frame_en, text="E-mail", height=4, width=18, font=custom_font1, command=lambda: on_click(button_email, switch_frame=lambda: switch_to_frame(frame_en_email)))
@@ -777,9 +865,71 @@ button_back18 = tk.Button(frame_en, text="back", height=1, width=10, font=custom
 button_back18.pack(pady=15)
 
 # 열아홉 번째 화면 내용 (Tel)
+label_tel = tk.Label(frame_tel, text="Please enter your phone number.", font=custom_font2)
+label_tel.pack(pady=20)
+
+def save_phone_number_and_switch_tel():
+    global phone_number
+    prefix = combo_prefix_tel.get()
+    user_input = entry_tel.get()
+    
+    if prefix == "" or user_input == "":
+        messagebox.showerror("an error", "Please enter both front and back digit.")
+        return
+    
+    if len(user_input) == 7 and user_input.isdigit():
+        phone_number = prefix + user_input
+        switch_to_frame(frame_ttest)  # 검사 시작 후 화면으로 전환
+        print(f"Saved phone number: {phone_number}")  # Debugging 용
+    else:
+        messagebox.showerror("an error", "Please enter the last number in 7 digits.")
+
+def create_keypad(frame):
+    keypad_frame = tk.Frame(frame)
+    keypad_frame.pack(pady=10)
+    buttons = [
+        '1', '2', '3',
+        '4', '5', '6',
+        '7', '8', '9',
+        '0', '←'  # 추가: 지우기 버튼
+    ]
+    row, col = 0, 0
+    for button in buttons:
+        if button == '←':
+            tk.Button(keypad_frame, text=button, font=custom_font1, command=lambda: entry_tel.delete(len(entry_tel.get())-1), height=1, width=4).grid(row=row, column=col, padx=5, pady=5)
+        else:
+            tk.Button(keypad_frame, text=button, font=custom_font1, command=lambda b=button: entry_tel.insert(tk.END, b), height=1, width=4).grid(row=row, column=col, padx=5, pady=5)
+        col += 1
+        if col > 2:
+            col = 0
+            row += 1
+
+# 프레임 생성 및 배치
+frame_tel_input = tk.Frame(frame_tel)
+frame_tel_input.pack(pady=5)
+
+# 콤보 상자 (전화번호 prefix 선택)
+combo_prefix_tel = ttk.Combobox(frame_tel_input, values=['+1','+52','+64','+353','+972'], state="readonly", font=custom_font2, width=4)
+combo_prefix_tel.pack(side=tk.LEFT, padx=(0, 5))
+combo_prefix_tel.configure(width=4)
+
+entry_tel = tk.Entry(frame_tel_input, font=custom_font2, width=12)
+entry_tel.pack(side=tk.LEFT)
+entry_tel.configure(width=13)
+
+create_keypad(frame_tel)
+
+button_back_tel = tk.Button(frame_tel, text="back", height=1, width=10, font=custom_font2, command=lambda: on_click(button_back_tel, switch_frame=lambda: switch_to_frame(frame_en)))
+button_back_tel.pack(pady=16)
+
+button_start_tel = tk.Button(frame_tel, text="Start inspection", height=1, width=15, font=custom_font2, command=lambda: [on_click(button_start_tel), save_phone_number_and_switch_tel()])
+button_start_tel.pack(pady=5)
 
 # 스무 번째 화면 내용 (Email)
-label_en_email = tk.Label(frame_en_email, text="이메일을 입력하세요.", font=custom_font2)
+background_label = tk.Label(frame_en_email, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+label_en_email = tk.Label(frame_en_email, text="Please enter your email.", font=custom_font2)
 label_en_email.pack(pady=20)
 
 # 이메일 도메인 선택을 위한 프레임과 콤보 상자
@@ -794,13 +944,13 @@ label_at_en.pack(pady=10)
 entry_email_domain_en = tk.Entry(frame_email_suffix_en, font=custom_font2, width=15)
 entry_email_domain_en.pack(side=tk.LEFT, padx=(0, 5))
 
-combo_email_domain_en = ttk.Combobox(frame_email_suffix_en, values=['직접 입력', 'aol.com', 'gmail.com', 'hotmail.com', 'icloud.com', 'yahoo.com', 'zoho.com'], state="readonly", font=custom_font2, width=10)
-combo_email_domain_en.current(0)  # 초기 선택은 '직접 입력'
+combo_email_domain_en = ttk.Combobox(frame_email_suffix_en, values=['Manual Input', 'aol.com', 'gmail.com', 'hotmail.com', 'icloud.com', 'yahoo.com', 'zoho.com'], state="readonly", font=custom_font2, width=10)
+combo_email_domain_en.current(0)  # 초기 선택은 'Manual Input'
 combo_email_domain_en.pack(side=tk.LEFT)
 
 def handle_email_domain_selection(event):
     selected_domain = combo_email_domain_en.get()
-    if selected_domain == '직접 입력':
+    if selected_domain == 'Manual Input':
         entry_email_domain_en.config(state=tk.NORMAL)
         entry_email_domain_en.delete(0, tk.END)
         entry_email_domain_en.focus_set()
@@ -821,6 +971,9 @@ button_start_en_email = tk.Button(frame_en_email, text="Start inspection", heigh
 button_start_en_email.pack(pady=13)
 
 # 스물한 번째 화면 내용 (결과지)
+background_label = tk.Label(report, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
 result_07_08 = tk.Label(report, text="07 08 결과입니다.", font=custom_font2)
 result_07_08.pack(pady=20)
 
@@ -828,10 +981,64 @@ recommend_07_08 = tk.Label(report, text="추천 문구입니다.", font=custom_f
 recommend_07_08.pack(pady=60)
 
 report_back = tk.Button(report, text="뒤로가기", height=1, width=10, font=custom_font2, command=lambda: switch_to_frame(frame3))
-report_back.pack(side=tk.LEFT, padx=(30, 15))
+report_back.pack(side=tk.LEFT, padx=(55, 25))
 
 # 종료 버튼
 button_exit = tk.Button(report, text="종료", font=custom_font2, command=lambda: on_click(button_exit, show_exit_confirmation))
-button_exit.pack(side=tk.LEFT, padx=(15, 30))
+button_exit.pack(side=tk.LEFT, padx=(20, 30))
+
+# 스물두 번째 화면 내용 (tel 검사)
+buttons_frame = tk.Frame(frame_ttest)
+buttons_frame.pack(pady=10)  # 버튼들을 아래로 내리기 위해 패딩 추가
+
+buttons_9 = ['01\nFace', '02\nBody', '03\nSkin', '04\nEye', '05\nGait', '06\nSleeping', '07\nPhysical\nmeasurement', '08\nBlood\nmeasurement', 'Report']
+for i, button_text in enumerate(buttons_9):
+    if button_text == '07\nPhysical\nmeasurement':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame_physical_measurements)).grid(row=i//3, column=i%3, padx=3, pady=5)
+    elif button_text == '08\nBlood\nmeasurement':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame_blood_measure)).grid(row=i//3, column=i%3, padx=3, pady=5)
+    elif button_text == '01\nFace':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame01)).grid(row=i//3, column=i%3, padx=3, pady=5)
+    elif button_text == '02\nBody':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame02)).grid(row=i//3, column=i%3, padx=3, pady=5)
+    elif button_text == '03\Skin':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame03)).grid(row=i//3, column=i%3, padx=3, pady=5)
+    elif button_text == '04\nEye':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame04)).grid(row=i//3, column=i%3, padx=3, pady=5)
+    elif button_text == '05\nGait':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame05)).grid(row=i//3, column=i%3, padx=3, pady=5)
+    elif button_text == '06\nSleeping':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame06)).grid(row=i//3, column=i%3, padx=3, pady=5)
+    elif button_text == 'Report':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(report)) .grid(row=i//3, column=i%3, padx=3, pady=5)
+    else:
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8) .grid(row=i//3, column=i%3, padx=3, pady=5)
+
+# 스물세 번째 화면 내용 (mail 검사)
+buttons_frame = tk.Frame(frame_etest)
+buttons_frame.pack(pady=10)  # 버튼들을 아래로 내리기 위해 패딩 추가
+
+buttons_9 = ['01\nFace', '02\nBody', '03\nSkin', '04\nEye', '05\nGait', '06\nSleeping', '07\nPhysical\nmeasurement', '08\nBlood\nmeasurement', 'Report']
+for i, button_text in enumerate(buttons_9):
+    if button_text == '07\nPhysical\nmeasurement':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame_physical_measurements)).grid(row=i//3, column=i%3, padx=3, pady=5)
+    elif button_text == '08\nBlood\nmeasurement':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame_blood_measure)).grid(row=i//3, column=i%3, padx=3, pady=5)
+    elif button_text == '01\nFace':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame01)).grid(row=i//3, column=i%3, padx=3, pady=5)
+    elif button_text == '02\nBody':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame02)).grid(row=i//3, column=i%3, padx=3, pady=5)
+    elif button_text == '03\nSkin':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame03)).grid(row=i//3, column=i%3, padx=3, pady=5)
+    elif button_text == '04\nEye':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame04)).grid(row=i//3, column=i%3, padx=3, pady=5)
+    elif button_text == '05\nGait':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame05)).grid(row=i//3, column=i%3, padx=3, pady=5)
+    elif button_text == '06\nSleeping':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame06)).grid(row=i//3, column=i%3, padx=3, pady=5)
+    elif button_text == 'Report':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(report)) .grid(row=i//3, column=i%3, padx=3, pady=5)
+    else:
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8) .grid(row=i//3, column=i%3, padx=3, pady=5)
 
 root.mainloop()
