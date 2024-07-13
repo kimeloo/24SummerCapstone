@@ -18,17 +18,18 @@ ERD ver 0.2를 카카오톡 채팅방에 배포하기 전까지 이슈가 해결
     - DB ERD ver 0.2 배포전
     - MariaDB 데이터베이스, 테이블 생성 및 더미데이터 추가하여 구동 완료
     - MariaDB와 Django 연동 완료, 어드민화면에서 데이터 불러오기까지 완료
+    - 로그인 구현 완료
 
 - 클라이언트단
-    - tkinter, backend 파일간 연결 코드 작성 완료
-    - jetson backend와 DB 연결 완료
-    - DB SELECT, INSERT 쿼리 작성 완료
+    - ~tkinter, backend 파일간 연결 코드 작성 완료~
+    - ~jetson backend와 DB 연결 완료~
+    - ~DB SELECT, INSERT 쿼리 작성 완료~
+    - 로그인 구현 테스트 완료
 
 [진행중]
 
 - 클라이언트단
     - tkinter와 클라이언트단 backend 파일 연결 중 (tkinter 내 변수 파악 중)
-    - 로그인 구현 테스트 코드 대기중 (클라이언트-서버 구분 시도 중)
 
 - 서버단
-    - 로그인 구현중 (클라이언트-서버 구분 시도 중)
+    - 클라이언트 POST DB에 입력 구현 중
