@@ -18,6 +18,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('admin_page/', include('admin_page.urls')),
+    path('admin/', admin.site.urls), #127.0.0.1/admin에 들어가면 admin 페이지로 이동
+    path('admin_page/', include('admin_page.urls')), #127.0.0.1/admin_page에 들어가면 admin_page.urls로 이동
 ]
