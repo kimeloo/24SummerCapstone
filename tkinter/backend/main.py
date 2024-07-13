@@ -1,6 +1,6 @@
 from . import connectDB
 
-class connectUI():
+class ConnectUI():
     '''frontend UI/UX와 연결'''
     def __init__(self):
         self.db = connectDB.ConnectDB()     # DB 커넥션 우선 확인
@@ -13,7 +13,7 @@ class connectUI():
         '''frontend에서 호출하여, 버튼의 기능과 페이지 위치를 backend로 전달'''
         print(f'{which} buttonOnClick from {_from}')
 
-class handler():
+class Handler():
     '''frontend에서 넘어온 데이터 처리 및 요구 데이터 반환'''
     def __init__(self):
         self.user_id = None                 # user_id 값을 저장하여 DB 상호작용에서 활용

@@ -14,7 +14,7 @@ class ConnectDB():
             print("DB Not Connected\nBye")
             raise ValueError("DB Connection Failed")
         else:
-            self.var = varMap.varMap()          # DB 연결 성공시 UI-DB 변수 매칭을 위해 varMap 호출
+            self.var = varMap.VarMap()          # DB 연결 성공시 UI-DB 변수 매칭을 위해 varMap 호출
 
     def _connectDB(self):
         '''DB 연결, DB 연결 정보 반환, 실패시 None 반환'''

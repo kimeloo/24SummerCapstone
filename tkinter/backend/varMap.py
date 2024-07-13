@@ -1,4 +1,4 @@
-class varMap():
+class VarMap():
     '''UI에서 반환되는 변수와 DB의 변수 map 작성'''
     def __init__(self):
         self.DetailsTb = self.__createDetailsTb()
