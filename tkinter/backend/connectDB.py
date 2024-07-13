@@ -100,12 +100,13 @@ class connectDB():
         data = self.var.toDbVar(table, rawData)
         # DB 쿼리 작성
         for idx, key in enumerate(data[0]):
-            data[0][idx] = str(key)+' = %s'
+            data[0][idx] = str(key)+f'=%s'
         querySet = ', '.join(data[0])
-        queryVal = data[1].append(user_id)
+        queryVal = data[1]
+        queryVal.append(tupleID)
         try:
             cursor = self.db.cursor()
-            updateQuery = f'UPDATE {table} SET {querySet} WHERE user_id = %s'
+            updateQuery = f'UPDATE {table} SET {querySet} WHERE ID = %s'
             cursor.execute(updateQuery, queryVal)
             self.db.commit()
         except mysql.connector.Error as e:
@@ -125,11 +126,12 @@ class connectDB():
         try:
             cursor = self.db.cursor()
             selectQuery = f'SELECT * FROM {table} WHERE user_id = %s ORDER BY created_time DESC LIMIT 1'
-            cursor.execute(selectQuery, user_id)
+            cursor.execute(selectQuery, (user_id,))
             result = cursor.fetchone()
             if result:
-                result = result[0]      # [()] 형태의 result를 () 형태로 변환
                 columnNames = [desc[0] for desc in cursor.description]      # table 내 컬럼명 저장
+                print(result)
+                print(columnNames)
                 for idx, column in enumerate(columnNames):
                     if column == 'ID':      # UPDATE할 튜플의 ID를 tupleID에 저장
                         tupleID = result[idx]
