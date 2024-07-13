@@ -9,7 +9,7 @@ dbTest = connectDB()
 # ##### SELECT Test #####
 # where = dict()
 # where['user_id'] = '1'
-# print(dbTest._selectTb('details', ['Sex', 'Bmi', 'Fat'], where, latest=0))
+# print(dbTest._selectTb('details', ['Sex', 'Bmi', 'Fat'], where, latest=1))
 
 # ##### INSERT Test #####
 # data = dict()
@@ -23,7 +23,7 @@ dbTest = connectDB()
 # selectByPhone = dict()
 
 # selectByPhone['phone_number'] = input('phone_number 입력 >> ')
-# userID = dbTest._selectTb('useraccount', ['ID'], selectByPhone, isWhereDb=False)[0][0]
+# userID = dbTest._selectTb('useraccount', ['ID'], selectByPhone, isWhereDb=False)[0]['ID']
 # print('\nuserID : ')
 # print(userID)
 
@@ -36,7 +36,7 @@ dbTest = connectDB()
 # print(dbTest._selectTb('details', ['*'], selectByID))
 
 # input()
-# ##### UPDATE Test #####
+##### UPDATE Test #####
 data = dict()
 input_data = list(input('data 입력\n 나이, 성별, 키, 체중, 체질량지수, 체지방 >>').split())
 keys = ['나이', '성별', '키 (cm)', '체중 (kg)', '체지량지수 (BMI)', '체지방 (Kg)']
@@ -48,7 +48,7 @@ print(data)
 selectByPhone = dict()
 
 selectByPhone['phone_number'] = input('phone_number 입력 >> ')
-userID = dbTest._selectTb('useraccount', ['ID'], selectByPhone, isWhereDb=False)[0][0]
+userID = dbTest._selectTb('useraccount', ['ID'], selectByPhone, isWhereDb=False)[0]['ID']
 print('\nuserID : ')
 print(userID)
 
