@@ -24,5 +24,5 @@ from .views import LoginView
 urlpatterns = [
     # path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     # path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('login/', LoginView.as_view(), name='login'),
+    path('login/', LoginView, name='login'),
 ]
