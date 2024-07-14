@@ -7,6 +7,7 @@ class UserAccount(models.Model):
     email = models.EmailField(unique=True, null=True, blank=True) # 고유함, NULL 허용, 빈 문자열 허용
     phone_num = models.CharField(max_length=15, unique=True, null=True, blank=True)
     created_time = models.DateTimeField(auto_now_add=True) # 자동으로 현재 시간 기록
+    is_active = models.BooleanField(default=False)
     
     # login() 함수에서 사용자를 식별하는 데 사용할 필드를 정의
     USERNAME_FIELD = 'id'
