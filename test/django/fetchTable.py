@@ -13,7 +13,7 @@ class FetchTable:
         }
 
     def fetchTable(self, table):
-        self.Endpoint = f'/fetch/{table}/'
+        self.Endpoint = f'/fetch/select/{table}/'
         url = self.serverUrl+self.Endpoint
 
         response = requests.post(url, headers=self.headers)

@@ -4,7 +4,7 @@ from envLoaderServer import loadEnv
 SERVER_HOST = loadEnv()
 # SERVER_HOST = 'localhost:8000'
 import login
-import fetchTable
+import fetchTable, insertTable
 
 
 def main():
@@ -16,12 +16,18 @@ def main():
     token = loginTest.get_token()
     print(f'token : {token}')
 
-    ###### checkInsert Test ######
+    ###### fetchTable Test ######
     table = 'Details'
     print(f'fetchTable Test : table={table}')
     fetchTableTest = fetchTable.FetchTable(token, SERVER_HOST)
     print(fetchTableTest.fetchTable(table))
 
+    ###### insertTable Test ######
+    table = 'Details'
+    data = dict(BMI=1234)
+    print(f'insertTable Test : table={table}, data={data}')
+    insertTableTest = insertTable.InsertTable(token, SERVER_HOST)
+    print(insertTableTest.insertTable(table, data))
 
 if __name__ == "__main__":
     main()
