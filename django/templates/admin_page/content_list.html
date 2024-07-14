@@ -48,6 +48,7 @@
                 <th>Sex</th>
                 <th>BMI</th>
                 <th>Age</th>
+                <th>created_time</th>
             </tr>
             {% for detail in details %}
             <tr>
@@ -55,6 +56,7 @@
                 <td>{{ detail.sex }}</td>
                 <td>{{ detail.bmi }}</td>
                 <td>{{ detail.age }}</td>
+                <td>{{ detail.created_time }}</td>
             </tr>
             {% endfor %}
         </table>
@@ -65,12 +67,14 @@
                 <th>User</th>
                 <th>Diabetes Status</th>
                 <th>Hypertension Status</th>
+                <th>created_time</th>
             </tr>
             {% for health in health %}
             <tr>
                 <td>{{ health.user.name }}</td>
                 <td>{{ health.diabetes_status }}</td>
                 <td>{{ health.hypertension_status }}</td>
+                <td>{{ health.created_time }}</td>
             </tr>
             {% endfor %}
         </table>
@@ -82,6 +86,7 @@
                 <th>RM01</th>
                 <th>RM02</th>
                 <th>RM03</th>
+                <th>created_time</th>
             </tr>
             {% for sensor in sensors %}
             <tr>
@@ -89,6 +94,7 @@
                 <td>{{ sensor.rm01 }}</td>
                 <td>{{ sensor.rm02 }}</td>
                 <td>{{ sensor.rm03 }}</td>
+                <td>{{ sensor.created_time }}</td>
             </tr>
             {% endfor %}
         </table>
