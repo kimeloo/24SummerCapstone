@@ -12,6 +12,9 @@ def LoginView(request):
     if request.method == 'POST':
         phone_num = request.POST.get('phone_num')
         email = request.POST.get('email')
+        if not(phone_num or email):
+            logger.error(f'User failed to log in. phone_num: {phone_num}, email: {email}')
+            return JsonResponse({'error': 'POST phone_num or email'}, status=400)
 
         # 사용자 검색
         try:
