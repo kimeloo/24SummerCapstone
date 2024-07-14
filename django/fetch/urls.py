@@ -15,8 +15,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from .views import TableView
+from .views import TableView, TableInsert
 
 urlpatterns = [
-    path('<str:table>/', TableView, name='fetchTable'),
+    path('select/<str:table>/', TableView, name='fetchTable'),
+    path('insert/<str:table>/', TableInsert, name='insertTable'),
 ]
