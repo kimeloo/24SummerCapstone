@@ -19,7 +19,7 @@ def main():
     ###### checkInsert Test ######
     table = 'Details'
     print(f'fetchTable Test : table={table}')
-    fetchTableTest = fetchTable.fetchTable(token, SERVER_HOST)
+    fetchTableTest = fetchTable.FetchTable(token, SERVER_HOST)
     print(fetchTableTest.fetchTable(table))
 
 

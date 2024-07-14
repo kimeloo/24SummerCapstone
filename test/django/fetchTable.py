@@ -5,7 +5,7 @@ from envLoaderServer import loadEnv
 SERVER_HOST = loadEnv()
 import requests
 
-class fetchTable:
+class FetchTable:
     def __init__(self, token, serverUrl):
         self.serverUrl = serverUrl
         self.headers = {
@@ -22,5 +22,5 @@ class fetchTable:
 if __name__ == '__main__':
     token = input('토큰 입력 >> ')
     table = input('테이블 입력 >> ')
-    table = fetchTable(token, SERVER_HOST)
+    table = FetchTable(token, SERVER_HOST)
     print(table.fetchTable(table))
