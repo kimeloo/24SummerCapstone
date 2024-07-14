@@ -6,10 +6,10 @@ from envLoaderServer import loadEnv
 SERVER_HOST = loadEnv()
 
 class JwtAuthClient:
-    def __init__(self, server_url):
-        self.server_url = server_url
-        self.login_endpoint = '/api/login/'
-        self.jwt_token = None
+    def __init__(self, serverUrl):
+        self.serverUrl = serverUrl
+        self.Endpoint = '/api/login/'
+        self.token = None
 
     # 사용자 ID를 전달하여 로그인 요청을 보냄
     def login(self, phone_number=None, email_address=None):
@@ -18,7 +18,7 @@ class JwtAuthClient:
             'email' : email_address
         }
         try:
-            response = requests.post(self.server_url + self.login_endpoint, data=data)
+            response = requests.post(self.serverUrl + self.Endpoint, data=data)
             response_data = response.json()
             if response.status_code == 200:
                 # 로그인 요청 결과로 받은 JWT 토큰은 클래스 내의 jwt_token 속성에 저장됨
