@@ -63,6 +63,7 @@ ERD ver 0.2를 카카오톡 채팅방에 배포하기 전까지 이슈가 해결
     | pkg-config        | 0.29.2  |
 
 -   ClIENT
+    Ubuntu 18.04 (Jetson TX2 NX)
     python 3.8.0
 
     | pip package name | version |
