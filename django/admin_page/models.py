@@ -104,5 +104,8 @@ class Recommend(models.Model):
     recommendation2 = models.CharField(max_length=100)
     recommendation3 = models.CharField(max_length=100)
 
+    class Meta:
+        db_table = 'recommend'
+
     def __str__(self):
         return f"Recommendation {self.id}"

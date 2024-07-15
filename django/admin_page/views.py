@@ -12,6 +12,6 @@ def combined_view(request):
         'details': details,
         'health': health,
         'sensors': sensors,
-        'recommend': recommend
+        'recommends': recommend
     }
     return render(request, 'admin_page/content_list.html', context)
