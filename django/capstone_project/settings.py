@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
+from datetime import datetime
 from pathlib import Path
 from datetime import timedelta
 from .my_settings import mySECRET_KEY, myDATABASES
@@ -46,7 +48,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'api',
-    'fetch'
+    'fetch',
+    'django_crontab',
 ]
 
 REST_FRAMEWORK = {
@@ -62,6 +65,10 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': False,
 }
+
+CRONJOBS = [
+    ('* 0 * * *', 'api.cron.refreshRecommendation', '>> ' + os.path.join(BASE_DIR, f'/api/log/cron_{datetime.now().strftime("%Y-%m-%d")}.log')),
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
