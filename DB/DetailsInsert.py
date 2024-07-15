@@ -5,7 +5,7 @@ import sys, os
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # CSV 파일의 상대 경로
-csv_file_path = os.path.join(current_dir, 'csv', 'RecommendationComments.csv')
+csv_file_path = os.path.join(current_dir, 'csv', 'dummy_details_data.csv')
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from envLoaderDB import loadEnv
@@ -32,18 +32,21 @@ class RecommendDataInserter:
 
     def insertData(self, csv_file_path):
         """
-        CSV 데이터의 각 행을 recommend 테이블에 삽입합니다.
+        CSV 데이터의 각 행을 테이블에 삽입합니다.
         """
         self._cursorInit()
         df = self._loadCsvData(csv_file_path)
         insert_query = """
-        INSERT INTO recommend (code, recommendation, recommendation2, recommendation3)
-        VALUES (%s, %s, %s, %s)
-        """
+            INSERT INTO details (user_id, Sex, Bmi, Fat, Age, Fat_percentage, Hr, Waist, Whr, Muscle, Sbp, Dbp, Hdl, Ldl, Tg, Total_chol, Fg, Ppg, Alt, Hb, Tsh, created_time, Height, Weight)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW(), %s, %s)
+            """
         # 각 행을 반복하면서 데이터 삽입
         for _, row in df.iterrows():
             self.cursor.execute(insert_query, (
-                row['code'], row['recommendation'], row['recommendation2'], row['recommendation3']
+                row['user_id'], row['Sex'], row['Bmi'], row['Fat'], row['Age'], 
+                row['Fat_percentage'], row['Hr'], row['Waist'], row['Whr'], row['Muscle'], 
+                row['Sbp'], row['Dbp'], row['Hdl'], row['Ldl'], row['Tg'], row['Total_chol'], 
+                row['Fg'], row['Ppg'], row['Alt'], row['Hb'], row['Tsh'], row['Height'], row['Weight']
             ))
         # 변경사항 커밋
         self.connection.commit()

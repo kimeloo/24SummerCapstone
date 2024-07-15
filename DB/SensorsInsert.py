@@ -5,7 +5,7 @@ import sys, os
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # CSV 파일의 상대 경로
-csv_file_path = os.path.join(current_dir, 'csv', 'RecommendationComments.csv')
+csv_file_path = os.path.join(current_dir, 'csv', 'dummy_sensors_data.csv')
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from envLoaderDB import loadEnv
@@ -32,18 +32,18 @@ class RecommendDataInserter:
 
     def insertData(self, csv_file_path):
         """
-        CSV 데이터의 각 행을 recommend 테이블에 삽입합니다.
+        CSV 데이터의 각 행을 테이블에 삽입합니다.
         """
         self._cursorInit()
         df = self._loadCsvData(csv_file_path)
         insert_query = """
-        INSERT INTO recommend (code, recommendation, recommendation2, recommendation3)
-        VALUES (%s, %s, %s, %s)
+        INSERT INTO sensors (user_id,rm01,rm02,rm03,rm04,rm05,rm06,created_time)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, NOW())
         """
         # 각 행을 반복하면서 데이터 삽입
         for _, row in df.iterrows():
             self.cursor.execute(insert_query, (
-                row['code'], row['recommendation'], row['recommendation2'], row['recommendation3']
+                row['user_id'], row['rm01'], row['rm02'], row['rm03'], row['rm04'], row['rm05'], row['rm06']
             ))
         # 변경사항 커밋
         self.connection.commit()

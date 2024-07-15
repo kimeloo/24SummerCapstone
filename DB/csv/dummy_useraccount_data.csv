@@ -1,0 +1,6 @@
+name,email,phone_num,created_time,is_active
+이은영,jiyeong21@example.net,05535493602,,1
+김정호,jieun38@example.net,NULL,,1
+홍우진,NULL,01715563835,,0
+백정수,jeongnammun@example.com,NULL,,0
+이현숙,jeongjagim@example.com,04419483584,,1
