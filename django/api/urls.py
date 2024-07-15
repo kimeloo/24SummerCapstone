@@ -22,8 +22,8 @@ from rest_framework_simplejwt.views import (
 from .views import LoginView, sendEmail
 
 urlpatterns = [
-    # path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    # path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('login/', LoginView, name='login'),
     path('email/', sendEmail, name='email'),
 ]
