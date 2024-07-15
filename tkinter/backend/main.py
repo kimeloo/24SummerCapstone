@@ -1,51 +1,113 @@
-import requests
 import os, sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from envLoaderServer import loadEnv
 SERVER_HOST = loadEnv()
 
-# frontend 데이터 backend로 전송
+import logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+consoleHandler = logging.StreamHandler()
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+consoleHandler.setFormatter(formatter)
+logger.addHandler(consoleHandler)
+
+import login as Login
+import insertTable as InsertTable
+import fetchTable as FetchTable
 
 class ConnectUI():
     '''frontend UI/UX와 연결'''
     def __init__(self):
-        '''Server 연결'''
         self.server = ConnectServer()
     
-    def sendDataToBackend(self, data):
-        '''frontend에서 호출하여, 데이터를 backend로 전송'''
-        try:
-            # JSON 형식으로 backend로 데이터 전송
-            response = requests.post(SERVER_HOST, json=data) # URL 넣기 - 백엔드 서버의 엔드포인트로
-            if response.status_code == 200:
-                print("데이터 전송 성공!")
-            else:
-                print(f"데이터 전송 실패: {response.status_code}")
-        except requests.exceptions.RequestException as e:
-            print("요청 중 오류 발생:", e)
-        
-    def getValue(self, key, value):
-        '''frontend에서 호출하여, 변수명과 값을 backend로 전달'''
-        print(f'{key} : {value}')
+    def login(self, phone=None, email=None):
+        loginStatus = self.server.login(phone=phone, email=email)
+        if loginStatus:
+            logger.info('Login Success!')
+        else:
+            logger.error('Login Failed.')
+
     
-    def buttonOnClick(self, which, _from):
-        '''frontend에서 호출하여, 버튼의 기능과 페이지 위치를 backend로 전달'''
-        data = {
-            'button': which, # 버튼의 이름
-            'from': _from # 클릭이 발생한 위치
-        }
-        print(f'{which} buttonOnClick from {_from}')
-        self.sendDataToBackend(data)
+    def fromUI(self, table=str(), data=dict()):
+        '''frontend에서 호출하여, 데이터를 backend로 전송'''
+        logger.debug(f'Fetched data:table={table}\tdata={data}')
+        if self.server.toServer(table, data):
+            logger.info('Data transmission success!')
+        else:
+            logger.error('Data transmission failed.')
+    
+    def toUI(self, table=str(), columns=list()):
+        '''frontend에서 호출하여, DB 데이터를 UI로 전송'''
+        logger.debug(f'Request data:table={table}\tcolumns={columns}')
+        result = self.server.fromServer(table)
+        print(result)
+        if result!=False:
+            logger.info('Data reception success!')
+            filteredByCols = {key:result[key] for key in columns if key in result}
+            logger.info('Data filtering success!')
+            logger.debug(f'Filtered data:table={table}\tdata={filteredByCols}')
+            return filteredByCols
+        else:
+            logger.error('Data reception failed')
+            return {'error':'No Data'}
 
 class ConnectServer():
-    '''frontend에서 넘어온 데이터 처리 및 요구 데이터 반환'''
+    '''서버 데이터 송수신'''
     def __init__(self):
-        pass
-    
+        self.token = None
+
+    def login(self, phone, email):
+        '''서버에 로그인'''
+        try:
+            loginServer = Login.JwtAuthClient(SERVER_HOST)
+            loginServer.login(phone_number=phone, email_address=email)
+            self.token = loginServer.get_token()
+            return True
+        except:
+            return False
+
+    def toServer(self, table, data):
+        '''서버로 데이터 전송'''
+        try:
+            insertServer = InsertTable.InsertTable(self.token, SERVER_HOST)
+            result = insertServer.insertTable(table, data)
+            if 'success' in result:
+                return True
+        except:
+            pass
+        return False
+
+    def fromServer(self, table):
+        try:
+            fetchServer = FetchTable.FetchTable(self.token, SERVER_HOST)
+            result = fetchServer.fetchTable(table)
+            print(f'Server:{result}')
+            if 'error' in result:
+                raise
+            return result
+        except:
+            return False
     
 # 백엔드 테스트 코드
 if __name__ == '__main__':
-    print('Do not run this file directly.')
+    # print('Do not run this file directly.')
+    backend = ConnectUI()
+
+    ##### Login Test #####
+    loginCase = int(input('로그인 테스트 : 전화번호(0), 이메일(1) >> '))
+    if loginCase:
+        email = 'example@example.com'
+        backend.login(email=email)
+    else:
+        phone = '01012345678'
+        backend.login(phone=phone)
     
-    ui_connector = ConnectUI()
-    ui_connector.buttonOnClick('submit', 'homepage')
+    ##### fromUI Test #####
+    table = 'details'
+    data = dict(bmi=123, age=142, sex='Male')
+    fromUITest = backend.fromUI(table, data)
+    
+    ##### toUI Test #####
+    table = 'health'
+    toUITest = backend.toUI(table=table, columns=['id'])
+    print(f'toUI Test : \n{toUITest}')
