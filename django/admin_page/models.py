@@ -96,3 +96,13 @@ class Sensors(models.Model):
 
     def __str__(self):
         return f"Sensors data for {self.user.name}"
+
+class Recommend(models.Model):
+    id = models.AutoField(primary_key=True)
+    code = models.IntegerField()
+    recommendation = models.CharField(max_length=100)
+    recommendation2 = models.CharField(max_length=100)
+    recommendation3 = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"Recommendation {self.id}"
