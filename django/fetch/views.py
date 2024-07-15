@@ -38,9 +38,6 @@ def InsertOrUpdate(table, user_id, data):
     try:
         latest = Table.objects.filter(user_id=user_id).order_by('-created_time').first()
         if latest:
-            print("OK")
-            print(latest.created_time)
-            print(datetime.now())
             latestTime = datetime.fromisoformat(str(latest.created_time)[:19])
             currentTime = datetime.fromisoformat(str(datetime.now())[:19])
             timeDiff = currentTime - latestTime
