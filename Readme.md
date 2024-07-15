@@ -14,21 +14,58 @@ ERD ver 0.2를 카카오톡 채팅방에 배포하기 전까지 이슈가 해결
 
 [완료]
 
-- DB & 서버단
-    - DB ERD ver 0.2 배포전
-    - MariaDB 데이터베이스, 테이블 생성 및 더미데이터 추가하여 구동 완료
-    - MariaDB와 Django 연동 완료, 어드민화면에서 데이터 불러오기까지 완료
+-   DB & 서버단
 
-- 클라이언트단
-    - tkinter, backend 파일간 연결 코드 작성 완료
-    - jetson backend와 DB 연결 완료
-    - DB SELECT, INSERT 쿼리 작성 완료
+    -   DB ERD ver 0.2 배포전
+    -   MariaDB 데이터베이스, 테이블 생성 및 더미데이터 추가하여 구동 완료
+    -   MariaDB와 Django 연동 완료, 어드민화면에서 데이터 불러오기까지 완료
+    -   로그인 구현 완료
+    -   DB 데이터 조회 및 업데이트/추가 구현 완료
+    -   API 내 매일 0시 자동실행 함수 구현 완료
+
+-   클라이언트단
+    -   UI 데이터 송수신 코드 작성 완료
+    -   서버 로그인 구현 완료
+    -   서버 데이터 송수신 구현 완료
 
 [진행중]
 
-- 클라이언트단
-    - tkinter와 클라이언트단 backend 파일 연결 중 (tkinter 내 변수 파악 중)
-    - 로그인 구현 테스트 코드 대기중 (클라이언트-서버 구분 시도 중)
+-   서버단
 
-- 서버단
-    - 로그인 구현중 (클라이언트-서버 구분 시도 중)
+    -   메일 발송 시스템 구현중
+
+-   클라이언트단
+    -   UI 파일 연결중
+
+---
+
+### 환경 구성 (Dependencies)
+
+-   SERVER
+    macOS 14.5 (Apple M1)
+    python 3.8.19
+
+    | pip package name               | version |
+    | ------------------------------ | ------- |
+    | Django                         | 4.2.14  |
+    | Django-crontab                 | 0.7.1   |
+    | Django-restframework           | 3.15.2  |
+    | Django-restframework-simplejwt | 5.3.1   |
+    | mysqlclient                    | 2.2.4   |
+    | python-dotenv                  | 1.0.1   |
+
+    | brew package name | version |
+    | ----------------- | ------- |
+    | mariadb           | 11.4.2  |
+    | mysql             | 8.3.0   |
+    | openssl           | 3.3.1   |
+    | mysql-client      | 8.3.0   |
+    | pkg-config        | 0.29.2  |
+
+-   ClIENT
+    python 3.8.0
+
+    | pip package name | version |
+    | ---------------- | ------- |
+    | python-dotenv    | 1.0.1   |
+    | requests         | 2.32.2  |
