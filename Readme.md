@@ -68,6 +68,10 @@ ERD ver 0.2를 카카오톡 채팅방에 배포하기 전까지 이슈가 해결
     -   Ubuntu 18.04 (Jetson TX2 NX)
     -   python 3.8.0
 
+    | apt package name | version |
+    | ---------------- | ------- |
+    | python3-tk       | 3.6.9-1 |
+
     | pip package name | version |
     | ---------------- | ------- |
     | python-dotenv    | 1.0.1   |
