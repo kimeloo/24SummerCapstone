@@ -3,6 +3,9 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from admin_page.models import UserAccount
 from rest_framework_simplejwt.tokens import AccessToken
+from rest_framework.decorators import api_view, authentication_classes
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from django.core.mail import EmailMessage
 import logging
 
 logger = logging.getLogger(__name__)
@@ -32,3 +35,30 @@ def LoginView(request):
         return JsonResponse({'ID': user.id, 'token':str(access_token)}, status=200)
     else:
         return JsonResponse({'error': 'Method not allowed'}, status=405)
+    
+def mailBody(user):
+    userAddress = user.email
+    print(user)
+    print(user.email)
+    if userAddress == None:
+        return False, False
+    return 'test mail', userAddress
+
+@api_view(['GET'])
+@authentication_classes([JWTAuthentication])
+def sendEmail(request):
+    if request.method == 'GET':
+        user = request.user
+        logger.error(f'User {user.id} requested to send an email.')
+        
+        body, address = mailBody(user)
+        if body==False:
+            return JsonResponse({'error': 'No email address'}, status=400)
+
+        email = EmailMessage(
+            '[PROJECT NAME] R&R Report',
+            mailBody(user),
+            to=[address]
+            )
+        email.send()
+        return JsonResponse({'message': 'Email sent successfully'}, status=200)

@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-import os
+import os, sys
 from datetime import datetime
 from pathlib import Path
 from datetime import timedelta
@@ -69,6 +69,15 @@ SIMPLE_JWT = {
 CRONJOBS = [
     ('* 0 * * *', 'api.cron.refreshRecommendation', '>> ' + os.path.join(BASE_DIR, f'/api/log/cron_{datetime.now().strftime("%Y-%m-%d")}.log')),
 ]
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+from .my_settings import myEMAIL_HOST_USER, myEMAIL_HOST_PASSWORD
+EMAIL_HOST_USER = myEMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = myEMAIL_HOST_PASSWORD
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
