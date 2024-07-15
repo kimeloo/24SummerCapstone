@@ -17,6 +17,8 @@ class InsertTable:
         url = self.serverUrl+self.Endpoint
         
         response = requests.post(url, headers=self.headers, data=data)
+        if response.status_code == 401:
+            return 401
         return response.json()
 
 if __name__ == '__main__':
