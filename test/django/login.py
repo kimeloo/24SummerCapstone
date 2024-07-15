@@ -38,5 +38,7 @@ class JwtAuthClient:
 if __name__ == "__main__":
     client = JwtAuthClient(SERVER_HOST)
     phone_number = input('전화번호 입력 >> ')
+    # email = input('email 입력 >> ')
     client.login(phone_number=phone_number)
+    # client.login(email=email)
     print("받은 JWT 토큰 :", client.get_token())
