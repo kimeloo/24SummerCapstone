@@ -14,6 +14,7 @@ logger.addHandler(consoleHandler)
 import login as Login
 import insertTable as InsertTable
 import fetchTable as FetchTable
+import mail as Mail
 
 class ConnectUI():
     '''frontend UI/UX와 연결'''
@@ -48,8 +49,14 @@ class ConnectUI():
             logger.debug(f'Filtered data:table={table}\tdata={filteredByCols}')
             return filteredByCols
         else:
-            logger.error('Data reception failed')
+            logger.error('Data reception failed.')
             return {'error':'No Data'}
+        
+    def sendEmail(self):
+        if self.server.sendEmail():
+            logger.info('Email delivery success!')
+        else:
+            logger.error('Email delivery failed.')
 
 class ConnectServer():
     '''서버 데이터 송수신'''
@@ -88,14 +95,21 @@ class ConnectServer():
         except:
             return False
     
+    def sendEmail(self):
+        emailServer = Mail.Email(self.token, SERVER_HOST)
+        return emailServer.email()
+    
 # 백엔드 테스트 코드
 if __name__ == '__main__':
     # print('Do not run this file directly.')
     backend = ConnectUI()
 
     ##### Login Test #####
-    loginCase = int(input('로그인 테스트 : 전화번호(0), 이메일(1) >> '))
-    if loginCase:
+    loginCase = int(input('로그인 테스트 : 전화번호(0), 이메일(1), 메일입력(2) >> '))
+    if loginCase==2:
+        email = input('메일주소 입력 >> ')
+        backend.login(email=email)
+    elif loginCase==1:
         email = 'example@example.com'
         backend.login(email=email)
     else:
@@ -111,3 +125,6 @@ if __name__ == '__main__':
     table = 'health'
     toUITest = backend.toUI(table=table, columns=['id'])
     print(f'toUI Test : \n{toUITest}')
+
+    ##### sendEmail Test #####
+    sendEmailTest = backend.sendEmail()
