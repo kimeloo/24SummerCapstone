@@ -20,6 +20,8 @@ class Email:
             # response_data = response.json()
             if response.status_code == 200:
                 return True
+            elif response.status_code == 401:
+                return 401
             else:
                 return False
 

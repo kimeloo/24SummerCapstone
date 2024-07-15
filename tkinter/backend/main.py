@@ -62,22 +62,30 @@ class ConnectServer():
     '''서버 데이터 송수신'''
     def __init__(self):
         self.token = None
+        self.refToken = None
 
     def login(self, phone, email):
         '''서버에 로그인'''
         try:
-            loginServer = Login.JwtAuthClient(SERVER_HOST)
-            loginServer.login(phone_number=phone, email_address=email)
-            self.token = loginServer.get_token()
+            self.loginServer = Login.JwtAuthClient(SERVER_HOST)
+            self.loginServer.login(phone_number=phone, email_address=email)
+            self.token, self.refToken = self.loginServer.get_token()
             return True
         except:
             return False
+    
+    def refreshLogin(self):
+        self.token = self.loginServer.refresh_token()
 
     def toServer(self, table, data):
         '''서버로 데이터 전송'''
         try:
             insertServer = InsertTable.InsertTable(self.token, SERVER_HOST)
             result = insertServer.insertTable(table, data)
+            if result == 401:
+                self.refreshLogin()
+                insertServer = InsertTable.InsertTable(self.token, SERVER_HOST)
+                result = insertServer.insertTable(table, data)
             if 'success' in result:
                 return True
         except:
@@ -88,7 +96,10 @@ class ConnectServer():
         try:
             fetchServer = FetchTable.FetchTable(self.token, SERVER_HOST)
             result = fetchServer.fetchTable(table)
-            print(f'Server:{result}')
+            if result == 401:
+                self.refreshLogin()
+                fetchServer = FetchTable.FetchTable(self.token, SERVER_HOST)
+                result = fetchServer.fetchTable(table)
             if 'error' in result:
                 raise
             return result
@@ -97,7 +108,12 @@ class ConnectServer():
     
     def sendEmail(self):
         emailServer = Mail.Email(self.token, SERVER_HOST)
-        return emailServer.email()
+        result = emailServer.email()
+        if result==401:
+            self.refreshLogin()
+            emailServer = Mail.Email(self.token, SERVER_HOST)
+            result = emailServer.email()
+        return result
     
 # 백엔드 테스트 코드
 if __name__ == '__main__':
