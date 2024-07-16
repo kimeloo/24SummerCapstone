@@ -45,10 +45,10 @@ def InsertOrUpdate(table, user_id, data):
                 latest.__dict__.update(**data)
                 latest.save()
                 return True
-        Table.objects.create(user_id=user_id, **data)
-        return True
     except:
-        return False
+        pass
+    Table.objects.create(user_id=user_id, **data)
+    return True
 
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])
