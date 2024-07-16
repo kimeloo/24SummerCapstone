@@ -57,68 +57,62 @@ logging.basicConfig(level=LOG_LEVEL, format='%(asctime)s - %(levelname)s - %(mes
 # 'utf8mb4'는 유니코드 문자를 지원하는 문자 집합입니다.
 #DB_CHARSET = os.getenv('DB_CHARSET', 'utf8mb4')
 
-# DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME = loadEnv()
-DB_CHARSET = 'utf8mb4'
+DB_CHARSET = os.getenv('DB_CHARSET', 'utf8mb4')
 
 ## MySQL 데이터베이스 연결을 관리
 
-@contextmanager # mysql_connection 함수를 컨텍스트 관리자 함수로 변환합니다. 컨텍스트 관리자는 with 문을 사용할 수 있게 해줍니다.
-def mysql_connection(host=DB_HOST,port=DB_PORT, user=DB_USER, password=DB_PASSWORD, db=DB_NAME): # 데이터베이스 연결을 관리, 데이터베이스 연결에 필요한 정보를 매개변수로 받습니다. 기본값은 환경 변수에서 가져옵니다.
-    
-    connection = None # 연결 변수를 초기화
+@contextmanager
+def mysql_connection(host=DB_HOST, port=DB_PORT, user=DB_USER, password=DB_PASSWORD, db=DB_NAME):
+    connection = None
     try:
-        # pymysql.connect를 사용하여 MySQL 데이터베이스에 연결합니다.
-        # 연결이 성공하면 connection 변수에 연결 객체가 저장됩니다.
         logging.info(f"Connecting to MySQL server at {host} with user {user}")
         connection = mysql.connector.connect(host=host, port=port, user=user, password=password, database=db)
-
-        yield connection  # 연결을 반환합니다. 이 시점에서 with 블록 안의 코드가 실행됩니다.
-        
-    # MySQL 관련 오류가 발생하면 예외를 처리합니다.
+        yield connection
+    except mysql.connector.InterfaceError as e:
+        logging.error(f"Interface error: {e}")
+        raise
+    except mysql.connector.DatabaseError as e:
+        logging.error(f"Database error: {e}")
+        raise
+    except mysql.connector.OperationalError as e:
+        logging.error(f"Operational error: {e}")
+        raise
+    except mysql.connector.ProgrammingError as e:
+        logging.error(f"Programming error: {e}")
+        raise
+    except mysql.connector.IntegrityError as e:
+        logging.error(f"Integrity error: {e}")
+        raise
+    except mysql.connector.DataError as e:
+        logging.error(f"Data error: {e}")
+        raise
+    except mysql.connector.NotSupportedError as e:
+        logging.error(f"Not supported error: {e}")
+        raise
     except Error as e:
         logging.error(f"MySQL에 연결하는 중 오류 발생: {e}")
         raise
-    # try 블록이 끝난 후 항상 실행됩니다.
     finally:
-
-        # 연결이 설정되었으면 연결을 닫습니다.
-        if connection: # 연결이 설정되었는지 확인
-            connection.close() # 데이터베이스 연결을 닫습니다. 이는 자원을 해제하고 데이터베이스 연결을 안전하게 종료
-
-## 특정 사용자 ID에 대한 데이터를 가져온다
-def get_user_data(connection, ID):
-   
-    try: # 예외 처리와 함께 주요 데이터베이스 작업을 수행
-
-        # MySQL 커서 생성
-        # 딕셔너리 커서를 사용하여 MySQL 커서를 생성합니다. 딕셔너리 커서는 결과를 딕셔너리 형태로 반환합니다.
+        if connection:
+            connection.close()#특정 사용자 ID에 대한 데이터를 가져온다
+def get_user_data(connection, user_id):
+    try:
         with connection.cursor(dictionary=True) as cur:
-
-            # SQL 쿼리 정의: 주어진 사용자 ID를 사용하여 데이터를 검색
-            # %s는 파라미터화된 쿼리를 사용하여 SQL 인젝션 공격을 방지
-            query = "SELECT * FROM details WHERE id = %s ORDER BY created_time DESC LIMIT 1;"
-
-            # 쿼리 실행, user_id를 쿼리에 삽입
-            cur.execute(query, (ID,))
-
-            # 쿼리 결과를 하나의 딕셔너리로 가져옴. 결과가 없으면 None을 반환합니다.
+            query = "SELECT * FROM details WHERE user_id = %s ORDER BY created_time DESC LIMIT 1;"
+            cur.execute(query, (user_id,))
             result = cur.fetchone()
-
-            # 결과가 없으면
             if not result:
-                logging.warning(f"사용자 ID에 대한 데이터를 찾을 수 없습니다: {user_id}") #사용자 ID에 해당하는 데이터가 없음을 경고 로그로 기록
-
-            # 결과 반환
+                logging.warning(f"사용자 ID에 대한 데이터를 찾을 수 없습니다: {user_id}")
             return result
-        
-    except Error as e: # 오류가 발생하면 예외처리
-        
-        # MySQL 오류가 발생하면 오류 로그를 기록하고 None을 반환
-        logging.error(f"사용자 데이터를 검색하는 중 오류 발생: {e}") # 오류 로그 기록
-        return None #오류가 발생했음을 알린다.
-
-
-
+    except mysql.connector.ProgrammingError as e:
+        logging.error(f"Programming error while fetching user data: {e}")
+        return None
+    except mysql.connector.DataError as e:
+        logging.error(f"Data error while fetching user data: {e}")
+        return None
+    except Error as e:
+        logging.error(f"사용자 데이터를 검색하는 중 오류 발생: {e}")
+        return None
 
 
 ## 사용자의 건강 점수를 계산한다.
@@ -316,60 +310,71 @@ def get_recommendations(connection, disease_code):
         logging.error(f"추천문구를 검색하는 도중 오류가 발생: {e}")
         return None, None, None
 
+def update_latest_details_bulk(connection, user_id, updates):
+    for field, value in updates.items():
+        SQL = f'''
+            UPDATE capstonedb.details
+            SET {field} = %s
+            WHERE id = (
+                SELECT id FROM (
+                    SELECT id FROM capstonedb.details 
+                    WHERE user_id = %s 
+                    ORDER BY created_time DESC 
+                    LIMIT 1
+                ) AS subquery
+            );
+        '''
+        try:
+            with connection.cursor() as cur:
+                cur.execute(SQL, (value, user_id))
+            connection.commit()
+        except mysql.connector.ProgrammingError as e:
+            logging.error(f"Programming error while updating {field}: {e}")
+        except mysql.connector.DataError as e:
+            logging.error(f"Data error while updating {field}: {e}")
+        except Error as e:
+            logging.error(f"Error updating {field}: {e}")
 
-
-def main(user_id = 10):
-    # 분석할 사용자 ID 설정
-    
-    
-    # MySQL 데이터베이스 연결을 열고 닫는 컨텍스트 매니저 사용
-    with mysql_connection() as connection: # 연결이 완료되면 connection 객체를 통해 데이터베이스와 상호작용
-
-        # 주어진 사용자 ID에 대한 데이터를 데이터베이스에서 가져옴
+def main(user_id=10):
+    with mysql_connection() as connection:
         data = get_user_data(connection, user_id)
 
-        # 데이터를 찾을 수 없는 경우 로그에 메시지 기록 후 함수 종료
         if not data:
             logging.info("해당 ID를 가진 데이터를 찾을 수 없습니다.")
             return
 
-        # 사용자의 건강 점수를 계산
         scores = calculate_health_scores(data)
         
-        # 필요한 데이터가 없어서 건강 점수를 계산할 수 없는 경우 로그에 메시지 기록 후 함수 종료
         if scores is None:
             logging.info("건강 점수를 계산할 수 없습니다.")
             return
 
-        # 각 건강 상태에 대해 관리 필요 여부를 로그에 기록
+        health_messages = []
         for condition, status in scores.items():
             if status == 1:
-                logging.info(f"{condition}에 대한 관리가 필요합니다.")
+                health_messages.append(f"{condition}에 대한 관리가 필요합니다.")
             elif status == 0.5:
-                logging.info(f"{condition} 위험군입니다. 관리가 필요합니다.")
-        
-        # 대사증후군 확률을 로그에 기록
+                health_messages.append(f"{condition} 위험군입니다. 관리가 필요합니다.")
+            elif status == 0:
+                health_messages.append(" ")
+
+        logging.info("\n".join(health_messages))
         logging.info(f"대사증후군이 있을 확률: {scores['metabolic_percent']}%")
         
-        # 전반적인 건강 점수를 계산하여 로그에 기록
         re = round(((9 - (scores.get('갑상선기능항진증', 0) + scores.get('이상지질혈증', 0) + 
                           scores.get('지방간', 0) + scores.get('비만', 0) + 
                           scores.get('갑상선기능저하증', 0) + scores.get('고혈압', 0) + 
                           scores.get('당뇨병', 0) + scores.get('빈혈', 0))) / 9) * 100)
         logging.info(f"당신의 건강점수: {re}점")
 
-        # 질병 코드 계산
         disease_code = calculate_disease_code(scores)
         
-        # 질병 코드에 따른 추천문구 가져오기
         morning_recommendation, lunch_recommendation, evening_recommendation = get_recommendations(connection, disease_code)
 
-        # 추천문구를 로그에 기록
         logging.info(f"아침: {morning_recommendation}")
         logging.info(f"점심: {lunch_recommendation}")
         logging.info(f"저녁: {evening_recommendation}")
 
-        # 결과를 데이터베이스에 저장하는 SQL 쿼리
         SQL1 = ''' 
             INSERT INTO capstonedb.health
             (user_id, diabetes_status, dyslipidemia_status, fatty_liver_status, metabolic_syndrome, anemia_status, hypertension_status, obesity_status, hypothyroidism_status, hyperthyrodism_status)
@@ -377,119 +382,35 @@ def main(user_id = 10):
             (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         '''
         try:
-            # SQL 쿼리를 실행하여 결과를 데이터베이스에 삽입
             with connection.cursor() as cur:
-                cur.execute(SQL1, (data['ID'], scores['당뇨병'], scores['이상지질혈증'], scores['지방간'], scores['대사증후군'], scores['빈혈'], scores['고혈압'], scores['비만'], scores['갑상선기능저하증'], scores['갑상선기능항진증']))
+                cur.execute(SQL1, (data['user_id'], scores['당뇨병'], scores['이상지질혈증'], scores['지방간'], scores['대사증후군'], scores['빈혈'], scores['고혈압'], scores['비만'], scores['갑상선기능저하증'], scores['갑상선기능항진증']))
             connection.commit()
         except Error as e:
-            # SQL 쿼리 실행 중 오류가 발생한 경우 로그에 오류 메시지 기록
             logging.error(f"Error inserting results: {e}")
 
+        updates = {
+            'Recommendation1': morning_recommendation,
+            'Recommendation2': lunch_recommendation,
+            'Recommendation3': evening_recommendation,
+            'metabolicper': scores['metabolic_percent'],
+            'bodypoint': re
+        }
+        update_latest_details_bulk(connection, user_id, updates)
+        return health_messages
 
-        SQL2 = ''' 
-            UPDATE capstonedb.details
-            SET Recommendation1 = %s
-            WHERE user_id = %s
-            ORDER BY created_time DESC LIMIT 1;
-        '''
-        try:
-            # SQL 쿼리를 실행하여 결과를 데이터베이스에 삽입
-            with connection.cursor() as cur:
-                cur.execute(SQL2, (morning_recommendation,user_id))
-            connection.commit()
-        except Error as e:
-            # SQL 쿼리 실행 중 오류가 발생한 경우 로그에 오류 메시지 기록
-            logging.error(f"Error inserting results: {e}")
-
-            
-        SQL3 = ''' 
-            UPDATE capstonedb.details
-            SET Recommendation2 = %s
-            WHERE user_id = %s
-            ORDER BY created_time DESC LIMIT 1;
-        '''
-        try:
-            # SQL 쿼리를 실행하여 결과를 데이터베이스에 삽입
-            with connection.cursor() as cur:
-                cur.execute(SQL3, (lunch_recommendation,user_id))
-            connection.commit()
-        except Error as e:
-            # SQL 쿼리 실행 중 오류가 발생한 경우 로그에 오류 메시지 기록
-            logging.error(f"Error inserting results: {e}")
-
-
-        SQL4 = ''' 
-            UPDATE capstonedb.details
-            SET Recommendation3 = %s
-            WHERE user_id = %s
-            ORDER BY created_time DESC LIMIT 1;
-        '''
-        try:
-            # SQL 쿼리를 실행하여 결과를 데이터베이스에 삽입
-            with connection.cursor() as cur:
-                cur.execute(SQL4, (evening_recommendation,user_id))
-            connection.commit()
-        except Error as e:
-            # SQL 쿼리 실행 중 오류가 발생한 경우 로그에 오류 메시지 기록
-            logging.error(f"Error inserting results: {e}")
-
-
-        SQL5 = ''' 
-            UPDATE capstonedb.details
-            SET metabolicper = %s
-            WHERE user_id = %s
-            ORDER BY created_time DESC LIMIT 1;
-        '''
-        try:
-            # SQL 쿼리를 실행하여 결과를 데이터베이스에 삽입
-            with connection.cursor() as cur:
-                cur.execute(SQL5, (scores['metabolic_percent'],user_id))
-            connection.commit()
-        except Error as e:
-            # SQL 쿼리 실행 중 오류가 발생한 경우 로그에 오류 메시지 기록
-            logging.error(f"Error inserting results: {e}")
-
-        SQL6 = ''' 
-            UPDATE capstonedb.details
-            SET bodypoint = %s
-            WHERE user_id = %s
-            ORDER BY created_time DESC LIMIT 1;
-        '''
-        try:
-            # SQL 쿼리를 실행하여 결과를 데이터베이스에 삽입
-            with connection.cursor() as cur:
-                cur.execute(SQL6, (re,user_id))
-            connection.commit()
-        except Error as e:
-            # SQL 쿼리 실행 중 오류가 발생한 경우 로그에 오류 메시지 기록
-            logging.error(f"Error inserting results: {e}")
-
-        
-## 사용자 건강 점수의 사전을 받아서 질병 코드를 계산하여 반환
 def calculate_disease_code(scores):
-    # 건강 상태 점수를 measurement_list에 저장
     measurement_list = [scores['갑상선기능항진증'], scores['이상지질혈증'], scores['지방간'], scores['비만'], scores['갑상선기능저하증'], scores['고혈압'], scores['당뇨병'], scores['빈혈']]
 
+    counts = sum(1 for score in measurement_list if score >= 0.5)
 
-    # 점수가 0.5 이상인 상태의 수를 계산
-    counts = sum(1 for score in measurement_list if score >= 0.5) # measurement_list에서 점수가 0.5 이상인 항목의 개수를 계산하여 counts 변수에 저장합니다.
-    
-    # 상태가 하나만 0.5 이상인 경우
     if counts == 1:
-        # 각 상태를 확인하여 점수가 1 이상인 상태의 인덱스를 반환 (1-based index)
         for i, score in enumerate(measurement_list):
             if score >= 1:
                 return i + 1
-    
-    # 상태가 두 개 이상 0.5 이상인 경우
     elif counts >= 2:
-        # 다중 질환을 의미하는 코드 9를 반환
         return 9
-    
-    # 상태가 없거나 모두 점수가 0인 경우
+
     return 0
 
-
-## 스크립트가 직접 실행될 때 main 함수를 호출합니다. main 함수는 데이터베이스에서 사용자 데이터를 가져오고, 건강 점수를 계산하며, 결과를 데이터베이스에 저장하는 주요 작업을 수행
 if __name__ == "__main__":
     main()

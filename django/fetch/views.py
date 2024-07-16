@@ -75,10 +75,10 @@ def TableInsert(request, table):
         user = request.user
         logger.info(f'User {user.id} requested to insert data.')
         if InsertOrUpdate(table, user, request.data):
-            rm0708.main(user.id)
-            # returnStr = TEAM1FUNCTION(user.id)            ##### 1조 코드 입력
-            returnStr = '(TEST 문구) ㅇㅇㅇ 항목의 수치 관리가 필요합니다.'
-            return Response({'success': 'Data inserted successfully', 'returnStr': returnStr}, status=status.HTTP_200_OK)
+            logger.error(user.id)
+            returnList = rm0708.main(user_id=user.id)
+            # returnList = ['(TEST 문구) ㅇㅇㅇ 항목의 수치 관리가 필요합니다.']
+            return Response({'success': 'Data inserted successfully', 'returnList': returnList}, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Data not inserted'}, status=status.HTTP_404_NOT_FOUND)
     else:
