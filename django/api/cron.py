@@ -1,3 +1,6 @@
+from static import rm0708
+from admin_page.models import UserAccount
 def refresh_recommendations():
-    # 반복작업할 코드를 여기에 작성
-    pass
+    users = UserAccount.objects.all()
+    for user in users:
+        rm0708.main(user.id)

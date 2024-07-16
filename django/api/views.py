@@ -6,6 +6,8 @@ from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 from rest_framework.decorators import api_view, authentication_classes
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.core.mail import EmailMessage
+from admin_page.models import Details
+from django.forms.models import model_to_dict
 import logging
 
 logger = logging.getLogger(__name__)
@@ -39,18 +41,18 @@ def LoginView(request):
     
 def mailBody(user):
     userAddress = user.email
-    print(user)
-    print(user.email)
+    data = model_to_dict(Details.objects.filter(user_id=user.id).order_by('-created_time').first())
+    body = f"{data['recommendation1']}\n{data['recommendation2']}\n{data['recommendation3']}\n당신이 대사증후군일 확률은 {data['metabolicper']}% 입니다.\n당신의 신체점수는 {data['bodypoint']}점 입니다."
     if userAddress == None:
         return False, False
-    return 'test mail', userAddress
+    return body, userAddress
 
 @api_view(['GET'])
 @authentication_classes([JWTAuthentication])
 def sendEmail(request):
     if request.method == 'GET':
         user = request.user
-        logger.error(f'User {user.id} requested to send an email.')
+        logger.info(f'User {user.id} requested to send an email.')
         
         body, address = mailBody(user)
         if body==False:

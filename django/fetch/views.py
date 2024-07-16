@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import logging
 
 from admin_page.models import Details, Health, Sensors, Recommend
+from static import rm0708
 
 logger = logging.getLogger(__name__)
 
@@ -22,23 +23,23 @@ def toTable(table):
     else:
         return None
 
-def returnValue(table, user_id):
+def returnValue(table, user):
     Table = toTable(table)
 
     try:
-        data = Table.objects.filter(user_id=user_id).order_by('-created_time').first()
+        data = Table.objects.filter(user=user).order_by('-created_time').first()
         return model_to_dict(data)
     except:
         return None
 
-def InsertOrUpdate(table, user_id, data):
+def InsertOrUpdate(table, user, data):
     Table = toTable(table)
     data = dict(data)
     for key in data:
         if type(data[key])==list:
             data[key] = ', '.join(data[key])
     try:
-        latest = Table.objects.filter(user_id=user_id).order_by('-created_time').first()
+        latest = Table.objects.filter(user=user).order_by('-created_time').first()
         if latest:
             latestTime = datetime.fromisoformat(str(latest.created_time)[:19])
             currentTime = datetime.fromisoformat(str(datetime.now())[:19])
@@ -49,7 +50,7 @@ def InsertOrUpdate(table, user_id, data):
                 return True
     except:
         pass
-    Table.objects.create(user_id=user_id, **data)
+    Table.objects.create(user=user, **data)
     return True
 
 @api_view(['POST'])
@@ -57,9 +58,9 @@ def InsertOrUpdate(table, user_id, data):
 def TableView(request, table):
     if request.method == 'POST':
         user = request.user
-        logger.error(f'User {user.id} requested {table} Table.')
+        logger.info(f'User {user.id} requested {table} Table.')
 
-        fromDB = returnValue(table, user.id)
+        fromDB = returnValue(table, user)
         if fromDB:
             return Response(fromDB, status=status.HTTP_200_OK)
         else:
@@ -72,11 +73,12 @@ def TableView(request, table):
 def TableInsert(request, table):
     if request.method == 'POST':
         user = request.user
-        logger.error(f'User {user.id} requested to insert data.')
-        if InsertOrUpdate(table, user.id, request.data):
-            # returnStr = TEAM1FUNCTION(user.id)            ##### 1조 코드 입력
-            returnStr = '(TEST 문구) ㅇㅇㅇ 항목의 수치 관리가 필요합니다.'
-            return Response({'success': 'Data inserted successfully', 'returnStr': returnStr}, status=status.HTTP_200_OK)
+        logger.info(f'User {user.id} requested to insert data.')
+        if InsertOrUpdate(table, user, request.data):
+            logger.error(user.id)
+            returnList = rm0708.main(user_id=user.id)
+            # returnList = ['(TEST 문구) ㅇㅇㅇ 항목의 수치 관리가 필요합니다.']
+            return Response({'success': 'Data inserted successfully', 'returnList': returnList}, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Data not inserted'}, status=status.HTTP_404_NOT_FOUND)
     else:
