@@ -8,11 +8,11 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import backend.main as back
 os.chdir('./src/')
 backend = back.ConnectUI()
-recommendText = tk.StringVar()
-recommendText.set("추천 문구입니다.")
 
 
 root = tk.Tk()
+recommendText = tk.StringVar(root)
+recommendText.set("추천 문구입니다.")
 
 root.title("측정 프로그램")
 root.geometry("350x500")
@@ -196,7 +196,7 @@ def switch_to_frame(frame):
         for entry in entry_widgets.values():
             entry.delete(0, tk.END)
     elif frame == report:
-        recommendationsFromServer = backend.toUI('detail', ['recommendation1', 'recommendation2'])
+        recommendationsFromServer = backend.toUI('details', ['recommendation1', 'recommendation2'])
         recommendTextSet = ""
         for key in recommendationsFromServer:
             recommendTextSet += recommendationsFromServer[key]
