@@ -196,7 +196,7 @@ def switch_to_frame(frame):
         for entry in entry_widgets.values():
             entry.delete(0, tk.END)
     elif frame == report:
-        recommendationsFromServer = backend.toUI('details', ['recommendation1', 'recommendation2'])
+        recommendationsFromServer = backend.toUI('details', ['recommendation1', 'recommendation2', 'recommendation3'])
         recommendTextSet = ""
         for key in recommendationsFromServer:
             recommendTextSet += recommendationsFromServer[key]+'\n'
