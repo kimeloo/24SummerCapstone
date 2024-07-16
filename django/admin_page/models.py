@@ -7,7 +7,13 @@ class UserAccount(models.Model):
     email = models.EmailField(unique=True, null=True, blank=True) # 고유함, NULL 허용, 빈 문자열 허용
     phone_num = models.CharField(max_length=15, unique=True, null=True, blank=True)
     created_time = models.DateTimeField(auto_now_add=True) # 자동으로 현재 시간 기록
-
+    is_active = models.BooleanField(default=True)
+    
+    # login() 함수에서 사용자를 식별하는 데 사용할 필드를 정의
+    USERNAME_FIELD = 'id'
+    REQUIRED_FIELDS = ['phone_num', 'email']
+    is_anonymous = False
+    is_authenticated = True
     class Meta:
         db_table = 'useraccount' # 실제 데이터베이스 테이블의 이름
 
@@ -90,3 +96,16 @@ class Sensors(models.Model):
 
     def __str__(self):
         return f"Sensors data for {self.user.name}"
+
+class Recommend(models.Model):
+    id = models.AutoField(primary_key=True)
+    code = models.IntegerField()
+    recommendation = models.CharField(max_length=100)
+    recommendation2 = models.CharField(max_length=100)
+    recommendation3 = models.CharField(max_length=100)
+
+    class Meta:
+        db_table = 'recommend'
+
+    def __str__(self):
+        return f"Recommendation {self.id}"

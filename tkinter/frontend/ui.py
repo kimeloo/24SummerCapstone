@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import PhotoImage
 import tkinter.font as tkfont
 from tkinter import ttk, messagebox
-import requests
 
 root = tk.Tk()
 
@@ -47,6 +46,11 @@ frame_physical_measurements.pack_forget()  # 처음에는 숨기기
 result_frame = tk.Frame(root)
 result_frame.pack(fill="both", expand=True)
 result_frame.pack_forget() # 처음에는 숨기기
+
+# 여덟 번째 화면 프레임 (03 거북목)
+frame07 = tk.Frame(root)
+frame07.pack(fill="both", expand=True)
+frame07.pack_forget()  # 처음에는 숨기기
 
 # 아홉 번째 화면 프레임 (혈액 측정 화면)
 frame_blood_measure = tk.Frame(root)
@@ -151,6 +155,7 @@ def switch_to_frame(frame):
     frame04.pack_forget()
     frame05.pack_forget()
     frame06.pack_forget()
+    frame07.pack_forget()
     frame_en.pack_forget()
     frame_tel.pack_forget()
     frame_en_email.pack_forget()
@@ -483,28 +488,32 @@ background_label.place(x=0, y=0, relwidth=1, relheight=1)
 buttons_frame = tk.Frame(frame3)
 buttons_frame.pack(pady=10)  # 버튼들을 아래로 내리기 위해 패딩 추가
 
-buttons_9 = ['01\n얼굴', '02\n신체', '03\n피부', '04\n눈', '05\n걸음걸이', '06\n수면', '07\n신체 측정', '08\n혈액 측정', '결과지']
-for i, button_text in enumerate(buttons_9):
-    if button_text == '07\n신체 측정':
-        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame_physical_measurements)).grid(row=i//3, column=i%3, padx=3, pady=5)
-    elif button_text == '08\n혈액 측정':
-        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame_blood_measure)).grid(row=i//3, column=i%3, padx=3, pady=5)
-    elif button_text == '01\n얼굴':
-        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame01)).grid(row=i//3, column=i%3, padx=3, pady=5)
+buttons_10 = ['01\n얼굴', '02\n신체', '03\n거북목','04\n피부', '05\n눈', '06\n걸음걸이', '07\n수면', '08\n신체 측정', '09\n혈액 측정', '10\n결과지']
+for i, button_text in enumerate(buttons_10):
+    row = i // 3
+    col = i % 3
+    if button_text == '01\n얼굴':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=5, width=8, command=lambda: switch_to_frame(frame01)).grid(row=row, column=col, padx=2, pady=1)
     elif button_text == '02\n신체':
-        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame02)).grid(row=i//3, column=i%3, padx=3, pady=5)
-    elif button_text == '03\n피부':
-        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame03)).grid(row=i//3, column=i%3, padx=3, pady=5)
-    elif button_text == '04\n눈':
-        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame04)).grid(row=i//3, column=i%3, padx=3, pady=5)
-    elif button_text == '05\n걸음걸이':
-        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame05)).grid(row=i//3, column=i%3, padx=3, pady=5)
-    elif button_text == '06\n수면':
-        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(frame06)).grid(row=i//3, column=i%3, padx=3, pady=5)
-    elif button_text == '결과지':
-        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8, command=lambda: switch_to_frame(report)) .grid(row=i//3, column=i%3, padx=3, pady=5)
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=5, width=8, command=lambda: switch_to_frame(frame02)).grid(row=row, column=col, padx=2, pady=1)
+    elif button_text == '03\n거북목':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=5, width=8, command=lambda: switch_to_frame(frame07)).grid(row=row, column=col, padx=2, pady=1)
+    elif button_text == '04\n피부':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=5, width=8, command=lambda: switch_to_frame(frame03)).grid(row=row, column=col, padx=2, pady=1)
+    elif button_text == '05\n눈':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=5, width=8, command=lambda: switch_to_frame(frame04)).grid(row=row, column=col, padx=2, pady=1)
+    elif button_text == '06\n걸음걸이':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=5, width=8, command=lambda: switch_to_frame(frame05)).grid(row=row, column=col, padx=2, pady=1)
+    elif button_text == '07\n수면':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=5, width=8, command=lambda: switch_to_frame(frame06)).grid(row=row, column=col, padx=2, pady=1)
+    elif button_text == '08\n신체 측정':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=5, width=8, command=lambda: switch_to_frame(frame_physical_measurements)).grid(row=row, column=col, padx=2, pady=1)
+    elif button_text == '09\n혈액 측정':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=5, width=8, command=lambda: switch_to_frame(frame_blood_measure)).grid(row=row, column=col, padx=2, pady=1)
+    elif button_text == '10\n결과지':
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=3, width=26, command=lambda: switch_to_frame(report)).grid(row=row + 1, columnspan=3, padx=2, pady=1)
     else:
-        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=6, width=8) .grid(row=i//3, column=i%3, padx=3, pady=5)
+        tk.Button(buttons_frame, text=button_text, font=custom_font2, height=5, width=8).grid(row=row, column=col, padx=2, pady=1)
 
 # 여섯 번째 화면 내용 (신체 측정 화면)
 background_label = tk.Label(frame_physical_measurements, image=background_image)
@@ -514,12 +523,81 @@ label_measurements = tk.Label(frame_physical_measurements, text="신체 측정 �
 label_measurements.pack(pady=10)
 
 labels_texts = [
-    "나이", "성별", "키 (cm)", "체중 (kg)", "체지량지수 (BMI)", "체지방 (Kg)", 
-    "체지방률 (%)", "심장박동수 (bpm)", "허리둘레 (cm)", "골반과 허리둘레 (WHR)", 
-    "근육량 (kg)", "수축기 혈압 (SBP)", "이완기 혈압 (DBP)"
+    "나이", "성별", "키(cm)", "체중(kg)", "체지량지수(BMI)", "체지방(Kg)", 
+    "체지방률(%)", "심장박동수(bpm)", "허리둘레(cm)", "골반과 허리둘레(WHR)", 
+    "근육량(kg)", "수축기 혈압(SBP)", "이완기 혈압(DBP)"
 ]
 
 entry_widgets = {}
+
+def display_results():
+    print("입력된 신체 측정 값:")
+    for test, entry in entry_widgets.items():
+        print(f"{test}: {entry.get()}")
+
+    for widget in result_frame.winfo_children():
+        widget.destroy()
+
+    background_label = tk.Label(result_frame, image=background_image)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    label_results = tk.Label(result_frame, text="사용자의 입력값:", font=custom_font2)
+    label_results.pack(pady=(20,10))
+
+    # 스크롤 가능한 프레임 설정
+    results_frame = tk.Frame(result_frame)
+    results_frame.pack(pady=(10,20))
+
+    canvas = tk.Canvas(results_frame, width=300, height=140)  # 너비 조정
+    scrollbar = tk.Scrollbar(results_frame, orient="vertical", command=canvas.yview)
+    scrollable_frame = tk.Frame(canvas)
+
+    scrollable_frame.bind(
+        "<Configure>",
+        lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+    )
+
+    canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+
+    canvas.pack(side="left", fill="both", expand=True)
+    scrollbar.pack(side="right", fill="y")
+    canvas.configure(yscrollcommand=scrollbar.set)
+
+    # entry_widgets 값을 1열로 출력
+    for row, (test, entry) in enumerate(entry_widgets.items()):
+        tk.Label(scrollable_frame, text=f"{test}: {entry.get()}", font=custom_font3).grid(row=row, column=0, padx=10, pady=5, sticky='w')
+
+    # "성별" 항목을 제외하고 recommendations를 생성
+    recommendations = generate_recommendations({k: v for k, v in entry_widgets.items() if k != "성별"})
+    label_recommendations = tk.Label(result_frame, text="신체 측정 결과:", font=custom_font2)
+    label_recommendations.pack(pady=20)
+    
+    for rec in recommendations:
+        tk.Label(result_frame, text=rec, font=custom_font3).pack(pady=5)
+
+    button_back_body = tk.Button(result_frame, text="검사 재선택", height=1, width=10, font=custom_font2, command=lambda: switch_to_frame(frame_physical_measurements))
+    button_back_body.pack(side=tk.LEFT, padx=(30, 15))
+
+    global button_send_results
+    button_send_results = tk.Button(result_frame, text="결과 전송", height=1, width=10, font=custom_font2, command=send_results)
+    button_send_results.pack(side=tk.LEFT, padx=(15, 30))
+
+    switch_to_frame(result_frame)  # 결과 화면으로 전환
+
+# 예시
+def generate_recommendations(entry_widgets):
+    recommendations = []
+    for test, entry in entry_widgets.items():
+        try:
+            value = float(entry.get())
+            if test == "체지량지수(BMI)" and value > 25:
+                recommendations.append("체지량지수가 비만 범위입니다.")
+            elif test == "심장박동수(bpm)" and value < 50:
+                recommendations.append("심장박동수가 정상 수치보다 낮습니다.")
+        except ValueError:
+            recommendations.append(f"{test}의 값을 확인하세요.")
+        # 다른 항목들에 대해서도 유사한 로직을 추가하세요.
+    return recommendations
 
 for text in labels_texts:
     frame = tk.Frame(frame_physical_measurements)
@@ -540,49 +618,30 @@ for text in labels_texts:
 button_back_measurements = tk.Button(frame_physical_measurements, text="뒤로가기", height=1, width=10, font=custom_font2, command=lambda: switch_to_frame(frame3))
 button_back_measurements.pack(side=tk.LEFT, padx=(30, 30))
 
-button_show_results = tk.Button(frame_physical_measurements, text="결과보기", height=1, width=10, font=custom_font2, state=tk.DISABLED, command=lambda: switch_to_frame(result_frame))
+button_show_results = tk.Button(frame_physical_measurements, text="결과보기", height=1, width=10, font=custom_font2, state=tk.NORMAL, command=display_results)  # display_results 함수 호출
 button_show_results.pack(side=tk.LEFT, padx=(0, 10))
 
 # 일곱 번째 화면 내용 (신체 측정 결과 보기 화면)
 background_label = tk.Label(result_frame, image=background_image)
 background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-label_result_title = tk.Label(result_frame, text="신체 측정 결과입니다.", font=custom_font2)
+label_result_title = tk.Label(result_frame, text="사용자의 입력값:", font=custom_font2)
 label_result_title.pack(pady=20)
 
-# 예시
-recommendations = [
-    "고혈압이 어쩌구저쩌구",
-    "비만 위험해요",
-    "키에 비해 체중이 좀",
-    "남자인지 여자인지",
-    "심장박동 둥둥"
-]
-
-for recommendation in recommendations:
-    tk.Label(result_frame, text=recommendation, font=custom_font2).pack(pady=5)
-
-# '검사 재선택' 버튼
-button_back_body = tk.Button(result_frame, text="검사 재선택", height=1, width=10, font=custom_font2, command=lambda: on_click(button_back_body, switch_frame=lambda: switch_to_frame(frame3)))
-button_back_body.pack(side=tk.LEFT, padx=(30, 15))
 
 def send_results():
     confirmation_label = tk.Label(result_frame, text="결과 전송 완료", font=custom_font3, fg="blue")
     confirmation_label.pack(pady=5)
 
-    button_x = button_send_result.winfo_x()
-    button_y = button_send_result.winfo_y()
-    button_width = button_send_result.winfo_width()
+    button_x = button_send_results.winfo_x()
+    button_y = button_send_results.winfo_y()
+    button_width = button_send_results.winfo_width()
     label_width = confirmation_label.winfo_reqwidth()
 
     x_position = button_x + (button_width // 2) - (label_width // 2)
-    y_position = button_y + button_send_result.winfo_height() + 10  # 간격을 10으로 조정
+    y_position = button_y + button_send_results.winfo_height() + 10  # 간격을 10으로 조정
 
     confirmation_label.place(x=x_position, y=y_position)
-
-# '결과 전송' 버튼
-button_send_result = tk.Button(result_frame, text="결과 전송",  height=1, width=10, font=custom_font2, command=send_results)
-button_send_result.pack(side=tk.LEFT, padx=(15, 30))
 
 # 아홉 번째 화면 내용 (혈액 측정 화면)
 background_label = tk.Label(frame_blood_measure, image=background_image)
@@ -612,6 +671,70 @@ def activate_view_results_button():
             return
     button_view_results.config(state=tk.NORMAL)
 
+def display_results():
+    print("입력된 혈액 측정 값:")
+    for test, entry in entries.items():
+        print(f"{test}: {entry.get()}")
+
+    for widget in frame_results.winfo_children():
+        widget.destroy()
+
+    background_label = tk.Label(frame_results, image=background_image)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    label_results = tk.Label(frame_results, text="사용자의 입력값:", font=custom_font2)
+    label_results.pack(pady=(20,10))
+
+    # 스크롤 가능한 프레임 설정
+    results_frame = tk.Frame(frame_results)
+    results_frame.pack(pady=(10,20))
+
+    canvas = tk.Canvas(results_frame, width=300, height=140)  # 너비 조정
+    scrollbar = tk.Scrollbar(results_frame, orient="vertical", command=canvas.yview)
+    scrollable_frame = tk.Frame(canvas)
+
+    scrollable_frame.bind(
+        "<Configure>",
+        lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+    )
+
+    canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+
+    canvas.pack(side="left", fill="both", expand=True)
+    scrollbar.pack(side="right", fill="y")
+    canvas.configure(yscrollcommand=scrollbar.set)
+
+    # entries 값을 1열로 출력
+    for row, (test, entry) in enumerate(entries.items()):
+        tk.Label(scrollable_frame, text=f"{test}: {entry.get()}", font=custom_font3).grid(row=row, column=0, padx=10, pady=5, sticky='w')
+
+    # 여기서 측정 결과 추가
+    recommendations = generate_recommendations(entries)
+    label_recommendations = tk.Label(frame_results, text="혈액 측정 결과:", font=custom_font2)
+    label_recommendations.pack(pady=20)
+    
+    for rec in recommendations:
+        tk.Label(frame_results, text=rec, font=custom_font3).pack(pady=5)
+
+    button_back_results = tk.Button(frame_results, text="검사 재선택", height=1, width=10, font=custom_font2, command=lambda: on_click(button_back_results, switch_frame=lambda: switch_to_frame(frame3)))
+    button_back_results.pack(side=tk.LEFT, padx=(30, 15))
+
+    global button_send_results
+    button_send_results = tk.Button(frame_results, text="결과 전송", height=1, width=10, font=custom_font2, command=send_results)
+    button_send_results.pack(side=tk.LEFT, padx=(15, 30))
+
+# 예시
+def generate_recommendations(entries):
+    recommendations = []
+    for test, entry in entries.items():
+        value = float(entry.get())
+        if test == "저밀도콜레스테롤(LDL)" and value > 100:
+            recommendations.append("LDL 콜레스테롤이 정상 수치보다 높습니다.")
+        elif test == "고밀도콜레스테롤(HDL)" and value < 40:
+            recommendations.append("HDL 콜레스테롤이 정상 수치보다 낮습니다.")
+        # 다른 항목들에 대해서도 유사한 로직을 추가하세요.
+    return recommendations
+
 for test in blood_tests:
     frame = tk.Frame(frame_blood_measure)
     frame.pack(pady=5, fill=tk.X)
@@ -626,30 +749,15 @@ for test in blood_tests:
 button_back_blood = tk.Button(frame_blood_measure, text="뒤로가기", height=1, width=10, font=custom_font2, command=lambda: [on_click(button_back_blood, switch_frame=lambda: switch_to_frame(frame3))])
 button_back_blood.pack(side=tk.LEFT, padx=(30, 30))
 
-button_view_results = tk.Button(frame_blood_measure, text="결과보기", height=1, width=10, font=custom_font2, state=tk.DISABLED, command=lambda: switch_to_frame(frame_results))
+button_view_results = tk.Button(frame_blood_measure, text="결과보기", height=1, width=10, font=custom_font2, state=tk.DISABLED, command=lambda: [display_results(), switch_to_frame(frame_results)])
 button_view_results.pack(side=tk.LEFT, padx=(0, 10))
 
 # 열 번째 화면 내용 (혈액 측정 결과 보기 화면)
 background_label = tk.Label(frame_results, image=background_image)
 background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-label_results = tk.Label(frame_results, text=" 혈액 측정 결과입니다.", font=custom_font2)
+label_results = tk.Label(frame_results, text="사용자의 입력값:", font=custom_font2)
 label_results.pack(pady=20)
-
-# 예시
-recommend = [
-    "혈액이 이상해요",
-    "공복혈당이 와우 넘 높아요",
-    "집 가고 싶어요",
-    "측정이 이러쿵저렁쿵",
-    "이거는 어찌고저찌고"
-]
-
-for recommendation in recommend:
-    tk.Label(frame_results, text=recommendation, font=custom_font2).pack(pady=5)
-
-button_back_results = tk.Button(frame_results, text="검사 재선택", height=1, width=10, font=custom_font2, command=lambda: on_click(button_back_results, switch_frame=lambda: switch_to_frame(frame3)))
-button_back_results.pack(side=tk.LEFT, padx=(30, 15))
 
 def send_results():
     confirmation_label = tk.Label(frame_results, text="결과 전송 완료", font=custom_font3, fg="blue")
@@ -664,9 +772,6 @@ def send_results():
     y_position = button_y + button_send_results.winfo_height() + 10  # 간격을 10으로 조정
 
     confirmation_label.place(x=x_position, y=y_position)
-    
-button_send_results = tk.Button(frame_results, text="결과 전송", height=1, width=10, font=custom_font2, command=send_results)
-button_send_results.pack(side=tk.LEFT, padx=(15, 30))
 
 # 열두 번째 화면 내용 (01 Face)
 background_label = tk.Label(frame01, image=background_image)
@@ -847,6 +952,36 @@ button_send_06.pack(side=tk.LEFT, padx=(15, 30))
 
 button_exit_06 = tk.Button(frame06, text="종료", font=custom_font2, command=lambda: on_click(button_exit_06, show_exit_confirmation))
 button_exit_06.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
+
+# 여덟 번째 화면 내용 (03 거북목)
+background_label = tk.Label(frame07, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+label07 = tk.Label(frame07, text="거북목 결과입니다.", font=custom_font2)
+label07.pack(pady=20)
+
+button_back_07 = tk.Button(frame07, text="검사 재선택", height=1, width=10, font=custom_font2, command=lambda: switch_to_frame(frame3))
+button_back_07.pack(side=tk.LEFT, padx=(30, 15))
+
+def send_results_07():
+    confirmation_label = tk.Label(frame07, text="결과 전송 완료", font=custom_font3, fg="blue")
+    confirmation_label.pack(pady=5)
+
+    button_x = button_send_07.winfo_x()
+    button_y = button_send_07.winfo_y()
+    button_width = button_send_07.winfo_width()
+    label_width = confirmation_label.winfo_reqwidth()
+
+    x_position = button_x + (button_width // 2) - (label_width // 2)
+    y_position = button_y + button_send_07.winfo_height() + 10  # 간격을 10으로 조정
+
+    confirmation_label.place(x=x_position, y=y_position)
+
+button_send_07 = tk.Button(frame07, text="결과 전송", height=1, width=10, font=custom_font2, command=send_results_07)
+button_send_07.pack(side=tk.LEFT, padx=(15, 30))
+
+button_exit_07 = tk.Button(frame07, text="종료", font=custom_font2, command=lambda: on_click(button_exit_07, show_exit_confirmation))
+button_exit_07.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
 
 # 열여덟 번째 화면 내용 (Tel or Email 선택)
 background_label = tk.Label(frame_en, image=background_image)
