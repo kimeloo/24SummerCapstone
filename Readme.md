@@ -4,7 +4,7 @@
 
 3조 백엔드 팀에게 질문하실 내용을 [여기](https://docs.google.com/spreadsheets/d/18vAw3wEnwzzxgxT8H-mUfDs_zQrDpR-gX497ZFPqaRw/edit?gid=833081153#gid=833081153)에 작성해주시면 감사하겠습니다.
 
-ERD ver 0.2를 카카오톡 채팅방에 배포하기 전까지 이슈가 해결된 ERD, SQL 쿼리는 [이 페이지](https://pretty-icebreaker-f34.notion.site/ERD-ver-0-2-79bc33afd7f24980ba2b1b7ee7db4d1a) 에서 실시간으로 확인할 수 있습니다. 감사합니다.
+ERD, SQL 쿼리는 [이 페이지](https://pretty-icebreaker-f34.notion.site/ERD-ver-0-2-79bc33afd7f24980ba2b1b7ee7db4d1a) 에서 실시간으로 확인할 수 있습니다. 감사합니다.
 
 ---
 
@@ -22,22 +22,14 @@ ERD ver 0.2를 카카오톡 채팅방에 배포하기 전까지 이슈가 해결
     -   로그인 구현 완료
     -   DB 데이터 조회 및 업데이트/추가 구현 완료
     -   API 내 매일 0시 자동실행 함수 구현 완료
+    -   메일 발송 시스템 구현완료
 
 -   클라이언트단
     -   UI 데이터 송수신 코드 작성 완료
     -   서버 로그인 구현 완료
     -   서버 데이터 송수신 구현 완료
+    -   UI 파일 연결완료
 
-[진행중]
-
--   서버단
-
-    -   메일 발송 시스템 구현중
-
--   클라이언트단
-    -   UI 파일 연결중
-
----
 
 ### 환경 구성 (Dependencies)
 
@@ -45,6 +37,7 @@ ERD ver 0.2를 카카오톡 채팅방에 배포하기 전까지 이슈가 해결
 
     -   macOS 14.5 (Apple M1)
     -   python 3.8.19
+    -   mariaDB Server 10.4.31
 
     | pip package name               | version |
     | ------------------------------ | ------- |
@@ -63,7 +56,7 @@ ERD ver 0.2를 카카오톡 채팅방에 배포하기 전까지 이슈가 해결
     | mysql-client      | 8.3.0   |
     | pkg-config        | 0.29.2  |
 
--   ClIENT
+-   CLIENT
 
     -   Ubuntu 18.04 (Jetson TX2 NX)
     -   python 3.8.0
