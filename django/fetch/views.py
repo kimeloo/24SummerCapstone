@@ -6,7 +6,7 @@ from django.forms.models import model_to_dict
 from datetime import datetime, timedelta
 import logging
 
-from admin_page.models import Details, Health, Sensors
+from admin_page.models import Details, Health, Sensors, Recommend
 
 logger = logging.getLogger(__name__)
 
@@ -17,6 +17,8 @@ def toTable(table):
         return Health
     elif table.lower() == 'sensors':
         return Sensors
+    elif table.lower() == 'recommend':
+        return Recommend
     else:
         return None
 
