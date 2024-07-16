@@ -58,7 +58,7 @@ def InsertOrUpdate(table, user_id, data):
 def TableView(request, table):
     if request.method == 'POST':
         user = request.user
-        logger.error(f'User {user.id} requested {table} Table.')
+        logger.info(f'User {user.id} requested {table} Table.')
 
         fromDB = returnValue(table, user.id)
         if fromDB:
@@ -73,7 +73,7 @@ def TableView(request, table):
 def TableInsert(request, table):
     if request.method == 'POST':
         user = request.user
-        logger.error(f'User {user.id} requested to insert data.')
+        logger.info(f'User {user.id} requested to insert data.')
         if InsertOrUpdate(table, user.id, request.data):
             rm0708.main(user.id)
             # returnStr = TEAM1FUNCTION(user.id)            ##### 1조 코드 입력

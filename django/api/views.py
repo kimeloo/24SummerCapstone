@@ -39,8 +39,6 @@ def LoginView(request):
     
 def mailBody(user):
     userAddress = user.email
-    print(user)
-    print(user.email)
     if userAddress == None:
         return False, False
     return 'test mail', userAddress
@@ -50,7 +48,7 @@ def mailBody(user):
 def sendEmail(request):
     if request.method == 'GET':
         user = request.user
-        logger.error(f'User {user.id} requested to send an email.')
+        logger.info(f'User {user.id} requested to send an email.')
         
         body, address = mailBody(user)
         if body==False:
