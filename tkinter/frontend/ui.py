@@ -200,12 +200,27 @@ def switch_to_frame(frame):
         recommendTextSet = ""
         for key in recommendationsFromServer:
             if key == 'metabolicper':
-                recommendTextSet += f"당신이 대사증후군일 확률은 {recommendationsFromServer[key]}% 입니다.\n"
+                recommendTextSet += f"당신이 대사증후군일 확률은 {str(recommendationsFromServer[key])}% 입니다.\n"
             elif key == 'bodypoint':
-                recommendTextSet += f"당신의 신체점수는 {recommendationsFromServer[key]}점 입니다."
+                recommendTextSet += f"당신의 신체점수는 {str(recommendationsFromServer[key])}점 입니다."
             else:
-                recommendTextSet += recommendationsFromServer[key]+'\n'
+                recommendTextSet += recommendTextSplitter(str(recommendationsFromServer[key]))+'\n'
         recommendText.set(recommendTextSet)
+
+
+
+def recommendTextSplitter(recommendText):
+    '''디스플레이 크기 : 한글 18자이므로 단어 단위로 잘라 줄바꿈'''
+    words = recommendText.split(" ")
+    result = ""
+    counter=0
+    for word in words:
+        counter+=len(word)
+        if counter >= 18:
+            result += "\n"
+            counter = len
+        result += word + " "
+    return result
 
 def save_phone_number_and_switch():
     global phone_number
@@ -565,7 +580,6 @@ def display_results():
             continue
         physicalData[key] = entry.get()
         print(f"{test}, {key}: {entry.get()}")
-    physicalReturn = backend.fromUI('details', physicalData)
 
     for widget in result_frame.winfo_children():
         widget.destroy()
@@ -600,8 +614,9 @@ def display_results():
         tk.Label(scrollable_frame, text=f"{test}: {entry.get()}", font=custom_font3).grid(row=row, column=0, padx=10, pady=5, sticky='w')
 
     # "성별" 항목을 제외하고 recommendations를 생성
-    recommendations = generate_recommendations({k: v for k, v in entry_widgets.items() if k != "성별"})
-    label_recommendations = tk.Label(result_frame, text="신체 측정 결과:"+f'\n{physicalReturn}', font=custom_font2)
+    # recommendations = generate_recommendations({k: v for k, v in entry_widgets.items() if k != "성별"})
+    recommendations = [backend.fromUI('details', physicalData)]
+    label_recommendations = tk.Label(result_frame, text="신체 측정 결과:", font=custom_font2)
     label_recommendations.pack(pady=20)
     
     for rec in recommendations:
@@ -617,19 +632,19 @@ def display_results():
     switch_to_frame(result_frame)  # 결과 화면으로 전환
 
 # 예시
-def generate_recommendations(entry_widgets):
-    recommendations = []
-    for test, entry in entry_widgets.items():
-        try:
-            value = float(entry.get())
-            if test == "체지량지수(BMI)" and value > 25:
-                recommendations.append("체지량지수가 비만 범위입니다.")
-            elif test == "심장박동수(bpm)" and value < 50:
-                recommendations.append("심장박동수가 정상 수치보다 낮습니다.")
-        except ValueError:
-            recommendations.append(f"{test}의 값을 확인하세요.")
-        # 다른 항목들에 대해서도 유사한 로직을 추가하세요.
-    return recommendations
+# def generate_recommendations(entry_widgets):
+#     recommendations = []
+#     for test, entry in entry_widgets.items():
+#         try:
+#             value = float(entry.get())
+#             if test == "체지량지수(BMI)" and value > 25:
+#                 recommendations.append("체지량지수가 비만 범위입니다.")
+#             elif test == "심장박동수(bpm)" and value < 50:
+#                 recommendations.append("심장박동수가 정상 수치보다 낮습니다.")
+#         except ValueError:
+#             recommendations.append(f"{test}의 값을 확인하세요.")
+#         # 다른 항목들에 대해서도 유사한 로직을 추가하세요.
+#     return recommendations
 
 for text in labels_texts:
     frame = tk.Frame(frame_physical_measurements)
@@ -712,7 +727,6 @@ def display_results():
         key = bloodVarChanger[test]
         bloodData[key] = entry.get()
         print(f"{test}, {key}: {entry.get()}")
-    bloodReturn = backend.fromUI('details', bloodData)
 
     for widget in frame_results.winfo_children():
         widget.destroy()
@@ -747,8 +761,9 @@ def display_results():
         tk.Label(scrollable_frame, text=f"{test}: {entry.get()}", font=custom_font3).grid(row=row, column=0, padx=10, pady=5, sticky='w')
 
     # 여기서 측정 결과 추가
-    recommendations = generate_recommendations(entries)
-    label_recommendations = tk.Label(frame_results, text="혈액 측정 결과:"+f'\n{bloodReturn}', font=custom_font2)
+    # recommendations = generate_recommendations(entries)
+    recommendations = [backend.fromUI('details', bloodData)]
+    label_recommendations = tk.Label(frame_results, text="혈액 측정 결과:", font=custom_font2)
     label_recommendations.pack(pady=20)
     
     for rec in recommendations:
@@ -761,17 +776,17 @@ def display_results():
     button_send_results = tk.Button(frame_results, text="결과 전송", height=1, width=10, font=custom_font2, command=send_results)
     button_send_results.pack(side=tk.LEFT, padx=(15, 30))
 
-# 예시
-def generate_recommendations(entries):
-    recommendations = []
-    for test, entry in entries.items():
-        value = float(entry.get())
-        if test == "저밀도콜레스테롤(LDL)" and value > 100:
-            recommendations.append("LDL 콜레스테롤이 정상 수치보다 높습니다.")
-        elif test == "고밀도콜레스테롤(HDL)" and value < 40:
-            recommendations.append("HDL 콜레스테롤이 정상 수치보다 낮습니다.")
-        # 다른 항목들에 대해서도 유사한 로직을 추가하세요.
-    return recommendations
+# # 예시
+# def generate_recommendations(entries):
+#     recommendations = []
+#     for test, entry in entries.items():
+#         value = float(entry.get())
+#         if test == "저밀도콜레스테롤(LDL)" and value > 100:
+#             recommendations.append("LDL 콜레스테롤이 정상 수치보다 높습니다.")
+#         elif test == "고밀도콜레스테롤(HDL)" and value < 40:
+#             recommendations.append("HDL 콜레스테롤이 정상 수치보다 낮습니다.")
+#         # 다른 항목들에 대해서도 유사한 로직을 추가하세요.
+#     return recommendations
 
 for test in blood_tests:
     frame = tk.Frame(frame_blood_measure)
