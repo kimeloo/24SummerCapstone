@@ -79,6 +79,9 @@
                 <th>Created Time</th>
                 <th>Recommendation1</th>
                 <th>Recommendation2</th>
+                <th>Recommendation3</th>
+                <th>Metabolic Per</th>
+                <th>Body Point</th>
             </tr>
             {% for detail in details %}
             <tr>
@@ -107,6 +110,9 @@
                 <td>{{ detail.created_time }}</td>
                 <td>{{ detail.recommendation1 }}</td>
                 <td>{{ detail.recommendation2 }}</td>
+                <td>{{ detail.recommendation3 }}</td>
+                <td>{{ detail.metabolicper }}</td>
+                <td>{{ detail.bodypoint }}</td>
             </tr>
             {% empty %}
             <tr>

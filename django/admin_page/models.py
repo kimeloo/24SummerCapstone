@@ -51,6 +51,9 @@ class Details(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
     recommendation1 = models.CharField(max_length=100, null=True, blank=True)
     recommendation2 = models.CharField(max_length=100, null=True, blank=True)
+    recommendation3 = models.CharField(max_length=100, null=True, blank=True)
+    metabolicper = models.FloatField(null=True, blank=True)
+    bodypoint = models.FloatField(null=True, blank=True)
 
     class Meta:
         db_table = 'details'

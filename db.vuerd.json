@@ -3,9 +3,9 @@
     "version": "2.2.13",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -119.83542224171964,
-    "scrollLeft": -101.2,
-    "zoomLevel": 0.9,
+    "scrollTop": -389.10192224171965,
+    "scrollLeft": -147.15,
+    "zoomLevel": 0.8,
     "show": {
       "tableComment": true,
       "columnComment": true,
@@ -621,13 +621,82 @@
               "widthDataType": 85.22587585449219,
               "widthDefault": 60
             }
+          },
+          {
+            "id": "79d71c7d-fbbc-4b1d-808a-7acd15a8bfe8",
+            "name": "recommendation3",
+            "comment": "",
+            "dataType": "VARCHAR(100)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 101.73585510253906,
+              "widthComment": 60,
+              "widthDataType": 85.22587585449219,
+              "widthDefault": 60
+            }
+          },
+          {
+            "id": "0442b86b-d75c-431e-8964-4399f40b096b",
+            "name": "metabolicper",
+            "comment": "대사증후군 있을 확률",
+            "dataType": "FLOAT",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 73.55189514160156,
+              "widthComment": 110.04293823242188,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "id": "bfd43cdc-d31a-4842-8a55-7494cfea0848",
+            "name": "bodypoint",
+            "comment": "신체점수",
+            "dataType": "FLOAT",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
           }
         ],
         "ui": {
-          "active": false,
-          "left": 23.8888,
-          "top": 38.1946,
-          "zIndex": 119,
+          "active": true,
+          "left": 21.3888,
+          "top": 21.5281,
+          "zIndex": 68,
           "widthName": 60,
           "widthComment": 76.30795288085938
         },
@@ -1735,7 +1804,7 @@
           "active": false,
           "left": 989.1687,
           "top": 551.5297,
-          "zIndex": 137,
+          "zIndex": 8,
           "widthName": 67.22093200683594,
           "widthComment": 84.13395690917969
         },
@@ -1807,8 +1876,8 @@
           "columnIds": [
             "aec8722b-4581-42c4-8b82-81bd58650ca8"
           ],
-          "x": 260.85016474609375,
-          "y": 619.6946,
+          "x": 258.3696654785156,
+          "y": 664.5281,
           "direction": "bottom"
         },
         "constraintName": "fk_user_to_input",
