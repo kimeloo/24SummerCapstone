@@ -32,10 +32,13 @@ class ConnectUI():
     def fromUI(self, table=str(), data=dict()):
         '''frontend에서 호출하여, 데이터를 backend로 전송'''
         logger.debug(f'Fetched data:table={table}\tdata={data}')
-        if self.server.toServer(table, data):
+        result = self.server.toServer(table, data)
+        if result!=False:
             logger.info('Data transmission success!')
+            return result
         else:
             logger.error('Data transmission failed.')
+            return '결과 전송 실패.\nData transmission failed.'
     
     def toUI(self, table=str(), columns=list()):
         '''frontend에서 호출하여, DB 데이터를 UI로 전송'''
@@ -81,13 +84,12 @@ class ConnectServer():
         try:
             insertServer = InsertTable.InsertTable(self.token, SERVER_HOST)
             result = insertServer.insertTable(table, data)
-            print(result)
             if result == 401:
                 self.refreshLogin()
                 insertServer = InsertTable.InsertTable(self.token, SERVER_HOST)
                 result = insertServer.insertTable(table, data)
             if 'success' in result:
-                return True
+                return result['returnStr']
         except:
             pass
         return False

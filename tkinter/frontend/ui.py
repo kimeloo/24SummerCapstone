@@ -565,7 +565,7 @@ def display_results():
             continue
         physicalData[key] = entry.get()
         print(f"{test}, {key}: {entry.get()}")
-    backend.fromUI('details', physicalData)
+    physicalReturn = backend.fromUI('details', physicalData)
 
     for widget in result_frame.winfo_children():
         widget.destroy()
@@ -601,7 +601,7 @@ def display_results():
 
     # "성별" 항목을 제외하고 recommendations를 생성
     recommendations = generate_recommendations({k: v for k, v in entry_widgets.items() if k != "성별"})
-    label_recommendations = tk.Label(result_frame, text="신체 측정 결과:", font=custom_font2)
+    label_recommendations = tk.Label(result_frame, text="신체 측정 결과:"+f'\n{physicalReturn}', font=custom_font2)
     label_recommendations.pack(pady=20)
     
     for rec in recommendations:
@@ -712,7 +712,7 @@ def display_results():
         key = bloodVarChanger[test]
         bloodData[key] = entry.get()
         print(f"{test}, {key}: {entry.get()}")
-    backend.fromUI('details', bloodData)
+    bloodReturn = backend.fromUI('details', bloodData)
 
     for widget in frame_results.winfo_children():
         widget.destroy()
@@ -748,7 +748,7 @@ def display_results():
 
     # 여기서 측정 결과 추가
     recommendations = generate_recommendations(entries)
-    label_recommendations = tk.Label(frame_results, text="혈액 측정 결과:", font=custom_font2)
+    label_recommendations = tk.Label(frame_results, text="혈액 측정 결과:"+f'\n{bloodReturn}', font=custom_font2)
     label_recommendations.pack(pady=20)
     
     for rec in recommendations:
