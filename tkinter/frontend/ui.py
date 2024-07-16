@@ -206,7 +206,7 @@ def switch_to_frame(frame):
             else:
                 recommendTextSet += recommendTextSplitter(str(recommendationsFromServer[key]))+'\n'
         recommendText.set(recommendTextSet)
-
+        backend.sendEmail()
 
 
 def recommendTextSplitter(recommendText):
