@@ -28,15 +28,23 @@
         <h2>Users</h2>
         <table>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone Number</th>
+                <th>is_active</th>
             </tr>
             {% for user in users %}
             <tr>
+                <td>{{ user.id }}</td>
                 <td>{{ user.name }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.phone_num }}</td>
+                <td>{{ user.is_active }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No recommendations found.</td>
             </tr>
             {% endfor %}
         </table>
@@ -44,17 +52,27 @@
         <h2>Details</h2>
         <table>
             <tr>
+                <th>ID</th>
+                <th>User_ID</th>
                 <th>User</th>
                 <th>Sex</th>
                 <th>BMI</th>
                 <th>Age</th>
+                <th>created_time</th>
             </tr>
             {% for detail in details %}
             <tr>
+                <td>{{ detail.id }}</td>
+                <td>{{ detail.user.id }}</td>
                 <td>{{ detail.user.name }}</td>
                 <td>{{ detail.sex }}</td>
                 <td>{{ detail.bmi }}</td>
                 <td>{{ detail.age }}</td>
+                <td>{{ detail.created_time }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No recommendations found.</td>
             </tr>
             {% endfor %}
         </table>
@@ -62,15 +80,25 @@
         <h2>Health</h2>
         <table>
             <tr>
+                <th>ID</th>
+                <th>User_ID</th>
                 <th>User</th>
                 <th>Diabetes Status</th>
                 <th>Hypertension Status</th>
+                <th>created_time</th>
             </tr>
             {% for health in health %}
             <tr>
+                <td>{{ health.id }}</td>
+                <td>{{ health.user.id }}</td>
                 <td>{{ health.user.name }}</td>
                 <td>{{ health.diabetes_status }}</td>
                 <td>{{ health.hypertension_status }}</td>
+                <td>{{ health.created_time }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No recommendations found.</td>
             </tr>
             {% endfor %}
         </table>
@@ -78,17 +106,51 @@
         <h2>Sensors</h2>
         <table>
             <tr>
+                <th>ID</th>
+                <th>User_ID</th>
                 <th>User</th>
                 <th>RM01</th>
                 <th>RM02</th>
                 <th>RM03</th>
+                <th>created_time</th>
             </tr>
             {% for sensor in sensors %}
             <tr>
+                <td>{{ sensor.id }}</td>
+                <td>{{ sensor.user.id }}</td>
                 <td>{{ sensor.user.name }}</td>
                 <td>{{ sensor.rm01 }}</td>
                 <td>{{ sensor.rm02 }}</td>
                 <td>{{ sensor.rm03 }}</td>
+                <td>{{ sensor.created_time }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No recommendations found.</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h2>Recommendations</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Code</th>
+                <th>Recommendation 1</th>
+                <th>Recommendation 2</th>
+                <th>Recommendation 3</th>
+            </tr>
+            {% for recommend in recommends %}
+            <tr>
+                <td>{{ recommend.id }}</td>
+                <td>{{ recommend.code }}</td>
+                <td>{{ recommend.recommendation }}</td>
+                <td>{{ recommend.recommendation2 }}</td>
+                <td>{{ recommend.recommendation3 }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No recommendations found.</td>
             </tr>
             {% endfor %}
         </table>
