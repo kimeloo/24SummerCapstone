@@ -218,7 +218,7 @@ def recommendTextSplitter(recommendText):
         counter+=len(word)
         if counter >= 18:
             result += "\n"
-            counter = len
+            counter = len(word)
         result += word + " "
     return result
 
