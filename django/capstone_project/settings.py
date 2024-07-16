@@ -79,6 +79,8 @@ EMAIL_HOST_USER = myEMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = myEMAIL_HOST_PASSWORD
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

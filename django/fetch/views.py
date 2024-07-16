@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import logging
 
 from admin_page.models import Details, Health, Sensors, Recommend
+from static import rm0708
 
 logger = logging.getLogger(__name__)
 
@@ -74,6 +75,7 @@ def TableInsert(request, table):
         user = request.user
         logger.error(f'User {user.id} requested to insert data.')
         if InsertOrUpdate(table, user.id, request.data):
+            rm0708.main(user.id)
             # returnStr = TEAM1FUNCTION(user.id)            ##### 1조 코드 입력
             returnStr = '(TEST 문구) ㅇㅇㅇ 항목의 수치 관리가 필요합니다.'
             return Response({'success': 'Data inserted successfully', 'returnStr': returnStr}, status=status.HTTP_200_OK)
