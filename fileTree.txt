@@ -1,0 +1,136 @@
+.
+├── DB
+│   ├── DetailsInsert.py
+│   ├── Dummy.py
+│   ├── GenerateDummyData.py
+│   ├── HealthInsert.py
+│   ├── RecommendInsert.py
+│   ├── SensorsInsert.py
+│   ├── UseraccountInsert.py
+│   ├── __pycache__
+│   │   └── envLoaderDB.cpython-38.pyc
+│   ├── csv
+│   │   ├── RecommendationComments.csv
+│   │   ├── dummy_details_data.csv
+│   │   ├── dummy_health_data.csv
+│   │   ├── dummy_sensors_data.csv
+│   │   └── dummy_useraccount_data.csv
+│   ├── db.vuerd.json
+│   ├── dummy
+│   ├── envLoaderDB.py
+│   └── sensornew.py
+├── Readme.md
+├── db.vuerd.json
+├── django
+│   ├── __pycache__
+│   │   ├── __init__.cpython-38.pyc
+│   │   ├── admin.cpython-38.pyc
+│   │   ├── apps.cpython-38.pyc
+│   │   ├── models.cpython-38.pyc
+│   │   ├── urls.cpython-38.pyc
+│   │   └── views.cpython-38.pyc
+│   ├── admin_page
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-38.pyc
+│   │   │   ├── admin.cpython-38.pyc
+│   │   │   ├── apps.cpython-38.pyc
+│   │   │   ├── models.cpython-38.pyc
+│   │   │   ├── urls.cpython-38.pyc
+│   │   │   └── views.cpython-38.pyc
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── models.py
+│   │   ├── signals.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── api
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-38.pyc
+│   │   │   ├── admin.cpython-38.pyc
+│   │   │   ├── apps.cpython-38.pyc
+│   │   │   ├── models.cpython-38.pyc
+│   │   │   ├── tests.cpython-38.pyc
+│   │   │   ├── urls.cpython-38.pyc
+│   │   │   └── views.cpython-38.pyc
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── cron.py
+│   │   ├── models.py
+│   │   ├── serializers.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── capstone_project
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-38.pyc
+│   │   │   ├── my_settings.cpython-38.pyc
+│   │   │   ├── settings.cpython-38.pyc
+│   │   │   ├── urls.cpython-38.pyc
+│   │   │   └── wsgi.cpython-38.pyc
+│   │   ├── asgi.py
+│   │   ├── my_settings.py
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   └── wsgi.py
+│   ├── db.sqlite3
+│   ├── fetch
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-38.pyc
+│   │   │   ├── admin.cpython-38.pyc
+│   │   │   ├── apps.cpython-38.pyc
+│   │   │   ├── models.cpython-38.pyc
+│   │   │   ├── tests.cpython-38.pyc
+│   │   │   ├── urls.cpython-38.pyc
+│   │   │   └── views.cpython-38.pyc
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── models.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── manage.py
+│   └── templates
+│       └── admin_page
+│           └── content_list.html
+├── env
+├── sampleAdminpage.html
+├── test
+│   └── django
+│       ├── __pycache__
+│       │   ├── envLoaderServer.cpython-38.pyc
+│       │   ├── fetchTable.cpython-38.pyc
+│       │   ├── insertTable.cpython-38.pyc
+│       │   └── login.cpython-38.pyc
+│       ├── envLoaderServer.py
+│       ├── example.py
+│       ├── fetchTable.py
+│       ├── insertTable.py
+│       ├── login.py
+│       └── main.py
+└── tkinter
+    ├── backend
+    │   ├── __init__.py
+    │   ├── envLoaderServer.py
+    │   ├── fetchTable.py
+    │   ├── insertTable.py
+    │   ├── login.py
+    │   ├── mail.py
+    │   ├── main.py
+    │   └── test.py
+    ├── frontend
+    │   ├── __init__.py
+    │   └── ui.py
+    ├── main.py
+    └── src
+        ├── background.png
+        ├── ch.png
+        ├── character.png
+        ├── en.png
+        ├── global.png
+        ├── jp.png
+        └── kr.png
