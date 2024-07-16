@@ -32,7 +32,8 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone Number</th>
-                <th>is_active</th>
+                <th>Created Time</th>
+                <th>Is Active</th>
             </tr>
             {% for user in users %}
             <tr>
@@ -40,6 +41,7 @@
                 <td>{{ user.name }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.phone_num }}</td>
+                <td>{{ user.created_time }}</td>
                 <td>{{ user.is_active }}</td>
             </tr>
             {% empty %}
@@ -53,22 +55,58 @@
         <table>
             <tr>
                 <th>ID</th>
-                <th>User_ID</th>
-                <th>User</th>
+                <th>User ID</th>
                 <th>Sex</th>
                 <th>BMI</th>
+                <th>Fat</th>
                 <th>Age</th>
-                <th>created_time</th>
+                <th>Fat Percentage</th>
+                <th>Hr</th>
+                <th>Waist</th>
+                <th>Whr</th>
+                <th>Muscle</th>
+                <th>Sbp</th>
+                <th>Dbp</th>
+                <th>Hdl</th>
+                <th>Ldl</th>
+                <th>Tg</th>
+                <th>Total Chol</th>
+                <th>Fg</th>
+                <th>Ppg</th>
+                <th>Alt</th>
+                <th>Hb</th>
+                <th>Tsh</th>
+                <th>Created Time</th>
+                <th>Recommendation1</th>
+                <th>Recommendation2</th>
             </tr>
             {% for detail in details %}
             <tr>
                 <td>{{ detail.id }}</td>
                 <td>{{ detail.user.id }}</td>
-                <td>{{ detail.user.name }}</td>
                 <td>{{ detail.sex }}</td>
                 <td>{{ detail.bmi }}</td>
+                <td>{{ detail.fat }}</td>
                 <td>{{ detail.age }}</td>
+                <td>{{ detail.fat_percentage }}</td>
+                <td>{{ detail.hr }}</td>
+                <td>{{ detail.waist }}</td>
+                <td>{{ detail.whr }}</td>
+                <td>{{ detail.muscle }}</td>
+                <td>{{ detail.sbp }}</td>
+                <td>{{ detail.dbp }}</td>
+                <td>{{ detail.hdl }}</td>
+                <td>{{ detail.ldl }}</td>
+                <td>{{ detail.tg }}</td>
+                <td>{{ detail.total_chol }}</td>
+                <td>{{ detail.fg }}</td>
+                <td>{{ detail.ppg }}</td>
+                <td>{{ detail.alt }}</td>
+                <td>{{ detail.hb }}</td>
+                <td>{{ detail.tsh }}</td>
                 <td>{{ detail.created_time }}</td>
+                <td>{{ detail.recommendation1 }}</td>
+                <td>{{ detail.recommendation2 }}</td>
             </tr>
             {% empty %}
             <tr>
@@ -81,24 +119,34 @@
         <table>
             <tr>
                 <th>ID</th>
-                <th>User_ID</th>
+                <th>User ID</th>
                 <th>User</th>
                 <th>Diabetes Status</th>
+                <th>Dyslipidemia Status</th>
+                <th>Fatty Liver Status</th>
+                <th>Metabolic Syndrome</th>
+                <th>Anemia Status</th>
                 <th>Hypertension Status</th>
-                <th>created_time</th>
+                <th>Obesity Status</th>
+                <th>Hypothyroidism Status</th>
+                <th>Hyperthyroidism Status</th>
+                <th>Created Time</th>
             </tr>
-            {% for health in health %}
+            {% for health in health_list %}
             <tr>
                 <td>{{ health.id }}</td>
                 <td>{{ health.user.id }}</td>
                 <td>{{ health.user.name }}</td>
                 <td>{{ health.diabetes_status }}</td>
+                <td>{{ health.dyslipidemia_status }}</td>
+                <td>{{ health.fatty_liver_status }}</td>
+                <td>{{ health.metabolic_syndrome }}</td>
+                <td>{{ health.anemia_status }}</td>
                 <td>{{ health.hypertension_status }}</td>
+                <td>{{ health.obesity_status }}</td>
+                <td>{{ health.hypothyroidism_status }}</td>
+                <td>{{ health.hyperthyrodism_status }}</td>
                 <td>{{ health.created_time }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="5">No recommendations found.</td>
             </tr>
             {% endfor %}
         </table>
