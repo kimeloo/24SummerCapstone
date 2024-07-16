@@ -3,9 +3,9 @@
     "version": "2.2.13",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -294.7455222417197,
-    "scrollLeft": -161.52499914169314,
-    "zoomLevel": 0.8,
+    "scrollTop": -320.31712224171963,
+    "scrollLeft": -491,
+    "zoomLevel": 1,
     "show": {
       "tableComment": true,
       "columnComment": true,
@@ -578,9 +578,9 @@
           },
           {
             "id": "2df57ecf-d728-4114-9686-cc159768f7cc",
-            "name": "Height",
-            "comment": "사용X 속성",
-            "dataType": "FLOAT",
+            "name": "recommendation1",
+            "comment": "아침, 점심 추천 문구",
+            "dataType": "VARCHAR(100)",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -593,17 +593,17 @@
               "pk": false,
               "fk": false,
               "pfk": false,
-              "widthName": 60,
-              "widthComment": 60,
-              "widthDataType": 60,
+              "widthName": 99.40885925292969,
+              "widthComment": 105.15492248535156,
+              "widthDataType": 85.22587585449219,
               "widthDefault": 60
             }
           },
           {
             "id": "1647e1e9-b2f2-4c80-85a4-aaf88fd211fa",
-            "name": "Weight",
-            "comment": "사용X 속성",
-            "dataType": "FLOAT",
+            "name": "recommendation2",
+            "comment": "아침, 점심 추천 문구",
+            "dataType": "VARCHAR(100)",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -616,9 +616,9 @@
               "pk": false,
               "fk": false,
               "pfk": false,
-              "widthName": 60,
-              "widthComment": 60,
-              "widthDataType": 60,
+              "widthName": 101.69685363769531,
+              "widthComment": 105.15492248535156,
+              "widthDataType": 85.22587585449219,
               "widthDefault": 60
             }
           }
@@ -627,7 +627,7 @@
           "active": false,
           "left": 23.8888,
           "top": 38.1946,
-          "zIndex": 8,
+          "zIndex": 119,
           "widthName": 60,
           "widthComment": 76.30795288085938
         },
@@ -1613,7 +1613,7 @@
       {
         "id": "351a67cd-6301-45cc-b0e3-28dd79227c87",
         "name": "recommend",
-        "comment": "추천문구",
+        "comment": "추천문구 가져옴",
         "columns": [
           {
             "id": "49554d00-9ac4-4369-9b26-9a046ce3c68b",
@@ -1639,75 +1639,6 @@
             }
           },
           {
-            "id": "339d4fb8-37d9-466c-9fa7-3ab9483248d9",
-            "name": "recommendation",
-            "comment": "아침, 점심 추천문구",
-            "dataType": "VARCHAR(100)",
-            "default": "",
-            "option": {
-              "autoIncrement": false,
-              "primaryKey": false,
-              "unique": false,
-              "notNull": false
-            },
-            "ui": {
-              "active": false,
-              "pk": false,
-              "fk": false,
-              "pfk": false,
-              "widthName": 94.76786804199219,
-              "widthComment": 101.73593139648438,
-              "widthDataType": 85.22587585449219,
-              "widthDefault": 60
-            }
-          },
-          {
-            "id": "077eb022-ee60-40ea-866c-67558564ac17",
-            "name": "recommendation2",
-            "comment": "사용X 속성",
-            "dataType": "VARCHAR(100)",
-            "default": "",
-            "option": {
-              "autoIncrement": false,
-              "primaryKey": false,
-              "unique": false,
-              "notNull": false
-            },
-            "ui": {
-              "active": false,
-              "pk": false,
-              "fk": false,
-              "pfk": false,
-              "widthName": 101.69685363769531,
-              "widthComment": 60,
-              "widthDataType": 85.22587585449219,
-              "widthDefault": 60
-            }
-          },
-          {
-            "id": "56d36f16-354d-442f-bd16-37160e3b749c",
-            "name": "recommendation3",
-            "comment": "저녁 추천문구",
-            "dataType": "VARCHAR(100)",
-            "default": "",
-            "option": {
-              "autoIncrement": false,
-              "primaryKey": false,
-              "unique": false,
-              "notNull": false
-            },
-            "ui": {
-              "active": false,
-              "pk": false,
-              "fk": false,
-              "pfk": false,
-              "widthName": 101.73585510253906,
-              "widthComment": 72.88896179199219,
-              "widthDataType": 85.22587585449219,
-              "widthDefault": 60
-            }
-          },
-          {
             "id": "a8b76323-b0f4-4caf-a9f5-a26c62da8e02",
             "name": "code",
             "comment": "질병분류",
@@ -1729,15 +1660,84 @@
               "widthDataType": 60,
               "widthDefault": 60
             }
+          },
+          {
+            "id": "0a639658-8064-4e52-8ee9-d978d8019628",
+            "name": "recommendation",
+            "comment": "아침, 점심 추천 문구",
+            "dataType": "VARCHAR(100)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 94.76786804199219,
+              "widthComment": 105.15492248535156,
+              "widthDataType": 85.22587585449219,
+              "widthDefault": 60
+            }
+          },
+          {
+            "id": "a7896376-b609-4807-a64d-d52d45581ff6",
+            "name": "recommendation2",
+            "comment": "X",
+            "dataType": "VARCHAR(100)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 101.69685363769531,
+              "widthComment": 60,
+              "widthDataType": 85.22587585449219,
+              "widthDefault": 60
+            }
+          },
+          {
+            "id": "839b263a-22b1-4eff-b767-8ace802993ed",
+            "name": "recommendation3",
+            "comment": "저녁 추천 문구",
+            "dataType": "VARCHAR(100)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 101.73585510253906,
+              "widthComment": 76.30795288085938,
+              "widthDataType": 85.22587585449219,
+              "widthDefault": 60
+            }
           }
         ],
         "ui": {
-          "active": false,
-          "left": 987.1687,
-          "top": 581.5297,
-          "zIndex": 7,
+          "active": true,
+          "left": 989.1687,
+          "top": 551.5297,
+          "zIndex": 137,
           "widthName": 67.22093200683594,
-          "widthComment": 60
+          "widthComment": 84.13395690917969
         },
         "visible": true
       }
@@ -1807,7 +1807,7 @@
           "columnIds": [
             "aec8722b-4581-42c4-8b82-81bd58650ca8"
           ],
-          "x": 245.2046950805664,
+          "x": 260.85016474609375,
           "y": 619.6946,
           "direction": "bottom"
         },

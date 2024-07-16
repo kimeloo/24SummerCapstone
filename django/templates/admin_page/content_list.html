@@ -112,6 +112,9 @@
                 <th>RM01</th>
                 <th>RM02</th>
                 <th>RM03</th>
+                <th>RM04</th>
+                <th>RM05</th>
+                <th>RM06</th>
                 <th>created_time</th>
             </tr>
             {% for sensor in sensors %}
@@ -122,6 +125,9 @@
                 <td>{{ sensor.rm01 }}</td>
                 <td>{{ sensor.rm02 }}</td>
                 <td>{{ sensor.rm03 }}</td>
+                <td>{{ sensor.rm04 }}</td>
+                <td>{{ sensor.rm05 }}</td>
+                <td>{{ sensor.rm06 }}</td>
                 <td>{{ sensor.created_time }}</td>
             </tr>
             {% empty %}
@@ -136,15 +142,15 @@
             <tr>
                 <th>ID</th>
                 <th>Code</th>
-                <th>Recommendation 1</th>
-                <th>Recommendation 2</th>
-                <th>Recommendation 3</th>
+                <th>Recommendation1</th>
+                <th>Recommendation2</th>
+                <th>Recommendation3</th>
             </tr>
             {% for recommend in recommends %}
             <tr>
                 <td>{{ recommend.id }}</td>
                 <td>{{ recommend.code }}</td>
-                <td>{{ recommend.recommendation }}</td>
+                <td>{{ recommend.recommendation1 }}</td>
                 <td>{{ recommend.recommendation2 }}</td>
                 <td>{{ recommend.recommendation3 }}</td>
             </tr>
