@@ -196,10 +196,15 @@ def switch_to_frame(frame):
         for entry in entry_widgets.values():
             entry.delete(0, tk.END)
     elif frame == report:
-        recommendationsFromServer = backend.toUI('details', ['recommendation1', 'recommendation2', 'recommendation3'])
+        recommendationsFromServer = backend.toUI('details', ['recommendation1', 'recommendation2', 'recommendation3', 'metabolicper', 'bodypoint'])
         recommendTextSet = ""
         for key in recommendationsFromServer:
-            recommendTextSet += recommendationsFromServer[key]+'\n'
+            if key == 'metabolicper':
+                recommendTextSet += f"당신이 대사증후군일 확률은 {recommendationsFromServer[key]}% 입니다.\n"
+            elif key == 'bodypoint':
+                recommendTextSet += f"당신의 신체점수는 {recommendationsFromServer[key]}점 입니다."
+            else:
+                recommendTextSet += recommendationsFromServer[key]+'\n'
         recommendText.set(recommendTextSet)
 
 def save_phone_number_and_switch():
