@@ -199,7 +199,7 @@ def switch_to_frame(frame):
         recommendationsFromServer = backend.toUI('details', ['recommendation1', 'recommendation2'])
         recommendTextSet = ""
         for key in recommendationsFromServer:
-            recommendTextSet += recommendationsFromServer[key]
+            recommendTextSet += recommendationsFromServer[key]+'\n'
         recommendText.set(recommendTextSet)
 
 def save_phone_number_and_switch():
