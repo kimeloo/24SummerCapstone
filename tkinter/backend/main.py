@@ -89,7 +89,7 @@ class ConnectServer():
                 insertServer = InsertTable.InsertTable(self.token, SERVER_HOST)
                 result = insertServer.insertTable(table, data)
             if 'success' in result:
-                return result['returnStr']
+                return result['returnList']
         except:
             pass
         return False

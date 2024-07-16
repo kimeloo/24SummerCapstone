@@ -615,12 +615,17 @@ def display_results():
 
     # "성별" 항목을 제외하고 recommendations를 생성
     # recommendations = generate_recommendations({k: v for k, v in entry_widgets.items() if k != "성별"})
-    recommendations = [backend.fromUI('details', physicalData)]
+    recommendations = backend.fromUI('details', physicalData)
     label_recommendations = tk.Label(result_frame, text="신체 측정 결과:", font=custom_font2)
     label_recommendations.pack(pady=20)
     
-    for rec in recommendations:
-        tk.Label(result_frame, text=rec, font=custom_font3).pack(pady=5)
+    if recommendations:
+        for rec in recommendations:
+            if rec==" ":
+                continue
+            tk.Label(result_frame, text=rec, font=custom_font3).pack(pady=5)
+    else:
+        tk.Label(result_frame, text='이상이 없습니다.', font=custom_font3).pack(pady=5)
 
     button_back_body = tk.Button(result_frame, text="검사 재선택", height=1, width=10, font=custom_font2, command=lambda: switch_to_frame(frame_physical_measurements))
     button_back_body.pack(side=tk.LEFT, padx=(30, 15))
@@ -762,12 +767,17 @@ def display_results():
 
     # 여기서 측정 결과 추가
     # recommendations = generate_recommendations(entries)
-    recommendations = [backend.fromUI('details', bloodData)]
+    recommendations = backend.fromUI('details', bloodData)
     label_recommendations = tk.Label(frame_results, text="혈액 측정 결과:", font=custom_font2)
     label_recommendations.pack(pady=20)
     
-    for rec in recommendations:
-        tk.Label(frame_results, text=rec, font=custom_font3).pack(pady=5)
+    if recommendations:
+        for rec in recommendations:
+            if rec==" ":
+                continue
+            tk.Label(frame_results, text=rec, font=custom_font3).pack(pady=5)
+    else:
+        tk.Label(frame_results, text='이상이 없습니다.', font=custom_font3).pack(pady=5)
 
     button_back_results = tk.Button(frame_results, text="검사 재선택", height=1, width=10, font=custom_font2, command=lambda: on_click(button_back_results, switch_frame=lambda: switch_to_frame(frame3)))
     button_back_results.pack(side=tk.LEFT, padx=(30, 15))
