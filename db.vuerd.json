@@ -3,9 +3,9 @@
     "version": "2.2.13",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -116.83333333333353,
-    "scrollLeft": -114.66666666666647,
-    "zoomLevel": 0.9,
+    "scrollTop": -190.74552395833348,
+    "scrollLeft": -130.525,
+    "zoomLevel": 0.8,
     "show": {
       "tableComment": true,
       "columnComment": true,
@@ -579,7 +579,7 @@
           {
             "id": "2df57ecf-d728-4114-9686-cc159768f7cc",
             "name": "Height",
-            "comment": "키(필요시 사용)",
+            "comment": "사용X 속성",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -594,7 +594,7 @@
               "fk": false,
               "pfk": false,
               "widthName": 60,
-              "widthComment": 81.13093566894531,
+              "widthComment": 60,
               "widthDataType": 60,
               "widthDefault": 60
             }
@@ -602,7 +602,7 @@
           {
             "id": "1647e1e9-b2f2-4c80-85a4-aaf88fd211fa",
             "name": "Weight",
-            "comment": "체중(필요시 사용)",
+            "comment": "사용X 속성",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -617,7 +617,7 @@
               "fk": false,
               "pfk": false,
               "widthName": 60,
-              "widthComment": 92.37593078613281,
+              "widthComment": 60,
               "widthDataType": 60,
               "widthDefault": 60
             }
@@ -627,7 +627,7 @@
           "active": false,
           "left": 23.8888,
           "top": 38.1946,
-          "zIndex": 5,
+          "zIndex": 68,
           "widthName": 60,
           "widthComment": 76.30795288085938
         },
@@ -919,7 +919,7 @@
           "active": false,
           "left": 501.2226,
           "top": 41.5557,
-          "zIndex": 4,
+          "zIndex": 30,
           "widthName": 60,
           "widthComment": 98.79794311523438
         },
@@ -1641,8 +1641,8 @@
           {
             "id": "339d4fb8-37d9-466c-9fa7-3ab9483248d9",
             "name": "recommendation",
-            "comment": "",
-            "dataType": "",
+            "comment": "아침, 점심 추천문구",
+            "dataType": "VARCHAR(100)",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -1656,16 +1656,16 @@
               "fk": false,
               "pfk": false,
               "widthName": 94.76786804199219,
-              "widthComment": 60,
-              "widthDataType": 60,
+              "widthComment": 101.73593139648438,
+              "widthDataType": 85.22587585449219,
               "widthDefault": 60
             }
           },
           {
             "id": "077eb022-ee60-40ea-866c-67558564ac17",
             "name": "recommendation2",
-            "comment": "",
-            "dataType": "",
+            "comment": "사용X 속성",
+            "dataType": "VARCHAR(100)",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -1680,15 +1680,15 @@
               "pfk": false,
               "widthName": 101.69685363769531,
               "widthComment": 60,
-              "widthDataType": 60,
+              "widthDataType": 85.22587585449219,
               "widthDefault": 60
             }
           },
           {
             "id": "56d36f16-354d-442f-bd16-37160e3b749c",
             "name": "recommendation3",
-            "comment": "",
-            "dataType": "",
+            "comment": "저녁 추천문구",
+            "dataType": "VARCHAR(100)",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -1702,6 +1702,29 @@
               "fk": false,
               "pfk": false,
               "widthName": 101.73585510253906,
+              "widthComment": 72.88896179199219,
+              "widthDataType": 85.22587585449219,
+              "widthDefault": 60
+            }
+          },
+          {
+            "id": "a8b76323-b0f4-4caf-a9f5-a26c62da8e02",
+            "name": "code",
+            "comment": "질병분류",
+            "dataType": "INT",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
               "widthComment": 60,
               "widthDataType": 60,
               "widthDefault": 60
@@ -1710,9 +1733,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 998.1687,
-          "top": 589.5297,
-          "zIndex": 24,
+          "left": 987.1687,
+          "top": 581.5297,
+          "zIndex": 64,
           "widthName": 67.22093200683594,
           "widthComment": 60
         },
