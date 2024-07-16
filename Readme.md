@@ -4,7 +4,7 @@
 
 3조 백엔드 팀에게 질문하실 내용을 [여기](https://docs.google.com/spreadsheets/d/18vAw3wEnwzzxgxT8H-mUfDs_zQrDpR-gX497ZFPqaRw/edit?gid=833081153#gid=833081153)에 작성해주시면 감사하겠습니다.
 
-ERD ver 0.2를 카카오톡 채팅방에 배포하기 전까지 이슈가 해결된 ERD, SQL 쿼리는 [이 페이지](https://pretty-icebreaker-f34.notion.site/ERD-ver-0-2-79bc33afd7f24980ba2b1b7ee7db4d1a) 에서 실시간으로 확인할 수 있습니다. 감사합니다.
+ERD, SQL 쿼리는 [이 페이지](https://pretty-icebreaker-f34.notion.site/ERD-ver-0-2-79bc33afd7f24980ba2b1b7ee7db4d1a) 에서 실시간으로 확인할 수 있습니다. 감사합니다.
 
 ---
 
@@ -37,6 +37,7 @@ ERD ver 0.2를 카카오톡 채팅방에 배포하기 전까지 이슈가 해결
 
     -   macOS 14.5 (Apple M1)
     -   python 3.8.19
+    -   mariaDB Server 10.4.31
 
     | pip package name               | version |
     | ------------------------------ | ------- |
