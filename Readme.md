@@ -6,6 +6,9 @@
 
 ERD, SQL 쿼리는 [이 페이지](https://pretty-icebreaker-f34.notion.site/ERD-ver-0-2-79bc33afd7f24980ba2b1b7ee7db4d1a) 에서 실시간으로 확인할 수 있습니다. 감사합니다.
 
+SERVER 실행지점 : /django/manage.py
+CLIENT 실행지점 : /tkinter/main.py
+
 ---
 
 ### 진행 내역
