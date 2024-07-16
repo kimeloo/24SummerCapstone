@@ -4,9 +4,6 @@ import sys, os
 # 현재 파일의 디렉토리 경로
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-# CSV 파일의 상대 경로
-csv_file_path = os.path.join(current_dir, 'csv', 'RecommendationComments.csv') #####
-
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from envLoaderDB import loadEnv
 
@@ -38,10 +35,7 @@ class RecommendDataInserter:
         df = self._loadCsvData(csv_file_path)
         
         #####
-        insert_query = """
-        INSERT INTO recommend (code, recommendation, recommendation2, recommendation3)
-        VALUES (%s, %s, %s, %s)
-        """
+        insert_query = QUERY
         # 각 행을 반복하면서 데이터 삽입
         for _, row in df.iterrows():
             self.cursor.execute(insert_query, (
@@ -78,10 +72,16 @@ class RecommendDataInserter:
 if __name__ == '__main__':
 
     #####
-    CSV_FILE_NAME = ''
-    QUERY = ''
+    CSV_FILE_NAME = 'RecommendationComments.csv'
+    QUERY = """
+        INSERT INTO recommend (code, recommendation, recommendation2, recommendation3)
+        VALUES (%s, %s, %s, %s)
+        """
     ROW = ''
     
+    # CSV 파일의 상대 경로
+    csv_file_path = os.path.join(current_dir, 'csv', CSV_FILE_NAME) #####
+
     
     inserter = RecommendDataInserter(
         host=MYDB_HOST,      # 데이터베이스 호스트

@@ -3,9 +3,9 @@
     "version": "2.2.13",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -23.040000878906284,
-    "scrollLeft": 0,
-    "zoomLevel": 1,
+    "scrollTop": -116.83333333333353,
+    "scrollLeft": -114.66666666666647,
+    "zoomLevel": 0.9,
     "show": {
       "tableComment": true,
       "columnComment": true,
@@ -627,7 +627,7 @@
           "active": false,
           "left": 23.8888,
           "top": 38.1946,
-          "zIndex": 6,
+          "zIndex": 5,
           "widthName": 60,
           "widthComment": 76.30795288085938
         },
@@ -1264,7 +1264,7 @@
           {
             "id": "8ef7cf9a-ab32-4e9b-b120-702eecbf9e6d",
             "name": "rm01",
-            "comment": "",
+            "comment": "Shaking Head",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -1279,7 +1279,7 @@
               "fk": false,
               "pfk": false,
               "widthName": 60,
-              "widthComment": 60,
+              "widthComment": 76.19087219238281,
               "widthDataType": 60,
               "widthDefault": 60
             }
@@ -1287,7 +1287,7 @@
           {
             "id": "010f7a97-af70-4022-b7d4-9bce69dd9d73",
             "name": "rm02",
-            "comment": "",
+            "comment": "Shaking Hands",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -1302,7 +1302,7 @@
               "fk": false,
               "pfk": false,
               "widthName": 60,
-              "widthComment": 60,
+              "widthComment": 82.05384826660156,
               "widthDataType": 60,
               "widthDefault": 60
             }
@@ -1310,7 +1310,7 @@
           {
             "id": "93c815e8-dfd2-4b3b-b9f7-8e112ad48627",
             "name": "rm03",
-            "comment": "",
+            "comment": "Shaking Legs",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -1325,7 +1325,7 @@
               "fk": false,
               "pfk": false,
               "widthName": 60,
-              "widthComment": 60,
+              "widthComment": 72.82386779785156,
               "widthDataType": 60,
               "widthDefault": 60
             }
@@ -1333,7 +1333,7 @@
           {
             "id": "df1c5628-e8b1-4028-bb16-e1f80b6e944a",
             "name": "rm04",
-            "comment": "",
+            "comment": "Unbalance of Shoulders",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -1348,7 +1348,7 @@
               "fk": false,
               "pfk": false,
               "widthName": 60,
-              "widthComment": 60,
+              "widthComment": 120,
               "widthDataType": 60,
               "widthDefault": 60
             }
@@ -1356,7 +1356,7 @@
           {
             "id": "7b613c34-a6f7-4ea5-877b-9b11f7505ea6",
             "name": "rm05",
-            "comment": "",
+            "comment": "Unbalance of Upper Body",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -1371,7 +1371,7 @@
               "fk": false,
               "pfk": false,
               "widthName": 60,
-              "widthComment": 60,
+              "widthComment": 120,
               "widthDataType": 60,
               "widthDefault": 60
             }
@@ -1379,7 +1379,7 @@
           {
             "id": "a3baf88a-2036-4fc7-8b86-626464e59af7",
             "name": "rm06",
-            "comment": "",
+            "comment": "Turtle Neck",
             "dataType": "FLOAT",
             "default": "",
             "option": {
@@ -1394,7 +1394,7 @@
               "fk": false,
               "pfk": false,
               "widthName": 60,
-              "widthComment": 60,
+              "widthComment": 64.33491516113281,
               "widthDataType": 60,
               "widthDefault": 60
             }
@@ -1448,9 +1448,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 1059.6665,
-          "top": 137.7329,
-          "zIndex": 24,
+          "left": 989.6671,
+          "top": 277.7326,
+          "zIndex": 25,
           "widthName": 60,
           "widthComment": 72.88896179199219
         },
@@ -1604,7 +1604,7 @@
           "active": false,
           "left": 409.0556,
           "top": 629.5554,
-          "zIndex": 21,
+          "zIndex": 6,
           "widthName": 68.32589721679688,
           "widthComment": 60
         },
@@ -1710,9 +1710,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 1057.0579,
-          "top": 410.6409,
-          "zIndex": 59,
+          "left": 998.1687,
+          "top": 589.5297,
+          "zIndex": 24,
           "widthName": 67.22093200683594,
           "widthComment": 60
         },
@@ -1810,8 +1810,8 @@
           "columnIds": [
             "3e255a6f-3898-4e06-8928-1dc931dc17d1"
           ],
-          "x": 1059.6665,
-          "y": 264.4829,
+          "x": 989.6671,
+          "y": 404.4826,
           "direction": "left"
         },
         "constraintName": "fk_user_to_",
