@@ -198,13 +198,11 @@ def switch_to_frame(frame):
     elif frame == report:
         recommendationsFromServer = backend.toUI('details', ['recommendation1', 'recommendation2', 'recommendation3', 'metabolicper', 'bodypoint'])
         recommendTextSet = ""
-        for key in recommendationsFromServer:
-            if key == 'metabolicper':
-                recommendTextSet += f"당신이 대사증후군일 확률은 {str(recommendationsFromServer[key])}% 입니다.\n"
-            elif key == 'bodypoint':
-                recommendTextSet += f"당신의 신체점수는 {str(recommendationsFromServer[key])}점 입니다."
-            else:
-                recommendTextSet += recommendTextSplitter(str(recommendationsFromServer[key]))+'\n'
+        recommendTextSet += f"아침: {recommendTextSplitter(str(recommendationsFromServer['recommendation1']))}\n"
+        recommendTextSet += f"점심: {recommendTextSplitter(str(recommendationsFromServer['recommendation2']))}\n"
+        recommendTextSet += f"저녁: {recommendTextSplitter(str(recommendationsFromServer['recommendation3']))}\n"
+        recommendTextSet += f"당신이 대사증후군일 확률은 {str(recommendationsFromServer['metabolicper'])}% 입니다.\n"
+        recommendTextSet += f"당신의 신체점수는 {str(recommendationsFromServer['bodypoint'])}점 입니다."
         recommendText.set(recommendTextSet)
         backend.sendEmail()
 
