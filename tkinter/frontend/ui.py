@@ -2,6 +2,15 @@ import tkinter as tk
 from tkinter import PhotoImage
 import tkinter.font as tkfont
 from tkinter import ttk, messagebox
+import os, sys
+# sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+import backend.main as back
+os.chdir('./src/')
+backend = back.ConnectUI()
+recommendText = tk.StringVar()
+recommendText.set("추천 문구입니다.")
+
 
 root = tk.Tk()
 
@@ -186,6 +195,12 @@ def switch_to_frame(frame):
     elif frame == frame_physical_measurements:
         for entry in entry_widgets.values():
             entry.delete(0, tk.END)
+    elif frame == report:
+        recommendationsFromServer = backend.toUI('detail', ['recommendation1', 'recommendation2'])
+        recommendTextSet = ""
+        for key in recommendationsFromServer:
+            recommendTextSet += recommendationsFromServer[key]
+        recommendText.set(recommendTextSet)
 
 def save_phone_number_and_switch():
     global phone_number
@@ -200,6 +215,7 @@ def save_phone_number_and_switch():
         phone_number = prefix + user_input
         switch_to_frame(frame_start)  # 검사 시작 후 화면으로 전환
         print(f"저장된 전화번호: {phone_number}")  # Debugging 용
+        backend.login(phone=phone_number)
     else:
         messagebox.showerror("오류", "뒷자리를 숫자 8자리로 입력하세요.")
 
@@ -244,6 +260,7 @@ def save_email_address_and_switch():
     
     email_address = full_email
     print(f"저장된 이메일: {email_address}")  # Debugging 용
+    backend.login(email=email_address)
     switch_to_frame(frame_start)  # 검사 시작 후 화면으로 전환
 
 def validate_en_email(email):
@@ -296,6 +313,7 @@ def save_email_address_and_switch_en():
     
     email_address = full_email
     print(f"saved e-mail: {email_address}")  # Debugging 용
+    backend.login(email=email_address)
     switch_to_frame(frame3)  # 검사 시작 후 화면으로 전환
 
 def create_keypad(frame):
@@ -528,12 +546,21 @@ labels_texts = [
     "근육량(kg)", "수축기 혈압(SBP)", "이완기 혈압(DBP)"
 ]
 
+
 entry_widgets = {}
 
 def display_results():
     print("입력된 신체 측정 값:")
+    physicalData = dict()
+    physicalVarDB = ['age', 'sex', 'X', 'X', 'bmi', 'fat', 'fat_percentage', 'hr', 'waist', 'whr', 'muscle', 'sbp', 'dbp']
+    physicalVarChanger = dict((key, value) for key, value in zip(labels_texts, physicalVarDB))
     for test, entry in entry_widgets.items():
-        print(f"{test}: {entry.get()}")
+        key = physicalVarChanger[test]
+        if key=='X':
+            continue
+        physicalData[key] = entry.get()
+        print(f"{test}, {key}: {entry.get()}")
+    backend.fromUI('details', physicalData)
 
     for widget in result_frame.winfo_children():
         widget.destroy()
@@ -652,7 +679,7 @@ label_blood.pack(pady=20)
 
 # 혈액 측정 항목 추가
 blood_tests = [
-    "저밀도콜레스테롤(LDL)", "고밀도콜레스테롤(HDL)", "중성지방(TG)",
+    "저밀도콜레스테롤(LDL)", "고밀도콜레스테롤(HDL)","총콜레스테롤", "중성지방(TG)",
     "알라닌아미노전이효소(ALT)", "헤모글로빈(Hb)", "갑상선자극호르몬(TSH)",
     "공복혈당(FG)", "식후2시간혈당(PPG)"
 ]
@@ -673,8 +700,14 @@ def activate_view_results_button():
 
 def display_results():
     print("입력된 혈액 측정 값:")
+    bloodData = dict()
+    bloodVarDB = ['ldl', 'hdl', 'total_chol', 'tg', 'alt', 'hb', 'tsh', 'fg', 'ppg' ]
+    bloodVarChanger = dict((key, value) for key, value in zip(blood_tests, bloodVarDB))
     for test, entry in entries.items():
-        print(f"{test}: {entry.get()}")
+        key = bloodVarChanger[test]
+        bloodData[key] = entry.get()
+        print(f"{test}, {key}: {entry.get()}")
+    backend.fromUI('details', bloodData)
 
     for widget in frame_results.winfo_children():
         widget.destroy()
@@ -1016,6 +1049,7 @@ def save_phone_number_and_switch_tel():
         phone_number = prefix + user_input
         switch_to_frame(frame_ttest)  # 검사 시작 후 화면으로 전환
         print(f"Saved phone number: {phone_number}")  # Debugging 용
+        backend.login(phone=phone_number)
     else:
         messagebox.showerror("an error", "Please enter the last number in 7 digits.")
 
@@ -1112,7 +1146,7 @@ background_label.place(x=0, y=0, relwidth=1, relheight=1)
 result_07_08 = tk.Label(report, text="07 08 결과입니다.", font=custom_font2)
 result_07_08.pack(pady=20)
 
-recommend_07_08 = tk.Label(report, text="추천 문구입니다.", font=custom_font2)
+recommend_07_08 = tk.Label(report, textvariable=recommendText, font=custom_font2)
 recommend_07_08.pack(pady=60)
 
 report_back = tk.Button(report, text="뒤로가기", height=1, width=10, font=custom_font2, command=lambda: switch_to_frame(frame3))
