@@ -2,8 +2,8 @@
 import requests
 import os, sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-from envLoaderServer import loadEnv
-SERVER_HOST = loadEnv()
+# from envLoaderServer import loadEnv
+# SERVER_HOST = loadEnv()
 
 class Email:
     def __init__(self, token, serverUrl):

@@ -1,7 +1,7 @@
 import os, sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-from envLoaderServer import loadEnv
-SERVER_HOST = loadEnv()
+import backend.envLoaderServer as envLoader
+SERVER_HOST = envLoader.loadEnv()
 
 import logging
 logger = logging.getLogger(__name__)
@@ -11,10 +11,10 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 consoleHandler.setFormatter(formatter)
 logger.addHandler(consoleHandler)
 
-import login as Login
-import insertTable as InsertTable
-import fetchTable as FetchTable
-import mail as Mail
+from backend import login as Login
+from backend import insertTable as InsertTable
+from backend import fetchTable as FetchTable
+from backend import mail as Mail
 
 class ConnectUI():
     '''frontend UI/UX와 연결'''
@@ -41,7 +41,6 @@ class ConnectUI():
         '''frontend에서 호출하여, DB 데이터를 UI로 전송'''
         logger.debug(f'Request data:table={table}\tcolumns={columns}')
         result = self.server.fromServer(table)
-        print(result)
         if result!=False:
             logger.info('Data reception success!')
             filteredByCols = {key:result[key] for key in columns if key in result}
@@ -82,6 +81,7 @@ class ConnectServer():
         try:
             insertServer = InsertTable.InsertTable(self.token, SERVER_HOST)
             result = insertServer.insertTable(table, data)
+            print(result)
             if result == 401:
                 self.refreshLogin()
                 insertServer = InsertTable.InsertTable(self.token, SERVER_HOST)
