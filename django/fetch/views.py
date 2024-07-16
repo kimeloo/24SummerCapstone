@@ -23,23 +23,23 @@ def toTable(table):
     else:
         return None
 
-def returnValue(table, user_id):
+def returnValue(table, user):
     Table = toTable(table)
 
     try:
-        data = Table.objects.filter(user_id=user_id).order_by('-created_time').first()
+        data = Table.objects.filter(user=user).order_by('-created_time').first()
         return model_to_dict(data)
     except:
         return None
 
-def InsertOrUpdate(table, user_id, data):
+def InsertOrUpdate(table, user, data):
     Table = toTable(table)
     data = dict(data)
     for key in data:
         if type(data[key])==list:
             data[key] = ', '.join(data[key])
     try:
-        latest = Table.objects.filter(user_id=user_id).order_by('-created_time').first()
+        latest = Table.objects.filter(user=user).order_by('-created_time').first()
         if latest:
             latestTime = datetime.fromisoformat(str(latest.created_time)[:19])
             currentTime = datetime.fromisoformat(str(datetime.now())[:19])
@@ -50,7 +50,7 @@ def InsertOrUpdate(table, user_id, data):
                 return True
     except:
         pass
-    Table.objects.create(user_id=user_id, **data)
+    Table.objects.create(user=user, **data)
     return True
 
 @api_view(['POST'])
@@ -60,7 +60,7 @@ def TableView(request, table):
         user = request.user
         logger.info(f'User {user.id} requested {table} Table.')
 
-        fromDB = returnValue(table, user.id)
+        fromDB = returnValue(table, user)
         if fromDB:
             return Response(fromDB, status=status.HTTP_200_OK)
         else:
@@ -74,7 +74,7 @@ def TableInsert(request, table):
     if request.method == 'POST':
         user = request.user
         logger.info(f'User {user.id} requested to insert data.')
-        if InsertOrUpdate(table, user.id, request.data):
+        if InsertOrUpdate(table, user, request.data):
             rm0708.main(user.id)
             # returnStr = TEAM1FUNCTION(user.id)            ##### 1조 코드 입력
             returnStr = '(TEST 문구) ㅇㅇㅇ 항목의 수치 관리가 필요합니다.'
