@@ -4,7 +4,7 @@
 
 3조 백엔드 팀에게 질문하실 내용을 [여기](https://docs.google.com/spreadsheets/d/18vAw3wEnwzzxgxT8H-mUfDs_zQrDpR-gX497ZFPqaRw/edit?gid=833081153#gid=833081153)에 작성해주시면 감사하겠습니다.
 
-ERD, SQL 쿼리는 [이 페이지](https://pretty-icebreaker-f34.notion.site/ERD-ver-0-2-79bc33afd7f24980ba2b1b7ee7db4d1a) 에서 실시간으로 확인할 수 있습니다. 감사합니다.
+ERD, SQL 쿼리는 [이 페이지](https://www.notion.so/haru-yun/ERD-ver-1-0-b0ca2b57cc8e4853adafbd6ba486a2d0?source=copy_link) 에서 실시간으로 확인할 수 있습니다. 감사합니다.
 
 SERVER 실행지점 : /django/manage.py
 
